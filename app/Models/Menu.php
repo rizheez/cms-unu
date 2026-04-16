@@ -31,4 +31,9 @@ class Menu extends Model
     {
         return $this->items()->whereNull('parent_id');
     }
+
+    public function rootItemsRecursive(): HasMany
+    {
+        return $this->rootItems()->with('childrenRecursive');
+    }
 }

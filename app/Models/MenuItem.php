@@ -7,6 +7,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class MenuItem extends Model
 {
@@ -39,5 +40,28 @@ class MenuItem extends Model
     public function children(): HasMany
     {
         return $this->hasMany(self::class, 'parent_id')->orderBy('order');
+    }
+
+    public function childrenRecursive(): HasMany
+    {
+        return $this->children()->with('childrenRecursive');
+    }
+
+    public function isExternal(): bool
+    {
+        return Str::startsWith((string) $this->url, ['http://', 'https://', 'mailto:', 'tel:']);
+    }
+
+    public function resolvedUrl(): string
+    {
+        if ($this->url === null || $this->url === '') {
+            return '#';
+        }
+
+        if ($this->isExternal()) {
+            return $this->url;
+        }
+
+        return url($this->url);
     }
 }
