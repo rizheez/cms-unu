@@ -53,11 +53,12 @@ class GalleryForm
                     ->schema([
                         Repeater::make('items')
                             ->label('Item Galeri')
+                            ->helperText('Isi salah satu saja: upload Foto untuk item foto, atau isi URL Video YouTube untuk item video.')
                             ->relationship()
                             ->schema([
                                 FileUpload::make('image')
                                     ->label('Foto')
-                                    ->helperText('Upload foto kegiatan untuk galeri ini.')
+                                    ->helperText('Upload foto kegiatan jika item ini berupa foto. Kosongkan jika memakai URL video.')
                                     ->image(),
                                 TextInput::make('caption')
                                     ->label('Keterangan')
@@ -66,6 +67,7 @@ class GalleryForm
                                 TextInput::make('video_url')
                                     ->label('URL Video')
                                     ->placeholder('Contoh: https://www.youtube.com/watch?v=...')
+                                    ->helperText('Isi URL YouTube jika item ini berupa video. Kosongkan jika sudah upload foto.')
                                     ->url()
                                     ->maxLength(255),
                             ])
