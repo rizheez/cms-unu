@@ -18,12 +18,14 @@ class MenuItemForm
                         Select::make('menu_id')
                             ->label('Menu')
                             ->relationship('menu', 'name')
+                            ->placeholder('Pilih menu induk')
                             ->required()
                             ->searchable()
                             ->preload(),
                         Select::make('parent_id')
                             ->label('Induk Menu')
                             ->relationship('parent', 'label')
+                            ->placeholder('Pilih induk menu jika diperlukan')
                             ->searchable()
                             ->preload()
                             ->helperText('Kosongkan untuk menu utama. Pilih parent untuk membuat dropdown bertingkat.'),
@@ -33,16 +35,19 @@ class MenuItemForm
                     ->schema([
                         TextInput::make('label')
                             ->label('Label')
+                            ->placeholder('Contoh: Berita')
                             ->required()
                             ->maxLength(255),
                         Select::make('page_id')
                             ->label('Halaman')
                             ->relationship('page', 'title')
+                            ->placeholder('Pilih halaman internal')
                             ->searchable()
                             ->preload()
                             ->helperText('Pilih halaman internal. Jika dipilih, link menu otomatis memakai slug halaman ini.'),
                         TextInput::make('url')
                             ->label('URL')
+                            ->placeholder('Contoh: /berita atau https://example.com')
                             ->helperText('Opsional untuk tautan khusus seperti /akademik, /kontak, atau URL lengkap. Abaikan jika sudah memilih halaman.')
                             ->maxLength(255),
                     ])
@@ -51,6 +56,7 @@ class MenuItemForm
                     ->schema([
                         Select::make('target')
                             ->label('Target')
+                            ->placeholder('Pilih target tautan')
                             ->options([
                                 '_self' => 'Tab yang sama',
                                 '_blank' => 'Tab baru',
@@ -59,6 +65,7 @@ class MenuItemForm
                             ->required(),
                         TextInput::make('order')
                             ->label('Urutan')
+                            ->helperText('Angka kecil akan tampil lebih dulu.')
                             ->numeric()
                             ->default(0)
                             ->required(),

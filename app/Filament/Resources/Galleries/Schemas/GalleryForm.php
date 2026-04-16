@@ -19,22 +19,27 @@ class GalleryForm
                     ->schema([
                         TextInput::make('title')
                             ->label('Judul')
+                            ->placeholder('Contoh: Kegiatan Mahasiswa')
                             ->required(),
                         Textarea::make('description')
                             ->label('Deskripsi')
+                            ->placeholder('Tuliskan deskripsi singkat galeri')
                             ->columnSpanFull(),
                     ]),
                 Section::make('Media dan Pengaturan')
                     ->schema([
                         FileUpload::make('cover_image')
                             ->label('Gambar Sampul')
+                            ->helperText('Gambar ini menjadi sampul daftar galeri.')
                             ->image(),
                         TextInput::make('type')
                             ->label('Jenis')
+                            ->placeholder('Contoh: photo atau video')
                             ->required()
                             ->default('photo'),
                         Toggle::make('is_active')
                             ->label('Aktif')
+                            ->helperText('Hanya galeri aktif yang ditampilkan.')
                             ->required(),
                     ])
                     ->columns(2),

@@ -19,9 +19,11 @@ class AnnouncementForm
                     ->schema([
                         TextInput::make('title')
                             ->label('Judul')
+                            ->placeholder('Contoh: Pemeliharaan Sistem Akademik')
                             ->required(),
                         RichEditor::make('content')
                             ->label('Konten')
+                            ->placeholder('Tuliskan isi pengumuman')
                             ->required()
                             ->columnSpanFull(),
                     ])
@@ -30,18 +32,23 @@ class AnnouncementForm
                     ->schema([
                         TextInput::make('type')
                             ->label('Jenis')
+                            ->placeholder('Contoh: info, warning, success')
                             ->required()
                             ->default('info'),
                         Toggle::make('is_popup')
                             ->label('Tampilkan sebagai popup')
+                            ->helperText('Aktifkan jika pengumuman perlu muncul sebagai popup.')
                             ->required(),
                         Toggle::make('is_active')
                             ->label('Aktif')
+                            ->helperText('Hanya pengumuman aktif yang ditampilkan.')
                             ->required(),
                         DateTimePicker::make('start_at')
-                            ->label('Mulai Tayang'),
+                            ->label('Mulai Tayang')
+                            ->helperText('Kosongkan jika langsung tayang.'),
                         DateTimePicker::make('end_at')
-                            ->label('Selesai Tayang'),
+                            ->label('Selesai Tayang')
+                            ->helperText('Kosongkan jika tidak ada batas akhir.'),
                     ])
                     ->columns(2),
             ]);

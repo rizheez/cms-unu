@@ -18,16 +18,20 @@ class AcademicCalendarForm
                     ->schema([
                         TextInput::make('title')
                             ->label('Judul')
+                            ->placeholder('Contoh: Ujian Tengah Semester')
                             ->required(),
                         TextInput::make('category')
                             ->label('Kategori')
+                            ->placeholder('Contoh: Perkuliahan, Ujian, Wisuda')
                             ->required(),
                         TextInput::make('color')
                             ->label('Warna')
+                            ->placeholder('Contoh: #10b981')
                             ->required()
                             ->default('#10b981'),
                         Textarea::make('description')
                             ->label('Deskripsi')
+                            ->placeholder('Tuliskan ringkasan kegiatan akademik')
                             ->columnSpanFull(),
                     ])
                     ->columns(2),
@@ -35,9 +39,11 @@ class AcademicCalendarForm
                     ->schema([
                         DatePicker::make('start_date')
                             ->label('Tanggal Mulai')
+                            ->helperText('Tanggal awal kegiatan berlangsung.')
                             ->required(),
                         DatePicker::make('end_date')
-                            ->label('Tanggal Selesai'),
+                            ->label('Tanggal Selesai')
+                            ->helperText('Kosongkan jika kegiatan hanya berlangsung satu hari.'),
                     ])
                     ->columns(2),
             ]);

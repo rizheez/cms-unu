@@ -17,15 +17,18 @@ class PostCategoryForm
                     ->schema([
                         TextInput::make('name')
                             ->label('Nama')
+                            ->placeholder('Contoh: Kampus')
                             ->required(),
                         Textarea::make('description')
                             ->label('Deskripsi')
+                            ->placeholder('Tuliskan deskripsi singkat kategori')
                             ->columnSpanFull(),
                     ]),
                 Section::make('Tampilan')
                     ->schema([
                         TextInput::make('color')
-                            ->label('Warna'),
+                            ->label('Warna')
+                            ->placeholder('Contoh: #00a9b7'),
                     ]),
             ]);
     }

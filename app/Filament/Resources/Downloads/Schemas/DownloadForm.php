@@ -18,11 +18,14 @@ class DownloadForm
                     ->schema([
                         TextInput::make('title')
                             ->label('Judul')
+                            ->placeholder('Contoh: Panduan Akademik Mahasiswa')
                             ->required(),
                         TextInput::make('category')
-                            ->label('Kategori'),
+                            ->label('Kategori')
+                            ->placeholder('Contoh: Akademik, PMB, Kemahasiswaan'),
                         Textarea::make('description')
                             ->label('Deskripsi')
+                            ->placeholder('Tuliskan deskripsi singkat dokumen')
                             ->columnSpanFull(),
                     ])
                     ->columns(2),
@@ -30,9 +33,11 @@ class DownloadForm
                     ->schema([
                         TextInput::make('file')
                             ->label('Berkas')
+                            ->placeholder('Contoh: dokumen/panduan-akademik.pdf')
                             ->required(),
                         TextInput::make('download_count')
                             ->label('Jumlah Unduhan')
+                            ->helperText('Biasanya dibiarkan 0 karena akan bertambah otomatis.')
                             ->required()
                             ->numeric()
                             ->default(0),
@@ -42,6 +47,7 @@ class DownloadForm
                     ->schema([
                         Toggle::make('is_active')
                             ->label('Aktif')
+                            ->helperText('Hanya unduhan aktif yang ditampilkan di website.')
                             ->required(),
                     ]),
             ]);

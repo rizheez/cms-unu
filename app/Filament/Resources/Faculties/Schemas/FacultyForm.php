@@ -19,15 +19,20 @@ class FacultyForm
                     ->schema([
                         TextInput::make('name')
                             ->label('Nama')
+                            ->placeholder('Contoh: Fakultas Teknologi dan Sains')
                             ->required(),
                         TextInput::make('short_name')
-                            ->label('Nama Singkat'),
+                            ->label('Nama Singkat')
+                            ->placeholder('Contoh: FTS'),
                         TextInput::make('dean_name')
-                            ->label('Nama Dekan'),
+                            ->label('Nama Dekan')
+                            ->placeholder('Contoh: Dr. Ahmad Fauzi, M.Kom.'),
                         TextInput::make('accreditation')
-                            ->label('Akreditasi'),
+                            ->label('Akreditasi')
+                            ->placeholder('Contoh: Baik Sekali'),
                         Textarea::make('description')
                             ->label('Deskripsi')
+                            ->placeholder('Tuliskan profil singkat fakultas')
                             ->columnSpanFull(),
                     ])
                     ->columns(2),
@@ -35,9 +40,11 @@ class FacultyForm
                     ->schema([
                         TextInput::make('email')
                             ->label('Alamat Email')
+                            ->placeholder('Contoh: fts@unu.ac.id')
                             ->email(),
                         TextInput::make('phone')
                             ->label('Telepon')
+                            ->placeholder('Contoh: +62 812 4000 2026')
                             ->tel(),
                     ])
                     ->columns(2),
@@ -45,14 +52,17 @@ class FacultyForm
                     ->schema([
                         FileUpload::make('image')
                             ->label('Gambar')
+                            ->helperText('Gunakan gambar fakultas yang jelas dan proporsional.')
                             ->image(),
                         TextInput::make('order')
                             ->label('Urutan')
+                            ->helperText('Angka kecil akan tampil lebih dulu.')
                             ->required()
                             ->numeric()
                             ->default(0),
                         Toggle::make('is_active')
                             ->label('Aktif')
+                            ->helperText('Hanya fakultas aktif yang ditampilkan.')
                             ->required(),
                     ])
                     ->columns(2),

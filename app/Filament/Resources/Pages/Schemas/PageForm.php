@@ -22,9 +22,11 @@ class PageForm
                     ->schema([
                         TextInput::make('title')
                             ->label('Judul')
+                            ->placeholder('Contoh: Profil Universitas')
                             ->required(),
                         RichEditor::make('content')
                             ->label('Konten')
+                            ->placeholder('Tuliskan isi halaman')
                             ->columnSpanFull(),
                     ])
                     ->columnSpanFull(),
@@ -32,10 +34,12 @@ class PageForm
                     ->schema([
                         TextInput::make('template')
                             ->label('Template')
+                            ->placeholder('Contoh: default')
                             ->required()
                             ->default('default'),
                         Select::make('status')
                             ->label('Status')
+                            ->placeholder('Pilih status halaman')
                             ->options([
                                 'draft' => 'Draft',
                                 'published' => 'Terbit',
@@ -44,23 +48,29 @@ class PageForm
                             ->required()
                             ->default('draft'),
                         DateTimePicker::make('published_at')
-                            ->label('Tanggal Terbit'),
+                            ->label('Tanggal Terbit')
+                            ->helperText('Isi saat halaman siap dipublikasikan.'),
                     ])
                     ->columns(3),
                 Section::make('Pengaturan SEO')
                     ->schema([
                         TextInput::make('meta_title')
-                            ->label('Meta Judul'),
+                            ->label('Meta Judul')
+                            ->placeholder('Judul SEO yang tampil di mesin pencari'),
                         TextInput::make('meta_keywords')
-                            ->label('Meta Kata Kunci'),
+                            ->label('Meta Kata Kunci')
+                            ->placeholder('Contoh: kampus, universitas, pendidikan'),
                         Textarea::make('meta_description')
                             ->label('Meta Deskripsi')
+                            ->placeholder('Ringkasan halaman untuk mesin pencari')
                             ->columnSpanFull(),
                         FileUpload::make('og_image')
                             ->label('Gambar OG')
+                            ->helperText('Gambar untuk pratinjau saat halaman dibagikan.')
                             ->image(),
                         Toggle::make('is_in_sitemap')
                             ->label('Masuk Sitemap')
+                            ->helperText('Aktifkan agar halaman masuk sitemap.')
                             ->default(true)
                             ->required(),
                     ])

@@ -18,9 +18,11 @@ class FaqForm
                     ->schema([
                         TextInput::make('question')
                             ->label('Pertanyaan')
+                            ->placeholder('Contoh: Bagaimana cara mendaftar mahasiswa baru?')
                             ->required(),
                         RichEditor::make('answer')
                             ->label('Jawaban')
+                            ->placeholder('Tuliskan jawaban yang jelas dan ringkas')
                             ->required()
                             ->columnSpanFull(),
                     ])
@@ -28,14 +30,17 @@ class FaqForm
                 Section::make('Kategori dan Pengaturan')
                     ->schema([
                         TextInput::make('category')
-                            ->label('Kategori'),
+                            ->label('Kategori')
+                            ->placeholder('Contoh: Pendaftaran, Akademik, Layanan'),
                         TextInput::make('order')
                             ->label('Urutan')
+                            ->helperText('Angka kecil akan tampil lebih dulu.')
                             ->required()
                             ->numeric()
                             ->default(0),
                         Toggle::make('is_active')
                             ->label('Aktif')
+                            ->helperText('Hanya FAQ aktif yang ditampilkan.')
                             ->required(),
                     ])
                     ->columns(3),

@@ -17,12 +17,15 @@ class PartnerForm
                     ->schema([
                         TextInput::make('name')
                             ->label('Nama')
+                            ->placeholder('Contoh: Bank Syariah Indonesia')
                             ->required(),
                         TextInput::make('website')
                             ->label('Website')
+                            ->placeholder('Contoh: https://bankbsi.co.id')
                             ->url(),
                         TextInput::make('logo')
                             ->label('Logo')
+                            ->placeholder('Contoh: partners/logo-bsi.png')
                             ->required(),
                     ])
                     ->columns(2),
@@ -30,11 +33,13 @@ class PartnerForm
                     ->schema([
                         TextInput::make('order')
                             ->label('Urutan')
+                            ->helperText('Angka kecil akan tampil lebih dulu.')
                             ->required()
                             ->numeric()
                             ->default(0),
                         Toggle::make('is_active')
                             ->label('Aktif')
+                            ->helperText('Hanya mitra aktif yang ditampilkan.')
                             ->required(),
                     ])
                     ->columns(2),

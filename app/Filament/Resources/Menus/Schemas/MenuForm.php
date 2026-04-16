@@ -17,9 +17,11 @@ class MenuForm
                     ->schema([
                         TextInput::make('name')
                             ->label('Nama')
+                            ->placeholder('Contoh: Menu Utama')
                             ->required(),
                         TextInput::make('location')
                             ->label('Lokasi')
+                            ->placeholder('Contoh: header atau footer')
                             ->required(),
                     ])
                     ->columns(2),
@@ -27,6 +29,7 @@ class MenuForm
                     ->schema([
                         Toggle::make('is_active')
                             ->label('Aktif')
+                            ->helperText('Hanya menu aktif yang digunakan di website.')
                             ->required(),
                     ]),
             ]);

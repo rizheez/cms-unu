@@ -18,21 +18,26 @@ class SliderForm
                     ->schema([
                         TextInput::make('title')
                             ->label('Judul')
+                            ->placeholder('Contoh: Cetak Generasi Unggul')
                             ->required(),
                         TextInput::make('subtitle')
-                            ->label('Subjudul'),
+                            ->label('Subjudul')
+                            ->placeholder('Tuliskan subjudul banner'),
                     ])
                     ->columns(2),
                 Section::make('Media dan Tombol')
                     ->schema([
                         FileUpload::make('image')
                             ->label('Gambar')
+                            ->helperText('Gunakan gambar lebar berkualitas baik untuk banner.')
                             ->image()
                             ->required(),
                         TextInput::make('button_text')
-                            ->label('Teks Tombol'),
+                            ->label('Teks Tombol')
+                            ->placeholder('Contoh: Daftar Sekarang'),
                         TextInput::make('button_url')
                             ->label('URL Tombol')
+                            ->placeholder('Contoh: /penerimaan-mahasiswa-baru')
                             ->url(),
                     ])
                     ->columns(2),
@@ -40,11 +45,13 @@ class SliderForm
                     ->schema([
                         TextInput::make('order')
                             ->label('Urutan')
+                            ->helperText('Angka kecil akan tampil lebih dulu.')
                             ->required()
                             ->numeric()
                             ->default(0),
                         Toggle::make('is_active')
                             ->label('Aktif')
+                            ->helperText('Hanya banner aktif yang ditampilkan.')
                             ->required(),
                     ])
                     ->columns(2),

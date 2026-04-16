@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Posts\Tables;
 
+use App\Models\Post;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -78,6 +80,15 @@ class PostsTable
                 TrashedFilter::make(),
             ])
             ->recordActions([
+                Action::make('publish')
+                    ->label('Terbitkan')
+                    ->color('success')
+                    ->requiresConfirmation()
+                    ->visible(fn (Post $record): bool => $record->status === 'draft' && ! $record->trashed())
+                    ->action(fn (Post $record): bool => $record->update([
+                        'status' => 'published',
+                        'published_at' => $record->published_at ?? now(),
+                    ])),
                 EditAction::make(),
             ])
             ->toolbarActions([

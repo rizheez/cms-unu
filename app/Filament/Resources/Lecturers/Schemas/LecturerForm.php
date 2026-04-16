@@ -19,36 +19,46 @@ class LecturerForm
                     ->schema([
                         TextInput::make('name')
                             ->label('Nama')
+                            ->placeholder('Contoh: Dr. Ahmad Fauzi, M.Kom.')
                             ->required(),
                         TextInput::make('nidn')
-                            ->label('NIDN'),
+                            ->label('NIDN')
+                            ->placeholder('Contoh: 1122334455'),
                         TextInput::make('email')
                             ->label('Alamat Email')
+                            ->placeholder('Contoh: dosen@unu.ac.id')
                             ->email(),
                         TextInput::make('position')
-                            ->label('Jabatan'),
+                            ->label('Jabatan')
+                            ->placeholder('Contoh: Ketua Program Studi'),
                     ])
                     ->columns(2),
                 Section::make('Relasi Akademik')
                     ->schema([
                         Select::make('faculty_id')
                             ->label('Fakultas')
-                            ->relationship('faculty', 'name'),
+                            ->relationship('faculty', 'name')
+                            ->placeholder('Pilih fakultas'),
                         Select::make('study_program_id')
                             ->label('Program Studi')
-                            ->relationship('studyProgram', 'name'),
+                            ->relationship('studyProgram', 'name')
+                            ->placeholder('Pilih program studi'),
                         TextInput::make('education_level')
-                            ->label('Pendidikan Terakhir'),
+                            ->label('Pendidikan Terakhir')
+                            ->placeholder('Contoh: S2, S3'),
                         TextInput::make('expertise')
-                            ->label('Keahlian'),
+                            ->label('Keahlian')
+                            ->placeholder('Contoh: Sistem Informasi, Data Science'),
                     ])
                     ->columns(2),
                 Section::make('Profil')
                     ->schema([
                         TextInput::make('photo')
-                            ->label('Foto'),
+                            ->label('Foto')
+                            ->placeholder('Contoh: lecturers/nama-dosen.jpg'),
                         RichEditor::make('bio')
                             ->label('Biografi')
+                            ->placeholder('Tuliskan biografi singkat dosen')
                             ->columnSpanFull(),
                     ])
                     ->columnSpanFull(),
@@ -56,11 +66,13 @@ class LecturerForm
                     ->schema([
                         TextInput::make('order')
                             ->label('Urutan')
+                            ->helperText('Angka kecil akan tampil lebih dulu.')
                             ->required()
                             ->numeric()
                             ->default(0),
                         Toggle::make('is_active')
                             ->label('Aktif')
+                            ->helperText('Hanya dosen aktif yang ditampilkan.')
                             ->required(),
                     ])
                     ->columns(2),

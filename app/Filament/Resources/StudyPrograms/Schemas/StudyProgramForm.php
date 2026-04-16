@@ -20,38 +20,47 @@ class StudyProgramForm
                     ->schema([
                         TextInput::make('name')
                             ->label('Nama')
+                            ->placeholder('Contoh: Informatika')
                             ->required(),
                         Select::make('faculty_id')
                             ->label('Fakultas')
                             ->relationship('faculty', 'name')
+                            ->placeholder('Pilih fakultas')
                             ->required(),
                         TextInput::make('degree_level')
                             ->label('Jenjang')
+                            ->placeholder('Contoh: S1')
                             ->required(),
                         TextInput::make('head_name')
-                            ->label('Nama Ketua Program Studi'),
+                            ->label('Nama Ketua Program Studi')
+                            ->placeholder('Contoh: Nur Aisyah, M.Kom.'),
                     ])
                     ->columns(2),
                 Section::make('Konten dan Media')
                     ->schema([
                         Textarea::make('description')
                             ->label('Deskripsi')
+                            ->placeholder('Tuliskan profil singkat program studi')
                             ->columnSpanFull(),
                         FileUpload::make('image')
                             ->label('Gambar')
+                            ->helperText('Gambar akan tampil di halaman program studi.')
                             ->image(),
                     ]),
                 Section::make('Pengaturan Akademik')
                     ->schema([
                         TextInput::make('accreditation')
-                            ->label('Akreditasi'),
+                            ->label('Akreditasi')
+                            ->placeholder('Contoh: Baik Sekali'),
                         TextInput::make('order')
                             ->label('Urutan')
+                            ->helperText('Angka kecil akan tampil lebih dulu.')
                             ->required()
                             ->numeric()
                             ->default(0),
                         Toggle::make('is_active')
                             ->label('Aktif')
+                            ->helperText('Hanya program studi aktif yang ditampilkan.')
                             ->required(),
                     ])
                     ->columns(3),

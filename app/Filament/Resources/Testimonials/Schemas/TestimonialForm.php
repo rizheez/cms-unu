@@ -18,17 +18,21 @@ class TestimonialForm
                     ->schema([
                         TextInput::make('name')
                             ->label('Nama')
+                            ->placeholder('Contoh: Aulia Rahman')
                             ->required(),
                         TextInput::make('position')
-                            ->label('Jabatan'),
+                            ->label('Jabatan')
+                            ->placeholder('Contoh: Alumni Informatika'),
                         TextInput::make('photo')
-                            ->label('Foto'),
+                            ->label('Foto')
+                            ->placeholder('Contoh: testimonials/aulia-rahman.jpg'),
                     ])
                     ->columns(3),
                 Section::make('Isi Testimoni')
                     ->schema([
                         RichEditor::make('content')
                             ->label('Konten')
+                            ->placeholder('Tuliskan isi testimoni')
                             ->required()
                             ->columnSpanFull(),
                     ])
@@ -37,11 +41,13 @@ class TestimonialForm
                     ->schema([
                         TextInput::make('rating')
                             ->label('Rating')
+                            ->helperText('Isi 1 sampai 5.')
                             ->required()
                             ->numeric()
                             ->default(5),
                         Toggle::make('is_active')
                             ->label('Aktif')
+                            ->helperText('Hanya testimoni aktif yang ditampilkan.')
                             ->required(),
                     ])
                     ->columns(2),
