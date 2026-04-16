@@ -4,6 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {!! SEO::generate() !!}
+    @php
+        $siteLogo = trim((string) setting('site_logo', ''));
+        $siteLogoUrl = $siteLogo !== '' ? asset('storage/'.$siteLogo) : null;
+        $siteFavicon = trim((string) setting('site_favicon', ''));
+        $siteFaviconUrl = $siteFavicon !== '' ? asset('storage/'.$siteFavicon) : null;
+    @endphp
+    @if ($siteFaviconUrl)
+        <link rel="icon" href="{{ $siteFaviconUrl }}">
+    @endif
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -27,7 +36,11 @@
 
     <header id="main-header" class="site-header">
         <a href="{{ route('home') }}" class="site-logo">
-            <span class="logo-icon">NU</span>
+            @if ($siteLogoUrl)
+                <img src="{{ $siteLogoUrl }}" alt="{{ setting('site_name', 'Universitas Nahdlatul Ulama') }}" class="logo-image">
+            @else
+                <span class="logo-icon">NU</span>
+            @endif
             <span class="logo-text">
                 {{ setting('site_name', 'Universitas Nahdlatul Ulama') }}
                 <small>Indonesia</small>
@@ -73,7 +86,11 @@
     <footer class="site-footer">
         <div class="footer-grid">
             <div class="footer-brand">
-                <span class="logo-icon">NU</span>
+                @if ($siteLogoUrl)
+                    <img src="{{ $siteLogoUrl }}" alt="{{ setting('site_name', 'Universitas Nahdlatul Ulama') }}" class="footer-logo-image">
+                @else
+                    <span class="logo-icon">NU</span>
+                @endif
                 <h2>{{ setting('site_name', 'Universitas Nahdlatul Ulama') }}</h2>
                 <p>{{ setting('meta_description', 'Website resmi Universitas Nahdlatul Ulama.') }}</p>
                 <div class="footer-socials">

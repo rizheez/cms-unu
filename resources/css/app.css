@@ -154,6 +154,14 @@ svg {
     box-shadow: 6px 6px 0 var(--unu-forest);
 }
 
+.logo-image {
+    width: auto;
+    height: 54px;
+    max-width: 220px;
+    flex: 0 0 auto;
+    object-fit: contain;
+}
+
 .logo-text {
     display: grid;
     color: var(--unu-forest);
@@ -941,6 +949,13 @@ svg {
     display: grid;
     align-content: start;
     gap: 18px;
+}
+
+.footer-logo-image {
+    width: auto;
+    height: 64px;
+    max-width: 240px;
+    object-fit: contain;
 }
 
 .footer-brand h2 {
