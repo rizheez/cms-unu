@@ -34,6 +34,6 @@ class Menu extends Model
 
     public function rootItemsRecursive(): HasMany
     {
-        return $this->rootItems()->with('childrenRecursive');
+        return $this->rootItems()->with(['page', 'childrenRecursive']);
     }
 }

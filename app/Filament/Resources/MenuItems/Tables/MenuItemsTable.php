@@ -23,6 +23,10 @@ class MenuItemsTable
                     ->label('Parent')
                     ->placeholder('Menu utama')
                     ->searchable(),
+                TextColumn::make('page.title')
+                    ->label('Page')
+                    ->placeholder('Custom URL')
+                    ->searchable(),
                 TextColumn::make('label')
                     ->searchable()
                     ->sortable(),

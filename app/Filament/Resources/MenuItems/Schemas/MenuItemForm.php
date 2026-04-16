@@ -22,11 +22,16 @@ class MenuItemForm
                     ->searchable()
                     ->preload()
                     ->helperText('Kosongkan untuk menu utama. Pilih parent untuk membuat dropdown bertingkat.'),
+                Select::make('page_id')
+                    ->relationship('page', 'title')
+                    ->searchable()
+                    ->preload()
+                    ->helperText('Pilih halaman internal. Jika dipilih, link menu otomatis memakai slug halaman ini.'),
                 TextInput::make('label')
                     ->required()
                     ->maxLength(255),
                 TextInput::make('url')
-                    ->helperText('Isi path seperti /akademik, atau URL lengkap seperti https://example.com.')
+                    ->helperText('Opsional untuk link custom seperti /akademik, /kontak, atau URL lengkap. Abaikan jika sudah memilih Page.')
                     ->maxLength(255),
                 Select::make('target')
                     ->options([

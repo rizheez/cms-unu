@@ -14,6 +14,7 @@ class MenuItem extends Model
     protected $fillable = [
         'menu_id',
         'parent_id',
+        'page_id',
         'label',
         'url',
         'target',
@@ -37,6 +38,11 @@ class MenuItem extends Model
         return $this->belongsTo(self::class, 'parent_id');
     }
 
+    public function page(): BelongsTo
+    {
+        return $this->belongsTo(Page::class);
+    }
+
     public function children(): HasMany
     {
         return $this->hasMany(self::class, 'parent_id')->orderBy('order');
@@ -44,7 +50,7 @@ class MenuItem extends Model
 
     public function childrenRecursive(): HasMany
     {
-        return $this->children()->with('childrenRecursive');
+        return $this->children()->with(['page', 'childrenRecursive']);
     }
 
     public function isExternal(): bool
@@ -54,6 +60,10 @@ class MenuItem extends Model
 
     public function resolvedUrl(): string
     {
+        if ($this->page !== null) {
+            return route('pages.show', $this->page->slug);
+        }
+
         if ($this->url === null || $this->url === '') {
             return '#';
         }
