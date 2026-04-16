@@ -4,6 +4,9 @@
     @php
         $featured = $featuredPosts->first();
         $smallPosts = $featuredPosts->skip(1)->take(3);
+        $studentsCount = (int) setting('home_students_count', 12400);
+        $studentsHeroLabel = $studentsCount >= 1000 ? rtrim(rtrim(number_format($studentsCount / 1000, 1, '.', ''), '0'), '.') . 'K+' : number_format($studentsCount, 0, ',', '.');
+        $serviceYears = (int) setting('home_service_years', 30);
         $programIcons = [
             'Informatika' => 'IT',
             'Sistem Informasi' => 'SI',
@@ -40,11 +43,11 @@
                 </div>
             </div>
             <div class="hero-float-badge">
-                <strong>12.4K+</strong>
+                <strong>{{ $studentsHeroLabel }}</strong>
                 <span>Mahasiswa Aktif</span>
             </div>
             <div class="hero-float-badge hero-float-2">
-                <strong>{{ $studyPrograms->count() }}</strong>
+                <strong>{{ $studyProgramsCount }}</strong>
                 <span>Program Studi</span>
             </div>
         </div>
@@ -52,19 +55,19 @@
 
     <section class="stats-strip">
         <div class="stat-item" data-reveal>
-            <span class="stat-num" data-count="12400" data-suffix="+">0</span>
+            <span class="stat-num" data-count="{{ $studentsCount }}" data-suffix="+">0</span>
             <span class="stat-label">Mahasiswa</span>
         </div>
         <div class="stat-item" data-reveal data-delay="1">
-            <span class="stat-num" data-count="340" data-suffix="+">0</span>
+            <span class="stat-num" data-count="{{ $lecturersCount }}" data-suffix="+">0</span>
             <span class="stat-label">Dosen & Praktisi</span>
         </div>
         <div class="stat-item" data-reveal data-delay="2">
-            <span class="stat-num" data-count="{{ $studyPrograms->count() }}">0</span>
+            <span class="stat-num" data-count="{{ $studyProgramsCount }}">0</span>
             <span class="stat-label">Program Studi</span>
         </div>
         <div class="stat-item" data-reveal data-delay="3">
-            <span class="stat-num" data-count="30" data-suffix="+">0</span>
+            <span class="stat-num" data-count="{{ $serviceYears }}" data-suffix="+">0</span>
             <span class="stat-label">Tahun Pengabdian</span>
         </div>
     </section>

@@ -8,6 +8,7 @@ use App\Models\AcademicCalendar;
 use App\Models\Announcement;
 use App\Models\Faculty;
 use App\Models\Gallery;
+use App\Models\Lecturer;
 use App\Models\Partner;
 use App\Models\Post;
 use App\Models\Slider;
@@ -27,6 +28,8 @@ class HomeController extends Controller
             'featuredPosts' => Post::query()->with(['category', 'author'])->published()->featured()->latest('published_at')->limit(3)->get(),
             'announcements' => Announcement::query()->active()->latest()->limit(5)->get(),
             'facultiesCount' => Faculty::query()->where('is_active', true)->count(),
+            'lecturersCount' => Lecturer::query()->where('is_active', true)->count(),
+            'studyProgramsCount' => StudyProgram::query()->where('is_active', true)->count(),
             'studyPrograms' => StudyProgram::query()->with('faculty')->where('is_active', true)->orderBy('order')->limit(6)->get(),
             'academicCalendars' => AcademicCalendar::query()->where('start_date', '>=', now()->toDateString())->orderBy('start_date')->limit(5)->get(),
             'galleries' => Gallery::query()->with('items')->where('is_active', true)->latest()->limit(6)->get(),
