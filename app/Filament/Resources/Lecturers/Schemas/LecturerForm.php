@@ -6,6 +6,7 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
 class LecturerForm
@@ -14,39 +15,55 @@ class LecturerForm
     {
         return $schema
             ->components([
-                Select::make('faculty_id')
-                    ->label('Fakultas')
-                    ->relationship('faculty', 'name'),
-                Select::make('study_program_id')
-                    ->label('Program Studi')
-                    ->relationship('studyProgram', 'name'),
-                TextInput::make('name')
-                    ->label('Nama')
-                    ->required(),
-                TextInput::make('nidn')
-                    ->label('NIDN'),
-                TextInput::make('email')
-                    ->label('Alamat Email')
-                    ->email(),
-                TextInput::make('position')
-                    ->label('Jabatan'),
-                TextInput::make('education_level')
-                    ->label('Pendidikan Terakhir'),
-                RichEditor::make('bio')
-                    ->label('Biografi')
+                Section::make('Identitas Dosen')
+                    ->schema([
+                        TextInput::make('name')
+                            ->label('Nama')
+                            ->required(),
+                        TextInput::make('nidn')
+                            ->label('NIDN'),
+                        TextInput::make('email')
+                            ->label('Alamat Email')
+                            ->email(),
+                        TextInput::make('position')
+                            ->label('Jabatan'),
+                    ])
+                    ->columns(2),
+                Section::make('Relasi Akademik')
+                    ->schema([
+                        Select::make('faculty_id')
+                            ->label('Fakultas')
+                            ->relationship('faculty', 'name'),
+                        Select::make('study_program_id')
+                            ->label('Program Studi')
+                            ->relationship('studyProgram', 'name'),
+                        TextInput::make('education_level')
+                            ->label('Pendidikan Terakhir'),
+                        TextInput::make('expertise')
+                            ->label('Keahlian'),
+                    ])
+                    ->columns(2),
+                Section::make('Profil')
+                    ->schema([
+                        TextInput::make('photo')
+                            ->label('Foto'),
+                        RichEditor::make('bio')
+                            ->label('Biografi')
+                            ->columnSpanFull(),
+                    ])
                     ->columnSpanFull(),
-                TextInput::make('photo')
-                    ->label('Foto'),
-                TextInput::make('expertise')
-                    ->label('Keahlian'),
-                TextInput::make('order')
-                    ->label('Urutan')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
-                Toggle::make('is_active')
-                    ->label('Aktif')
-                    ->required(),
+                Section::make('Pengaturan')
+                    ->schema([
+                        TextInput::make('order')
+                            ->label('Urutan')
+                            ->required()
+                            ->numeric()
+                            ->default(0),
+                        Toggle::make('is_active')
+                            ->label('Aktif')
+                            ->required(),
+                    ])
+                    ->columns(2),
             ]);
     }
 }

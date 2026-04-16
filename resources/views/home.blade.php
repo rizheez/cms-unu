@@ -22,7 +22,7 @@
         </svg>
 
         <div class="hero-copy" data-reveal>
-            <span class="hero-badge">Akreditasi {{ setting('accreditation', 'Baik Sekali') }}</span>
+            <span class="hero-badge">Akreditasi {{ setting('accreditation', 'Baik') }}</span>
             <h1>Tempat Ilmu <span class="hl">Bertumbuh</span> dengan Akar Nilai.</h1>
             <p>{{ setting('meta_description', 'Kampus yang menumbuhkan pengetahuan, karakter, dan kontribusi nyata untuk masyarakat.') }}</p>
             <div class="hero-btns">
