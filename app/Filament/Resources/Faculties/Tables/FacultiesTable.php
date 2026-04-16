@@ -25,7 +25,7 @@ class FacultiesTable
                 TextColumn::make('dean_name')
                     ->searchable(),
                 TextColumn::make('email')
-                    ->label('Email address')
+                    ->label('Alamat Email')
                     ->searchable(),
                 TextColumn::make('phone')
                     ->searchable(),

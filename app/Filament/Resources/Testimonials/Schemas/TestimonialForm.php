@@ -14,17 +14,23 @@ class TestimonialForm
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label('Nama')
                     ->required(),
-                TextInput::make('position'),
-                TextInput::make('photo'),
+                TextInput::make('position')
+                    ->label('Jabatan'),
+                TextInput::make('photo')
+                    ->label('Foto'),
                 RichEditor::make('content')
+                    ->label('Konten')
                     ->required()
                     ->columnSpanFull(),
                 TextInput::make('rating')
+                    ->label('Rating')
                     ->required()
                     ->numeric()
                     ->default(5),
                 Toggle::make('is_active')
+                    ->label('Aktif')
                     ->required(),
             ]);
     }

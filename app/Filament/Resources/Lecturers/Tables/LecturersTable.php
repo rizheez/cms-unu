@@ -26,7 +26,7 @@ class LecturersTable
                 TextColumn::make('nidn')
                     ->searchable(),
                 TextColumn::make('email')
-                    ->label('Email address')
+                    ->label('Alamat Email')
                     ->searchable(),
                 TextColumn::make('position')
                     ->searchable(),

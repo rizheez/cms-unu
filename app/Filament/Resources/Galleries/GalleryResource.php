@@ -21,6 +21,10 @@ class GalleryResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedPhoto;
 
+    protected static ?string $modelLabel = 'Galeri';
+
+    protected static ?string $pluralModelLabel = 'Galeri';
+
     protected static string|UnitEnum|null $navigationGroup = 'Media';
 
     protected static ?int $navigationSort = 20;

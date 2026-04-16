@@ -15,26 +15,36 @@ class FacultyForm
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label('Nama')
                     ->required(),
                 TextInput::make('slug')
+                    ->label('Slug')
                     ->required(),
-                TextInput::make('short_name'),
-                TextInput::make('dean_name'),
+                TextInput::make('short_name')
+                    ->label('Nama Singkat'),
+                TextInput::make('dean_name')
+                    ->label('Nama Dekan'),
                 TextInput::make('email')
-                    ->label('Email address')
+                    ->label('Alamat Email')
                     ->email(),
                 TextInput::make('phone')
+                    ->label('Telepon')
                     ->tel(),
                 Textarea::make('description')
+                    ->label('Deskripsi')
                     ->columnSpanFull(),
                 FileUpload::make('image')
+                    ->label('Gambar')
                     ->image(),
-                TextInput::make('accreditation'),
+                TextInput::make('accreditation')
+                    ->label('Akreditasi'),
                 TextInput::make('order')
+                    ->label('Urutan')
                     ->required()
                     ->numeric()
                     ->default(0),
                 Toggle::make('is_active')
+                    ->label('Aktif')
                     ->required(),
             ]);
     }

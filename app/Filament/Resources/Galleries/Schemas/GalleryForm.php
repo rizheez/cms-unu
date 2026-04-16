@@ -15,17 +15,23 @@ class GalleryForm
         return $schema
             ->components([
                 TextInput::make('title')
+                    ->label('Judul')
                     ->required(),
                 TextInput::make('slug')
+                    ->label('Slug')
                     ->required(),
                 Textarea::make('description')
+                    ->label('Deskripsi')
                     ->columnSpanFull(),
                 FileUpload::make('cover_image')
+                    ->label('Gambar Sampul')
                     ->image(),
                 TextInput::make('type')
+                    ->label('Jenis')
                     ->required()
                     ->default('photo'),
                 Toggle::make('is_active')
+                    ->label('Aktif')
                     ->required(),
             ]);
     }

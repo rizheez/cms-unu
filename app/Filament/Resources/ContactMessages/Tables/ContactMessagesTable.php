@@ -17,7 +17,7 @@ class ContactMessagesTable
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('email')
-                    ->label('Email address')
+                    ->label('Alamat Email')
                     ->searchable(),
                 TextColumn::make('phone')
                     ->searchable(),

@@ -21,6 +21,10 @@ class FacultyResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBuildingLibrary;
 
+    protected static ?string $modelLabel = 'Fakultas';
+
+    protected static ?string $pluralModelLabel = 'Fakultas';
+
     protected static string|UnitEnum|null $navigationGroup = 'Akademik';
 
     protected static ?int $navigationSort = 10;

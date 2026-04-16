@@ -13,10 +13,13 @@ class MenuForm
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label('Nama')
                     ->required(),
                 TextInput::make('location')
+                    ->label('Lokasi')
                     ->required(),
                 Toggle::make('is_active')
+                    ->label('Aktif')
                     ->required(),
             ]);
     }

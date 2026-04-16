@@ -21,6 +21,12 @@ class AcademicCalendarResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCalendarDays;
 
+    protected static ?string $navigationLabel = 'Kalender Akademik';
+
+    protected static ?string $modelLabel = 'Kalender Akademik';
+
+    protected static ?string $pluralModelLabel = 'Kalender Akademik';
+
     protected static string|UnitEnum|null $navigationGroup = 'Akademik';
 
     protected static ?int $navigationSort = 40;

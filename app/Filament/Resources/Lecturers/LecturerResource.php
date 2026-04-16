@@ -21,6 +21,10 @@ class LecturerResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUsers;
 
+    protected static ?string $modelLabel = 'Dosen';
+
+    protected static ?string $pluralModelLabel = 'Dosen';
+
     protected static string|UnitEnum|null $navigationGroup = 'Akademik';
 
     protected static ?int $navigationSort = 30;

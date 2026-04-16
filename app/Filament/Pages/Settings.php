@@ -30,7 +30,7 @@ class Settings extends Page
 
     protected static string|UnitEnum|null $navigationGroup = 'Website';
 
-    protected static ?string $navigationLabel = 'Settings';
+    protected static ?string $navigationLabel = 'Pengaturan';
 
     protected static ?int $navigationSort = 30;
 

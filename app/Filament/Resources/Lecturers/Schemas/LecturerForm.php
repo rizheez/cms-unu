@@ -15,28 +15,40 @@ class LecturerForm
         return $schema
             ->components([
                 Select::make('faculty_id')
+                    ->label('Fakultas')
                     ->relationship('faculty', 'name'),
                 Select::make('study_program_id')
+                    ->label('Program Studi')
                     ->relationship('studyProgram', 'name'),
                 TextInput::make('name')
+                    ->label('Nama')
                     ->required(),
                 TextInput::make('slug')
+                    ->label('Slug')
                     ->required(),
-                TextInput::make('nidn'),
+                TextInput::make('nidn')
+                    ->label('NIDN'),
                 TextInput::make('email')
-                    ->label('Email address')
+                    ->label('Alamat Email')
                     ->email(),
-                TextInput::make('position'),
-                TextInput::make('education_level'),
+                TextInput::make('position')
+                    ->label('Jabatan'),
+                TextInput::make('education_level')
+                    ->label('Pendidikan Terakhir'),
                 RichEditor::make('bio')
+                    ->label('Biografi')
                     ->columnSpanFull(),
-                TextInput::make('photo'),
-                TextInput::make('expertise'),
+                TextInput::make('photo')
+                    ->label('Foto'),
+                TextInput::make('expertise')
+                    ->label('Keahlian'),
                 TextInput::make('order')
+                    ->label('Urutan')
                     ->required()
                     ->numeric()
                     ->default(0),
                 Toggle::make('is_active')
+                    ->label('Aktif')
                     ->required(),
             ]);
     }

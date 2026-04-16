@@ -20,12 +20,12 @@ class MenuItemsTable
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('parent.label')
-                    ->label('Parent')
+                    ->label('Induk Menu')
                     ->placeholder('Menu utama')
                     ->searchable(),
                 TextColumn::make('page.title')
-                    ->label('Page')
-                    ->placeholder('Custom URL')
+                    ->label('Halaman')
+                    ->placeholder('URL custom')
                     ->searchable(),
                 TextColumn::make('label')
                     ->searchable()

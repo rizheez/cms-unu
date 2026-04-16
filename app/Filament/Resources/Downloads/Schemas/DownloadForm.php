@@ -14,19 +14,26 @@ class DownloadForm
         return $schema
             ->components([
                 TextInput::make('title')
+                    ->label('Judul')
                     ->required(),
                 TextInput::make('slug')
+                    ->label('Slug')
                     ->required(),
                 Textarea::make('description')
+                    ->label('Deskripsi')
                     ->columnSpanFull(),
                 TextInput::make('file')
+                    ->label('Berkas')
                     ->required(),
-                TextInput::make('category'),
+                TextInput::make('category')
+                    ->label('Kategori'),
                 TextInput::make('download_count')
+                    ->label('Jumlah Unduhan')
                     ->required()
                     ->numeric()
                     ->default(0),
                 Toggle::make('is_active')
+                    ->label('Aktif')
                     ->required(),
             ]);
     }

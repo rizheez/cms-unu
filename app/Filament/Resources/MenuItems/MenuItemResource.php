@@ -21,11 +21,11 @@ class MenuItemResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBars3BottomLeft;
 
-    protected static ?string $navigationLabel = 'Menu Items';
+    protected static ?string $navigationLabel = 'Item Menu';
 
-    protected static ?string $modelLabel = 'Menu Item';
+    protected static ?string $modelLabel = 'Item Menu';
 
-    protected static ?string $pluralModelLabel = 'Menu Items';
+    protected static ?string $pluralModelLabel = 'Item Menu';
 
     protected static string|UnitEnum|null $navigationGroup = 'Website';
 

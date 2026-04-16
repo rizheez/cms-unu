@@ -14,22 +14,28 @@ class ContactMessageForm
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label('Nama')
                     ->required(),
                 TextInput::make('email')
-                    ->label('Email address')
+                    ->label('Alamat Email')
                     ->email()
                     ->required(),
                 TextInput::make('phone')
+                    ->label('Telepon')
                     ->tel(),
                 TextInput::make('subject')
+                    ->label('Subjek')
                     ->required(),
                 Textarea::make('message')
+                    ->label('Pesan')
                     ->required()
                     ->columnSpanFull(),
                 TextInput::make('status')
+                    ->label('Status')
                     ->required()
                     ->default('unread'),
-                DateTimePicker::make('read_at'),
+                DateTimePicker::make('read_at')
+                    ->label('Dibaca Pada'),
             ]);
     }
 }

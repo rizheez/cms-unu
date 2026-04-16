@@ -21,6 +21,12 @@ class TestimonialResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedChatBubbleBottomCenterText;
 
+    protected static ?string $navigationLabel = 'Testimoni';
+
+    protected static ?string $modelLabel = 'Testimoni';
+
+    protected static ?string $pluralModelLabel = 'Testimoni';
+
     protected static string|UnitEnum|null $navigationGroup = 'Media';
 
     protected static ?int $navigationSort = 40;

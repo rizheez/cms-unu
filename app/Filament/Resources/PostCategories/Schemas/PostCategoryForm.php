@@ -13,12 +13,16 @@ class PostCategoryForm
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label('Nama')
                     ->required(),
                 TextInput::make('slug')
+                    ->label('Slug')
                     ->required(),
                 Textarea::make('description')
+                    ->label('Deskripsi')
                     ->columnSpanFull(),
-                TextInput::make('color'),
+                TextInput::make('color')
+                    ->label('Warna'),
             ]);
     }
 }

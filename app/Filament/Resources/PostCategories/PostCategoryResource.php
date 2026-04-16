@@ -21,7 +21,13 @@ class PostCategoryResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleGroup;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Content';
+    protected static ?string $navigationLabel = 'Kategori Berita';
+
+    protected static ?string $modelLabel = 'Kategori Berita';
+
+    protected static ?string $pluralModelLabel = 'Kategori Berita';
+
+    protected static string|UnitEnum|null $navigationGroup = 'Konten';
 
     protected static ?int $navigationSort = 20;
 

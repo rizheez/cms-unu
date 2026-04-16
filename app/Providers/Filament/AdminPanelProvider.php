@@ -38,7 +38,7 @@ class AdminPanelProvider extends PanelProvider
             ->sidebarCollapsibleOnDesktop()
             ->navigationGroups([
                 NavigationGroup::make()
-                    ->label('Content')
+                    ->label('Konten')
                     ->icon(Heroicon::OutlinedDocumentText),
                 NavigationGroup::make()
                     ->label('Akademik')

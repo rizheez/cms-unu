@@ -15,21 +15,29 @@ class AnnouncementForm
         return $schema
             ->components([
                 TextInput::make('title')
+                    ->label('Judul')
                     ->required(),
                 TextInput::make('slug')
+                    ->label('Slug')
                     ->required(),
                 RichEditor::make('content')
+                    ->label('Konten')
                     ->required()
                     ->columnSpanFull(),
                 TextInput::make('type')
+                    ->label('Jenis')
                     ->required()
                     ->default('info'),
                 Toggle::make('is_popup')
+                    ->label('Tampilkan sebagai popup')
                     ->required(),
                 Toggle::make('is_active')
+                    ->label('Aktif')
                     ->required(),
-                DateTimePicker::make('start_at'),
-                DateTimePicker::make('end_at'),
+                DateTimePicker::make('start_at')
+                    ->label('Mulai Tayang'),
+                DateTimePicker::make('end_at')
+                    ->label('Selesai Tayang'),
             ]);
     }
 }

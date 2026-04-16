@@ -21,6 +21,10 @@ class PartnerResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBriefcase;
 
+    protected static ?string $modelLabel = 'Mitra';
+
+    protected static ?string $pluralModelLabel = 'Mitra';
+
     protected static string|UnitEnum|null $navigationGroup = 'Media';
 
     protected static ?int $navigationSort = 30;

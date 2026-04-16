@@ -21,7 +21,11 @@ class AnnouncementResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedMegaphone;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Content';
+    protected static ?string $modelLabel = 'Pengumuman';
+
+    protected static ?string $pluralModelLabel = 'Pengumuman';
+
+    protected static string|UnitEnum|null $navigationGroup = 'Konten';
 
     protected static ?int $navigationSort = 40;
 

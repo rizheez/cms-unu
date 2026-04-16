@@ -16,25 +16,35 @@ class StudyProgramForm
         return $schema
             ->components([
                 Select::make('faculty_id')
+                    ->label('Fakultas')
                     ->relationship('faculty', 'name')
                     ->required(),
                 TextInput::make('name')
+                    ->label('Nama')
                     ->required(),
                 TextInput::make('slug')
+                    ->label('Slug')
                     ->required(),
                 TextInput::make('degree_level')
+                    ->label('Jenjang')
                     ->required(),
-                TextInput::make('head_name'),
+                TextInput::make('head_name')
+                    ->label('Nama Ketua Program Studi'),
                 Textarea::make('description')
+                    ->label('Deskripsi')
                     ->columnSpanFull(),
                 FileUpload::make('image')
+                    ->label('Gambar')
                     ->image(),
-                TextInput::make('accreditation'),
+                TextInput::make('accreditation')
+                    ->label('Akreditasi'),
                 TextInput::make('order')
+                    ->label('Urutan')
                     ->required()
                     ->numeric()
                     ->default(0),
                 Toggle::make('is_active')
+                    ->label('Aktif')
                     ->required(),
             ]);
     }
