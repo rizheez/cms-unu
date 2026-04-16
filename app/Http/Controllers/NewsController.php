@@ -24,6 +24,12 @@ class NewsController extends Controller
                 ->latest('published_at')
                 ->paginate(9),
             'categories' => PostCategory::query()->orderBy('name')->get(),
+            'latestPosts' => Post::query()
+                ->with('category')
+                ->published()
+                ->latest('published_at')
+                ->limit(5)
+                ->get(),
         ]);
     }
 
@@ -45,6 +51,13 @@ class NewsController extends Controller
                 ->latest('published_at')
                 ->limit(3)
                 ->get(),
+            'latestPosts' => Post::query()
+                ->with('category')
+                ->published()
+                ->whereKeyNot($post->getKey())
+                ->latest('published_at')
+                ->limit(5)
+                ->get(),
         ]);
     }
 
@@ -56,6 +69,12 @@ class NewsController extends Controller
             'posts' => Post::query()->with(['category', 'author'])->published()->whereBelongsTo($category, 'category')->latest('published_at')->paginate(9),
             'categories' => PostCategory::query()->orderBy('name')->get(),
             'activeCategory' => $category,
+            'latestPosts' => Post::query()
+                ->with('category')
+                ->published()
+                ->latest('published_at')
+                ->limit(5)
+                ->get(),
         ]);
     }
 }
