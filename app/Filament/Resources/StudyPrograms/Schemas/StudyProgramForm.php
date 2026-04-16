@@ -22,9 +22,6 @@ class StudyProgramForm
                 TextInput::make('name')
                     ->label('Nama')
                     ->required(),
-                TextInput::make('slug')
-                    ->label('Slug')
-                    ->required(),
                 TextInput::make('degree_level')
                     ->label('Jenjang')
                     ->required(),

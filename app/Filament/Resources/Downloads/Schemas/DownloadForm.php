@@ -16,9 +16,6 @@ class DownloadForm
                 TextInput::make('title')
                     ->label('Judul')
                     ->required(),
-                TextInput::make('slug')
-                    ->label('Slug')
-                    ->required(),
                 Textarea::make('description')
                     ->label('Deskripsi')
                     ->columnSpanFull(),

@@ -17,9 +17,6 @@ class FacultyForm
                 TextInput::make('name')
                     ->label('Nama')
                     ->required(),
-                TextInput::make('slug')
-                    ->label('Slug')
-                    ->required(),
                 TextInput::make('short_name')
                     ->label('Nama Singkat'),
                 TextInput::make('dean_name')

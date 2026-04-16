@@ -17,9 +17,6 @@ class AnnouncementForm
                 TextInput::make('title')
                     ->label('Judul')
                     ->required(),
-                TextInput::make('slug')
-                    ->label('Slug')
-                    ->required(),
                 RichEditor::make('content')
                     ->label('Konten')
                     ->required()

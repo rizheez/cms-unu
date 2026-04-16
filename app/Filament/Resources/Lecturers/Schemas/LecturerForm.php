@@ -23,9 +23,6 @@ class LecturerForm
                 TextInput::make('name')
                     ->label('Nama')
                     ->required(),
-                TextInput::make('slug')
-                    ->label('Slug')
-                    ->required(),
                 TextInput::make('nidn')
                     ->label('NIDN'),
                 TextInput::make('email')

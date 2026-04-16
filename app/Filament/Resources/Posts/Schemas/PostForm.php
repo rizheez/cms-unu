@@ -26,9 +26,6 @@ class PostForm
                 TextInput::make('title')
                     ->label('Judul')
                     ->required(),
-                TextInput::make('slug')
-                    ->label('Slug')
-                    ->required(),
                 Textarea::make('excerpt')
                     ->label('Ringkasan')
                     ->columnSpanFull(),
