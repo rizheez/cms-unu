@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Pages\Schemas;
 
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -19,7 +20,7 @@ class PageForm
                     ->required(),
                 TextInput::make('slug')
                     ->required(),
-                Textarea::make('content')
+                RichEditor::make('content')
                     ->columnSpanFull(),
                 TextInput::make('template')
                     ->required()

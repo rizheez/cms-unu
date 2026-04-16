@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Posts\Schemas;
 
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -26,7 +27,7 @@ class PostForm
                     ->required(),
                 Textarea::make('excerpt')
                     ->columnSpanFull(),
-                Textarea::make('content')
+                RichEditor::make('content')
                     ->columnSpanFull(),
                 FileUpload::make('featured_image')
                     ->image(),

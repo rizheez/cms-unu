@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\Lecturers\Schemas;
 
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
@@ -28,7 +28,7 @@ class LecturerForm
                     ->email(),
                 TextInput::make('position'),
                 TextInput::make('education_level'),
-                Textarea::make('bio')
+                RichEditor::make('bio')
                     ->columnSpanFull(),
                 TextInput::make('photo'),
                 TextInput::make('expertise'),

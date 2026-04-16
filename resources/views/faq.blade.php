@@ -8,7 +8,7 @@
             @foreach ($items as $faq)
                 <details class="mb-3 rounded-lg border border-black/10 bg-white p-5">
                     <summary class="cursor-pointer font-bold">{{ $faq->question }}</summary>
-                    <p class="mt-3 text-[#123136]/75">{{ $faq->answer }}</p>
+                    <div class="mt-3 text-[#123136]/75">{!! $faq->answer !!}</div>
                 </details>
             @endforeach
         @endforeach

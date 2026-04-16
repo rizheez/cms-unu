@@ -3,3 +3,11 @@
 
 @source '../../../../app/Filament/**/*';
 @source '../../../../resources/views/filament/**/*';
+
+.fi-fo-rich-editor .fi-fo-rich-editor-content {
+    min-height: 22rem;
+}
+
+.fi-fo-rich-editor .tiptap.ProseMirror {
+    min-height: 19rem;
+}
