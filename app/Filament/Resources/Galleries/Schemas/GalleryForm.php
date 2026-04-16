@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\Galleries\Schemas;
 
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -32,9 +34,13 @@ class GalleryForm
                             ->label('Gambar Sampul')
                             ->helperText('Gambar ini menjadi sampul daftar galeri.')
                             ->image(),
-                        TextInput::make('type')
+                        Select::make('type')
                             ->label('Jenis')
-                            ->placeholder('Contoh: photo atau video')
+                            ->placeholder('Pilih jenis galeri')
+                            ->options([
+                                'photo' => 'Foto',
+                                'video' => 'Video',
+                            ])
                             ->required()
                             ->default('photo'),
                         Toggle::make('is_active')
@@ -43,6 +49,34 @@ class GalleryForm
                             ->required(),
                     ])
                     ->columns(2),
+                Section::make('Foto Galeri')
+                    ->schema([
+                        Repeater::make('items')
+                            ->label('Item Galeri')
+                            ->relationship()
+                            ->schema([
+                                FileUpload::make('image')
+                                    ->label('Foto')
+                                    ->helperText('Upload foto kegiatan untuk galeri ini.')
+                                    ->image(),
+                                TextInput::make('caption')
+                                    ->label('Keterangan')
+                                    ->placeholder('Contoh: Dokumentasi kegiatan mahasiswa di aula utama')
+                                    ->maxLength(255),
+                                TextInput::make('video_url')
+                                    ->label('URL Video')
+                                    ->placeholder('Contoh: https://www.youtube.com/watch?v=...')
+                                    ->url()
+                                    ->maxLength(255),
+                            ])
+                            ->columns(2)
+                            ->columnSpanFull()
+                            ->orderColumn('order')
+                            ->addActionLabel('Tambah Foto')
+                            ->reorderableWithButtons()
+                            ->collapsible(),
+                    ])
+                    ->columnSpanFull(),
             ]);
     }
 }

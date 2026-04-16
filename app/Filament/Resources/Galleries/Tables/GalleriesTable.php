@@ -27,6 +27,11 @@ class GalleriesTable
                 TextColumn::make('type')
                     ->label('Jenis')
                     ->searchable(),
+                TextColumn::make('items_count')
+                    ->label('Jumlah Item')
+                    ->counts('items')
+                    ->numeric()
+                    ->sortable(),
                 IconColumn::make('is_active')
                     ->label('Aktif')
                     ->boolean(),
