@@ -914,7 +914,7 @@ svg {
     animation: partners 28s linear infinite;
 }
 
-.partners-track span {
+.partner-logo-card {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -925,6 +925,19 @@ svg {
     border-radius: 8px;
     background: rgb(255 255 255 / 42%);
     font-weight: 900;
+}
+
+.partner-logo-card img {
+    display: block;
+    max-width: 180px;
+    max-height: 46px;
+    object-fit: contain;
+}
+
+.partner-logo-card span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 46px;
 }
 
 @keyframes partners {

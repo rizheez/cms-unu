@@ -177,7 +177,27 @@
             <div class="partners-marquee">
                 <div class="partners-track">
                     @foreach ($partners->concat($partners) as $partner)
-                        <span>{{ $partner->name }}</span>
+                        @php
+                            $partnerLogoUrl = $partner->logo
+                                ? (str($partner->logo)->startsWith(['http://', 'https://'])
+                                    ? $partner->logo
+                                    : \Illuminate\Support\Facades\Storage::disk('public')->url($partner->logo))
+                                : null;
+                        @endphp
+
+                        <span class="partner-logo-card">
+                            @if ($partnerLogoUrl)
+                                <img
+                                    src="{{ $partnerLogoUrl }}"
+                                    alt="Logo {{ $partner->name }}"
+                                    loading="lazy"
+                                    onerror="this.hidden = true; this.nextElementSibling.hidden = false;"
+                                >
+                                <span hidden>{{ $partner->name }}</span>
+                            @else
+                                <span>{{ $partner->name }}</span>
+                            @endif
+                        </span>
                     @endforeach
                 </div>
             </div>

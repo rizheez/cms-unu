@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Partners\Schemas;
 
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
@@ -23,9 +24,13 @@ class PartnerForm
                             ->label('Website')
                             ->placeholder('Contoh: https://bankbsi.co.id')
                             ->url(),
-                        TextInput::make('logo')
+                        FileUpload::make('logo')
                             ->label('Logo')
-                            ->placeholder('Contoh: partners/logo-bsi.png')
+                            ->helperText('Upload logo mitra dalam format gambar.')
+                            ->image()
+                            ->disk('public')
+                            ->directory('partners')
+                            ->visibility('public')
                             ->required(),
                     ])
                     ->columns(2),

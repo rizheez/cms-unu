@@ -6,6 +6,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -18,9 +19,9 @@ class PartnersTable
                 TextColumn::make('name')
                     ->label('Nama')
                     ->searchable(),
-                TextColumn::make('logo')
+                ImageColumn::make('logo')
                     ->label('Logo')
-                    ->searchable(),
+                    ->disk('public'),
                 TextColumn::make('website')
                     ->label('Situs Web')
                     ->searchable(),
