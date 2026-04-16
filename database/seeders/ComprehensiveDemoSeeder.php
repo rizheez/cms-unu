@@ -82,6 +82,7 @@ class ComprehensiveDemoSeeder extends Seeder
             ['key' => 'site_email', 'value' => 'info@unu.ac.id', 'group' => 'contact'],
             ['key' => 'site_logo', 'value' => 'seed/brand/logo-unu.png', 'group' => 'appearance'],
             ['key' => 'site_favicon', 'value' => 'seed/brand/favicon.png', 'group' => 'appearance'],
+            ['key' => 'ticker_text', 'value' => 'Pendaftaran Mahasiswa Baru telah dibuka - Daftarkan dirimu sekarang! - Wisuda Sarjana akan diselenggarakan semester ini - UNU raih akreditasi Baik Sekali - Seminar nasional terbuka untuk umum', 'group' => 'appearance'],
             ['key' => 'social_facebook', 'value' => 'https://facebook.com/unu', 'group' => 'social'],
             ['key' => 'social_instagram', 'value' => 'https://instagram.com/unu', 'group' => 'social'],
             ['key' => 'social_youtube', 'value' => 'https://youtube.com/@unu', 'group' => 'social'],

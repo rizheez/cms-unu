@@ -11,7 +11,9 @@
 </head>
 <body>
     @php
-        $tickerText = 'Pendaftaran Mahasiswa Baru telah dibuka - Daftarkan dirimu sekarang!  -  Wisuda Sarjana akan diselenggarakan semester ini  -  UNU raih akreditasi ' . setting('accreditation', 'Baik Sekali') . '  -  Seminar nasional terbuka untuk umum';
+        $defaultTickerText = 'Pendaftaran Mahasiswa Baru telah dibuka - Daftarkan dirimu sekarang! - Wisuda Sarjana akan diselenggarakan semester ini - UNU raih akreditasi ' . setting('accreditation', 'Baik Sekali') . ' - Seminar nasional terbuka untuk umum';
+        $tickerText = trim((string) setting('ticker_text', $defaultTickerText));
+        $tickerText = $tickerText !== '' ? $tickerText : $defaultTickerText;
     @endphp
 
     <a href="https://wa.me/{{ preg_replace('/\D+/', '', (string) setting('site_phone', '6281240002026')) }}" class="wa-float" aria-label="WhatsApp">WA</a>
