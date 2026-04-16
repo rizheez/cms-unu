@@ -249,18 +249,23 @@ class ComprehensiveDemoSeeder extends Seeder
     private function seedAcademics(): void
     {
         collect([
-            ['slug' => 'fakultas-teknologi-dan-sains', 'name' => 'Fakultas Teknologi dan Sains', 'short_name' => 'FTS', 'dean_name' => 'Dr. Ahmad Fauzi, M.Kom.', 'email' => 'fts@unu.ac.id', 'image' => 'seed/faculties/teknologi-sains.jpg', 'programs' => [
-                ['name' => 'Informatika', 'degree_level' => 'S1', 'head_name' => 'Nur Aisyah, M.Kom.', 'accreditation' => 'Baik Sekali'],
-                ['name' => 'Sistem Informasi', 'degree_level' => 'S1', 'head_name' => 'Rizky Maulana, M.MSI.', 'accreditation' => 'Baik'],
-                ['name' => 'Teknologi Pangan', 'degree_level' => 'S1', 'head_name' => 'Dr. Laila Rahma, M.Si.', 'accreditation' => 'Baik Sekali'],
+            ['slug' => 'fakultas-ekonomi-dan-bisnis', 'name' => 'Fakultas Ekonomi dan Bisnis', 'short_name' => 'FEB', 'dean_name' => 'Dekan Fakultas Ekonomi dan Bisnis', 'email' => 'feb@unukaltim.ac.id', 'image' => 'seed/faculties/ekonomi-bisnis.jpg', 'programs' => [
+                ['name' => 'Akuntansi', 'degree_level' => 'S1', 'head_name' => 'Ketua Program Studi Akuntansi', 'accreditation' => 'Baik'],
             ]],
-            ['slug' => 'fakultas-ekonomi-dan-bisnis', 'name' => 'Fakultas Ekonomi dan Bisnis', 'short_name' => 'FEB', 'dean_name' => 'Dr. Siti Mardiah, M.M.', 'email' => 'feb@unu.ac.id', 'image' => 'seed/faculties/ekonomi-bisnis.jpg', 'programs' => [
-                ['name' => 'Manajemen', 'degree_level' => 'S1', 'head_name' => 'Hendra Wijaya, M.M.', 'accreditation' => 'Baik Sekali'],
-                ['name' => 'Akuntansi', 'degree_level' => 'S1', 'head_name' => 'Dewi Kartika, M.Ak.', 'accreditation' => 'Baik'],
+            ['slug' => 'fakultas-teknik', 'name' => 'Fakultas Teknik', 'short_name' => 'FT', 'dean_name' => 'Dekan Fakultas Teknik', 'email' => 'ft@unukaltim.ac.id', 'image' => 'seed/faculties/teknik.jpg', 'programs' => [
+                ['name' => 'Arsitektur', 'degree_level' => 'S1', 'head_name' => 'Ketua Program Studi Arsitektur', 'accreditation' => 'Baik'],
+                ['name' => 'Desain Interior', 'degree_level' => 'S1', 'head_name' => 'Ketua Program Studi Desain Interior', 'accreditation' => 'Baik'],
+                ['name' => 'Teknik Industri', 'degree_level' => 'S1', 'head_name' => 'Ketua Program Studi Teknik Industri', 'accreditation' => 'Baik'],
+                ['name' => 'Teknik Informatika', 'degree_level' => 'S1', 'head_name' => 'Ketua Program Studi Teknik Informatika', 'accreditation' => 'Baik'],
+                ['name' => 'Teknologi Industri Pertanian', 'degree_level' => 'S1', 'head_name' => 'Ketua Program Studi Teknologi Industri Pertanian', 'accreditation' => 'Baik'],
             ]],
-            ['slug' => 'fakultas-keguruan-dan-ilmu-pendidikan', 'name' => 'Fakultas Keguruan dan Ilmu Pendidikan', 'short_name' => 'FKIP', 'dean_name' => 'Dr. M. Hasyim, M.Pd.', 'email' => 'fkip@unu.ac.id', 'image' => 'seed/faculties/fkip.jpg', 'programs' => [
-                ['name' => 'Pendidikan Guru Sekolah Dasar', 'degree_level' => 'S1', 'head_name' => 'Sri Wahyuni, M.Pd.', 'accreditation' => 'Baik Sekali'],
-                ['name' => 'Pendidikan Bahasa Inggris', 'degree_level' => 'S1', 'head_name' => 'Fajar Ramadhan, M.Pd.', 'accreditation' => 'Baik'],
+            ['slug' => 'fakultas-ilmu-sosial-dan-kependidikan', 'name' => 'Fakultas Ilmu Sosial dan Kependidikan', 'short_name' => 'FISK', 'dean_name' => 'Dekan Fakultas Ilmu Sosial dan Kependidikan', 'email' => 'fisk@unukaltim.ac.id', 'image' => 'seed/faculties/ilmu-sosial-kependidikan.jpg', 'programs' => [
+                ['name' => 'Hubungan Internasional', 'degree_level' => 'S1', 'head_name' => 'Ketua Program Studi Hubungan Internasional', 'accreditation' => 'Baik'],
+                ['name' => 'Ilmu Komunikasi', 'degree_level' => 'S1', 'head_name' => 'Ketua Program Studi Ilmu Komunikasi', 'accreditation' => 'Baik'],
+                ['name' => 'Pendidikan Anak Usia Dini', 'degree_level' => 'S1', 'head_name' => 'Ketua Program Studi Pendidikan Anak Usia Dini', 'accreditation' => 'Baik'],
+            ]],
+            ['slug' => 'fakultas-farmasi', 'name' => 'Fakultas Farmasi', 'short_name' => 'FF', 'dean_name' => 'Dekan Fakultas Farmasi', 'email' => 'farmasi@unukaltim.ac.id', 'image' => 'seed/faculties/farmasi.jpg', 'programs' => [
+                ['name' => 'Farmasi', 'degree_level' => 'S1', 'head_name' => 'Ketua Program Studi Farmasi', 'accreditation' => 'Baik'],
             ]],
         ])->each(function (array $faculty, int $index): void {
             $model = Faculty::query()->updateOrCreate(
@@ -271,9 +276,9 @@ class ComprehensiveDemoSeeder extends Seeder
                     'dean_name' => $faculty['dean_name'],
                     'email' => $faculty['email'],
                     'phone' => '+62 812 4000 20'.($index + 10),
-                    'description' => $faculty['name'].' menaungi pembelajaran, riset, dan kolaborasi yang relevan dengan kebutuhan daerah dan industri.',
+                    'description' => $faculty['name'].' menaungi pembelajaran, riset, dan pengabdian masyarakat di Universitas Nahdlatul Ulama Kalimantan Timur.',
                     'image' => $faculty['image'],
-                    'accreditation' => 'Baik Sekali',
+                    'accreditation' => 'Baik',
                     'order' => $index + 1,
                     'is_active' => true,
                 ],
