@@ -32,7 +32,7 @@ class Settings extends Page
 
     protected static ?string $navigationLabel = 'Settings';
 
-    protected static ?int $navigationSort = 99;
+    protected static ?int $navigationSort = 30;
 
     /**
      * @var array<string, mixed>|null
