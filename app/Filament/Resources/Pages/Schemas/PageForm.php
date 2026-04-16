@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Pages\Schemas;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -33,8 +34,13 @@ class PageForm
                             ->label('Template')
                             ->required()
                             ->default('default'),
-                        TextInput::make('status')
+                        Select::make('status')
                             ->label('Status')
+                            ->options([
+                                'draft' => 'Draft',
+                                'published' => 'Terbit',
+                                'archived' => 'Arsip',
+                            ])
                             ->required()
                             ->default('draft'),
                         DateTimePicker::make('published_at')
@@ -55,6 +61,7 @@ class PageForm
                             ->image(),
                         Toggle::make('is_in_sitemap')
                             ->label('Masuk Sitemap')
+                            ->default(true)
                             ->required(),
                     ])
                     ->columns(2),

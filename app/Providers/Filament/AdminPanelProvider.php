@@ -52,6 +52,9 @@ class AdminPanelProvider extends PanelProvider
                 NavigationGroup::make()
                     ->label('Komunikasi')
                     ->icon(Heroicon::OutlinedInbox),
+                NavigationGroup::make()
+                    ->label('Sistem')
+                    ->icon(Heroicon::OutlinedUsers),
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
@@ -75,7 +78,9 @@ class AdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->plugins([
-                FilamentShieldPlugin::make(),
+                FilamentShieldPlugin::make()
+                    ->navigationGroup('Sistem')
+                    ->navigationSort(20),
             ])
             ->spa()
             ->authMiddleware([

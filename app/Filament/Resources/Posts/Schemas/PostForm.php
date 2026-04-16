@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Posts\Schemas;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -46,8 +47,13 @@ class PostForm
                     ]),
                 Section::make('Publikasi')
                     ->schema([
-                        TextInput::make('status')
+                        Select::make('status')
                             ->label('Status')
+                            ->options([
+                                'draft' => 'Draft',
+                                'published' => 'Terbit',
+                                'archived' => 'Arsip',
+                            ])
                             ->required()
                             ->default('draft'),
                         DateTimePicker::make('published_at')
@@ -55,11 +61,6 @@ class PostForm
                         Toggle::make('is_featured')
                             ->label('Unggulan')
                             ->required(),
-                        TextInput::make('views')
-                            ->label('Jumlah Dilihat')
-                            ->required()
-                            ->numeric()
-                            ->default(0),
                     ])
                     ->columns(2),
                 Section::make('Pengaturan SEO')
@@ -76,6 +77,7 @@ class PostForm
                             ->image(),
                         Toggle::make('is_in_sitemap')
                             ->label('Masuk Sitemap')
+                            ->default(true)
                             ->required(),
                     ])
                     ->columns(2),

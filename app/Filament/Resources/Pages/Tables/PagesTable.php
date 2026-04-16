@@ -20,32 +20,44 @@ class PagesTable
         return $table
             ->columns([
                 TextColumn::make('title')
+                    ->label('Judul')
                     ->searchable(),
                 TextColumn::make('slug')
+                    ->label('Slug')
                     ->searchable(),
                 TextColumn::make('template')
+                    ->label('Templat')
                     ->searchable(),
                 TextColumn::make('status')
+                    ->label('Status')
                     ->searchable(),
                 TextColumn::make('meta_title')
+                    ->label('Meta Judul')
                     ->searchable(),
                 TextColumn::make('meta_keywords')
+                    ->label('Meta Kata Kunci')
                     ->searchable(),
-                ImageColumn::make('og_image'),
+                ImageColumn::make('og_image')
+                    ->label('Gambar OG'),
                 IconColumn::make('is_in_sitemap')
+                    ->label('Masuk Sitemap')
                     ->boolean(),
                 TextColumn::make('published_at')
+                    ->label('Tanggal Terbit')
                     ->dateTime()
                     ->sortable(),
                 TextColumn::make('created_at')
+                    ->label('Dibuat')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label('Diperbarui')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('deleted_at')
+                    ->label('Dihapus')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

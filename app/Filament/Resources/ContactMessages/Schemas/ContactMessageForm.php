@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\ContactMessages\Schemas;
 
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
@@ -40,8 +41,12 @@ class ContactMessageForm
                     ]),
                 Section::make('Status Pembacaan')
                     ->schema([
-                        TextInput::make('status')
+                        Select::make('status')
                             ->label('Status')
+                            ->options([
+                                'unread' => 'Belum Dibaca',
+                                'read' => 'Dibaca',
+                            ])
                             ->required()
                             ->default('unread'),
                         DateTimePicker::make('read_at')

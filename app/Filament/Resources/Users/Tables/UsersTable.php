@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Filament\Resources\Menus\Tables;
+namespace App\Filament\Resources\Users\Tables;
 
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class MenusTable
+class UsersTable
 {
     public static function configure(Table $table): Table
     {
@@ -18,12 +15,18 @@ class MenusTable
                 TextColumn::make('name')
                     ->label('Nama')
                     ->searchable(),
-                TextColumn::make('location')
-                    ->label('Lokasi')
+                TextColumn::make('email')
+                    ->label('Alamat Email')
                     ->searchable(),
-                IconColumn::make('is_active')
-                    ->label('Aktif')
-                    ->boolean(),
+                TextColumn::make('roles.name')
+                    ->label('Peran')
+                    ->badge()
+                    ->separator(',')
+                    ->searchable(),
+                TextColumn::make('email_verified_at')
+                    ->label('Email Diverifikasi')
+                    ->dateTime()
+                    ->sortable(),
                 TextColumn::make('created_at')
                     ->label('Dibuat')
                     ->dateTime()
@@ -42,9 +45,7 @@ class MenusTable
                 EditAction::make(),
             ])
             ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
+                //
             ]);
     }
 }

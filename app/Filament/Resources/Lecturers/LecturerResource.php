@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use UnitEnum;
 
 class LecturerResource extends Resource
@@ -53,5 +54,11 @@ class LecturerResource extends Resource
             'create' => CreateLecturer::route('/create'),
             'edit' => EditLecturer::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->with(['faculty', 'studyProgram']);
     }
 }

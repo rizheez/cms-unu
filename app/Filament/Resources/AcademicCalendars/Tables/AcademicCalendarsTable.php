@@ -15,22 +15,29 @@ class AcademicCalendarsTable
         return $table
             ->columns([
                 TextColumn::make('title')
+                    ->label('Judul')
                     ->searchable(),
                 TextColumn::make('start_date')
+                    ->label('Tanggal Mulai')
                     ->date()
                     ->sortable(),
                 TextColumn::make('end_date')
+                    ->label('Tanggal Selesai')
                     ->date()
                     ->sortable(),
                 TextColumn::make('category')
+                    ->label('Kategori')
                     ->searchable(),
                 TextColumn::make('color')
+                    ->label('Warna')
                     ->searchable(),
                 TextColumn::make('created_at')
+                    ->label('Dibuat')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label('Diperbarui')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

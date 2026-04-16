@@ -28,16 +28,21 @@ class MenuItemsTable
                     ->placeholder('URL custom')
                     ->searchable(),
                 TextColumn::make('label')
+                    ->label('Label')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('url')
+                    ->label('URL')
                     ->searchable(),
                 TextColumn::make('target')
+                    ->label('Target Tautan')
                     ->badge(),
                 TextColumn::make('order')
+                    ->label('Urutan')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('updated_at')
+                    ->label('Diperbarui')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
