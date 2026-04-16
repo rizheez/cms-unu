@@ -14,12 +14,19 @@
                         allowfullscreen
                     ></iframe>
                 @elseif ($item->image)
-                    <img
-                        src="{{ asset('storage/'.$item->image) }}"
-                        alt="{{ $item->caption ?: $gallery->title }}"
-                        class="aspect-video w-full object-cover"
-                        loading="lazy"
+                    <button
+                        type="button"
+                        class="gallery-lightbox-trigger"
+                        data-lightbox-src="{{ asset('storage/'.$item->image) }}"
+                        data-lightbox-alt="{{ $item->caption ?: $gallery->title }}"
                     >
+                        <img
+                            src="{{ asset('storage/'.$item->image) }}"
+                            alt="{{ $item->caption ?: $gallery->title }}"
+                            class="aspect-video w-full object-cover"
+                            loading="lazy"
+                        >
+                    </button>
                 @else
                     <div class="flex aspect-video items-center justify-center bg-[#d8f7f2] px-6 text-center text-sm text-[#123136]/70">
                         Media galeri belum diisi.

@@ -58,3 +58,56 @@ document.querySelectorAll('nav a').forEach((link) => {
         link.classList.add('is-active');
     }
 });
+
+const lightboxTriggers = document.querySelectorAll('[data-lightbox-src]');
+
+if (lightboxTriggers.length > 0) {
+    const lightbox = document.createElement('div');
+    const image = document.createElement('img');
+    const closeButton = document.createElement('button');
+
+    lightbox.className = 'image-lightbox';
+    lightbox.hidden = true;
+    lightbox.setAttribute('role', 'dialog');
+    lightbox.setAttribute('aria-modal', 'true');
+
+    closeButton.type = 'button';
+    closeButton.textContent = 'x';
+    closeButton.setAttribute('aria-label', 'Tutup gambar');
+
+    lightbox.append(image, closeButton);
+    document.body.append(lightbox);
+
+    const closeLightbox = () => {
+        lightbox.hidden = true;
+        image.removeAttribute('src');
+        image.removeAttribute('alt');
+        document.body.style.overflow = '';
+    };
+
+    lightboxTriggers.forEach((trigger) => {
+        trigger.addEventListener('click', () => {
+            if (!(trigger instanceof HTMLElement)) {
+                return;
+            }
+
+            image.src = trigger.dataset.lightboxSrc ?? '';
+            image.alt = trigger.dataset.lightboxAlt ?? '';
+            lightbox.hidden = false;
+            document.body.style.overflow = 'hidden';
+            closeButton.focus();
+        });
+    });
+
+    closeButton.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (event) => {
+        if (event.target === lightbox) {
+            closeLightbox();
+        }
+    });
+    window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !lightbox.hidden) {
+            closeLightbox();
+        }
+    });
+}

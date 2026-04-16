@@ -87,7 +87,14 @@
             @if ($featured)
                 <article class="news-featured card-lift" data-reveal>
                     <a href="{{ route('news.show', $featured->slug) }}">
-                        <div class="news-image">
+                        <div class="news-image {{ $featured->featured_image_url ? 'has-image' : '' }}">
+                            @if ($featured->featured_image_url)
+                                <img
+                                    src="{{ $featured->featured_image_url }}"
+                                    alt="{{ $featured->title }}"
+                                    loading="lazy"
+                                >
+                            @endif
                             <span>{{ \Illuminate\Support\Str::upper($featured->category?->name ?? 'Berita') }}</span>
                         </div>
                         <div class="news-content">

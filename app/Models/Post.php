@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Post extends Model
@@ -76,6 +77,27 @@ class Post extends Model
         $words = Str::wordCount(strip_tags((string) $this->content));
 
         return max(1, (int) ceil($words / 200));
+    }
+
+    public function getFeaturedImageUrlAttribute(): ?string
+    {
+        $featuredImage = trim((string) $this->featured_image);
+
+        if ($featuredImage !== '') {
+            if (Str::startsWith($featuredImage, ['http://', 'https://'])) {
+                return $featuredImage;
+            }
+
+            if (Storage::disk('public')->exists($featuredImage)) {
+                return Storage::disk('public')->url($featuredImage);
+            }
+        }
+
+        if (preg_match('/<img[^>]+src=["\']([^"\']+)["\']/i', (string) $this->content, $matches) === 1) {
+            return html_entity_decode($matches[1]);
+        }
+
+        return null;
     }
 
     public function incrementViews(): void
