@@ -8,12 +8,12 @@ use App\Models\Page;
 use App\Models\Post;
 use App\Models\PostCategory;
 use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Tests\TestCase;
 
 class SitemapTest extends TestCase
 {
-    use DatabaseTransactions;
+    use LazilyRefreshDatabase;
 
     public function test_sitemap_endpoint_returns_xml_with_public_content(): void
     {
