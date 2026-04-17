@@ -402,8 +402,31 @@ svg {
     color: #ffffff;
 }
 
+.hero-bg-video,
+.hero-video-shade {
+    position: absolute;
+    inset: 0;
+}
+
+.hero-bg-video {
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-video-shade {
+    z-index: 1;
+    background:
+        linear-gradient(90deg, rgb(0 31 35 / 82%) 0%, rgb(0 67 74 / 62%) 48%, rgb(0 31 35 / 44%) 100%),
+        linear-gradient(rgb(0 0 0 / 18%) 1px, transparent 1px),
+        linear-gradient(90deg, rgb(0 0 0 / 18%) 1px, transparent 1px);
+    background-size: 100% 100%, 82px 82px, 82px 82px;
+}
+
 .arabesque {
     position: absolute;
+    z-index: 1;
     right: 0;
     top: 50%;
     transform: translateY(-50%);
@@ -1395,6 +1418,10 @@ svg {
         font-size: clamp(40px, 11.2vw, 60px);
         line-height: 1;
         overflow-wrap: break-word;
+    }
+
+    .hero-visual {
+        display: none;
     }
 
     .stats-strip {

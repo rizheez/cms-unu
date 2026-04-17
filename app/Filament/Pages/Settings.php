@@ -46,6 +46,7 @@ class Settings extends Page
         'accreditation' => ['default' => 'Baik Sekali', 'group' => 'profile'],
         'home_students_count' => ['default' => '12400', 'group' => 'homepage'],
         'home_service_years' => ['default' => '30', 'group' => 'homepage'],
+        'home_hero_video' => ['default' => '', 'group' => 'homepage'],
         'home_about_image' => ['default' => '', 'group' => 'homepage'],
     ];
 
@@ -164,6 +165,15 @@ class Settings extends Page
                             ->minValue(0)
                             ->step(1)
                             ->required(),
+                        FileUpload::make('home_hero_video')
+                            ->label('Video Hero Beranda')
+                            ->helperText('Opsional. Format MP4, WebM, atau OGG. Disarankan video pendek dan ringan, maksimal 50 MB.')
+                            ->acceptedFileTypes(['video/mp4', 'video/webm', 'video/ogg'])
+                            ->maxSize(51200)
+                            ->disk('public')
+                            ->directory('homepage')
+                            ->visibility('public')
+                            ->columnSpanFull(),
                         FileUpload::make('home_about_image')
                             ->label('Foto Tentang Kampus')
                             ->helperText('Opsional. Jika diisi, gambar ini menggantikan ilustrasi kiri pada section Tentang UNU.')

@@ -6,6 +6,13 @@
         $smallPosts = $featuredPosts->skip(1)->take(3);
         $studentsCount = (int) setting('home_students_count', 12400);
         $serviceYears = (int) setting('home_service_years', 30);
+        $homeHeroVideo = trim((string) setting('home_hero_video', ''));
+        $homeHeroVideoUrl =
+            $homeHeroVideo !== ''
+                ? (str($homeHeroVideo)->startsWith(['http://', 'https://'])
+                    ? $homeHeroVideo
+                    : \Illuminate\Support\Facades\Storage::disk('public')->url($homeHeroVideo))
+                : null;
         $homeAboutImage = trim((string) setting('home_about_image', ''));
         $homeAboutImageUrl =
             $homeAboutImage !== ''
@@ -24,7 +31,14 @@
         ];
     @endphp
 
-    <section class="hero noise">
+    <section @class(['hero noise', 'has-hero-video' => $homeHeroVideoUrl])>
+        @if ($homeHeroVideoUrl)
+            <video class="hero-bg-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+                <source src="{{ $homeHeroVideoUrl }}">
+            </video>
+            <div class="hero-video-shade" aria-hidden="true"></div>
+        @endif
+
         <svg class="arabesque" viewBox="0 0 400 400" aria-hidden="true">
             <path
                 d="M200 20C240 90 310 100 380 100C310 140 300 210 300 280C260 210 190 200 120 200C190 160 200 90 200 20Z" />
@@ -33,7 +47,7 @@
 
         <div class="hero-copy" data-reveal>
             <span class="hero-badge">Akreditasi {{ setting('accreditation', 'Baik') }} BAN-PT</span>
-            <h1>Tempat Ilmu <span class="hl">Bertumbuh</span> dengan Akar Nilai.</h1>
+            <h1>{{ setting('site_name', 'Universitas Nahdlatul Ulama Kalimantan Timur') }}</h1>
             <p>{{ setting('meta_description', 'Kampus yang menumbuhkan pengetahuan, karakter, dan kontribusi nyata untuk masyarakat.') }}
             </p>
             <div class="hero-btns">
@@ -58,6 +72,7 @@
                 <small>Akreditasi</small>
             </div>
         </div> --}}
+
     </section>
 
     <section class="stats-strip">
