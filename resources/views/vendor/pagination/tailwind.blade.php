@@ -2,7 +2,7 @@
     @php
         $lastPage = $paginator->lastPage();
         $currentPage = $paginator->currentPage();
-        $pages = collect([1, 2, 3, $currentPage - 1, $currentPage, $currentPage + 1, $lastPage - 2, $lastPage - 1, $lastPage])
+        $pages = collect([1, 2, $currentPage, $lastPage - 1, $lastPage])
             ->filter(fn (int $page): bool => $page >= 1 && $page <= $lastPage)
             ->unique()
             ->sort()
@@ -21,46 +21,48 @@
             data
         </p>
 
-        <div class="flex flex-wrap items-center gap-2">
+        <div class="flex flex-wrap items-center justify-end gap-2 sm:justify-start">
             @if ($paginator->onFirstPage())
-                <span class="inline-flex h-10 min-w-10 cursor-not-allowed items-center justify-center rounded-md border border-[#00a9b7]/20 bg-white px-3 text-sm font-semibold text-[#123136]/35">
-                    Sebelumnya
+                <span class="inline-flex h-10 min-w-10 cursor-not-allowed items-center justify-center rounded-md border border-[#00a9b7]/20 bg-white px-3 text-lg font-bold leading-none text-[#123136]/35" aria-label="Halaman sebelumnya">
+                    &#8592;
                 </span>
             @else
-                <a href="{{ $paginator->previousPageUrl() }}" rel="prev" class="inline-flex h-10 min-w-10 items-center justify-center rounded-md border border-[#00a9b7]/25 bg-white px-3 text-sm font-semibold text-[#006b73] transition hover:border-[#00a9b7] hover:bg-[#e9fbf8]">
-                    Sebelumnya
+                <a href="{{ $paginator->previousPageUrl() }}" rel="prev" class="inline-flex h-10 min-w-10 items-center justify-center rounded-md border border-[#00a9b7]/25 bg-white px-3 text-lg font-bold leading-none text-[#006b73] transition hover:border-[#00a9b7] hover:bg-[#e9fbf8]" aria-label="Halaman sebelumnya">
+                    &#8592;
                 </a>
             @endif
 
-            @foreach ($pages as $page)
-                @if ($previousVisiblePage !== null && $page - $previousVisiblePage > 1)
-                    <span class="inline-flex h-10 min-w-10 items-center justify-center rounded-md border border-[#00a9b7]/20 bg-white px-3 text-sm font-semibold text-[#123136]/45">
-                        ...
-                    </span>
-                @endif
+            <div class="hidden flex-wrap items-center gap-2 sm:flex">
+                @foreach ($pages as $page)
+                    @if ($previousVisiblePage !== null && $page - $previousVisiblePage > 1)
+                        <span class="inline-flex h-10 min-w-10 items-center justify-center rounded-md border border-[#00a9b7]/20 bg-white px-3 text-sm font-semibold text-[#123136]/45">
+                            ...
+                        </span>
+                    @endif
 
-                @if ($page === $currentPage)
-                    <span aria-current="page" class="inline-flex h-10 min-w-10 items-center justify-center rounded-md border border-[#00a9b7] bg-[#00a9b7] px-3 text-sm font-bold text-white shadow-sm">
-                        {{ $page }}
-                    </span>
-                @else
-                    <a href="{{ $paginator->url($page) }}" class="inline-flex h-10 min-w-10 items-center justify-center rounded-md border border-[#00a9b7]/25 bg-white px-3 text-sm font-semibold text-[#006b73] transition hover:border-[#00a9b7] hover:bg-[#e9fbf8]">
-                        {{ $page }}
-                    </a>
-                @endif
+                    @if ($page === $currentPage)
+                        <span aria-current="page" class="inline-flex h-10 min-w-10 items-center justify-center rounded-md border border-[#00a9b7] bg-[#00a9b7] px-3 text-sm font-bold text-white shadow-sm">
+                            {{ $page }}
+                        </span>
+                    @else
+                        <a href="{{ $paginator->url($page) }}" class="inline-flex h-10 min-w-10 items-center justify-center rounded-md border border-[#00a9b7]/25 bg-white px-3 text-sm font-semibold text-[#006b73] transition hover:border-[#00a9b7] hover:bg-[#e9fbf8]">
+                            {{ $page }}
+                        </a>
+                    @endif
 
-                @php
-                    $previousVisiblePage = $page;
-                @endphp
-            @endforeach
+                    @php
+                        $previousVisiblePage = $page;
+                    @endphp
+                @endforeach
+            </div>
 
             @if ($paginator->hasMorePages())
-                <a href="{{ $paginator->nextPageUrl() }}" rel="next" class="inline-flex h-10 min-w-10 items-center justify-center rounded-md border border-[#00a9b7]/25 bg-white px-3 text-sm font-semibold text-[#006b73] transition hover:border-[#00a9b7] hover:bg-[#e9fbf8]">
-                    Berikutnya
+                <a href="{{ $paginator->nextPageUrl() }}" rel="next" class="inline-flex h-10 min-w-10 items-center justify-center rounded-md border border-[#00a9b7]/25 bg-white px-3 text-lg font-bold leading-none text-[#006b73] transition hover:border-[#00a9b7] hover:bg-[#e9fbf8]" aria-label="Halaman berikutnya">
+                    &#8594;
                 </a>
             @else
-                <span class="inline-flex h-10 min-w-10 cursor-not-allowed items-center justify-center rounded-md border border-[#00a9b7]/20 bg-white px-3 text-sm font-semibold text-[#123136]/35">
-                    Berikutnya
+                <span class="inline-flex h-10 min-w-10 cursor-not-allowed items-center justify-center rounded-md border border-[#00a9b7]/20 bg-white px-3 text-lg font-bold leading-none text-[#123136]/35" aria-label="Halaman berikutnya">
+                    &#8594;
                 </span>
             @endif
         </div>

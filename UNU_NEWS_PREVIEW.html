@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNU — Preview Halaman Berita</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --forest:   #005f69;
+  --emerald:  #00a9b7;
+  --lime:     #ffc928;
+  --gold:     #ff9f1c;
+  --cream:    #f4fffc;
+  --charcoal: #123136;
+  --mist:     #d8f7f2;
+  --mint:     #31d4b4;
+  --teal-soft:#08c1cb;
+  --radius-card: 20px;
+  --radius-pill: 9999px;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: #fff;
+  color: var(--charcoal);
+  overflow-x: hidden;
+}
+
+/* ─── NOISE ─── */
+.noise::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.045; pointer-events: none; mix-blend-mode: overlay;
+}
+
+/* ─── HEADER ─── */
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(0,95,105,0.93);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,201,40,0.18);
+  padding: 0 48px; height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.logo-icon { width: 40px; height: 40px; border-radius: 50%; background: var(--lime); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 16px; color: var(--forest); }
+.logo-text { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; color: var(--cream); line-height: 1.2; }
+.logo-text small { font-weight: 400; font-size: 11px; opacity: 0.6; display: block; }
+nav { display: flex; align-items: center; gap: 32px; }
+nav a { color: rgba(244,255,252,0.78); font-size: 14px; font-weight: 500; text-decoration: none; transition: color 0.2s; }
+nav a:hover, nav a.active { color: var(--lime); }
+.btn-nav { background: var(--lime); color: var(--forest); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 14px; padding: 10px 22px; border-radius: var(--radius-pill); border: none; cursor: pointer; }
+
+/* ─── PAGE SWITCHER ─── */
+.page-switcher {
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+  z-index: 999;
+  background: var(--charcoal); border-radius: var(--radius-pill);
+  padding: 6px; display: flex; gap: 4px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+}
+.sw-btn {
+  background: transparent; border: none; color: rgba(255,255,255,0.5);
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 600;
+  padding: 8px 20px; border-radius: var(--radius-pill); cursor: pointer;
+  transition: all 0.2s;
+}
+.sw-btn.active { background: var(--lime); color: var(--forest); }
+
+/* ─── TICKER ─── */
+.ticker-bar { background: var(--gold); color: var(--forest); padding: 10px 0; overflow: hidden; display: flex; align-items: center; }
+.ticker-label { background: var(--forest); color: var(--gold); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 16px; white-space: nowrap; flex-shrink: 0; }
+.ticker-content { overflow: hidden; flex: 1; }
+.ticker-text { font-size: 13px; font-weight: 500; animation: ticker 28s linear infinite; white-space: nowrap; display: inline-block; padding-left: 48px; }
+@keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-60%)} }
+
+/* ─── PAGES ─── */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   PAGE 1 — DAFTAR BERITA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Hero berita */
+.news-hero {
+  background: linear-gradient(135deg, #09c3cd 0%, #00aebb 52%, #0495a2 100%);
+  position: relative; overflow: hidden;
+  padding: 72px 48px 80px;
+}
+.news-hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.045; pointer-events: none; mix-blend-mode: overlay;
+}
+.news-hero-grid {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+.news-hero-orb {
+  position: absolute; right: -80px; bottom: -80px;
+  width: 400px; height: 400px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,159,28,0.85), transparent 70%);
+}
+.breadcrumb { position: relative; z-index: 2; display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+.breadcrumb a { color: rgba(255,255,255,0.6); font-size: 13px; text-decoration: none; }
+.breadcrumb span { color: rgba(255,255,255,0.4); font-size: 13px; }
+.breadcrumb strong { color: rgba(255,255,255,0.9); font-size: 13px; font-weight: 600; }
+.news-hero h1 {
+  position: relative; z-index: 2;
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(36px, 4.5vw, 64px);
+  font-weight: 800; color: #fff;
+  line-height: 1.05; letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+.news-hero p { position: relative; z-index: 2; color: rgba(255,255,255,0.75); font-size: 16px; max-width: 520px; }
+
+/* Filter bar */
+.filter-bar {
+  background: #fff;
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+  padding: 0 48px;
+  position: sticky; top: 68px; z-index: 90;
+  display: flex; align-items: center; gap: 12px;
+  height: 60px;
+  overflow-x: auto;
+}
+.filter-bar::-webkit-scrollbar { display: none; }
+.filter-pill {
+  white-space: nowrap;
+  padding: 7px 18px; border-radius: var(--radius-pill);
+  font-size: 13px; font-weight: 600; border: none; cursor: pointer;
+  transition: all 0.2s;
+  background: transparent; color: #888; border: 1px solid #e0e0e0;
+}
+.filter-pill:hover { border-color: var(--emerald); color: var(--emerald); }
+.filter-pill.active { background: var(--emerald); color: #fff; border-color: var(--emerald); }
+.filter-count { background: var(--lime); color: var(--forest); border-radius: 99px; font-size: 10px; font-weight: 700; padding: 1px 6px; margin-left: 4px; }
+
+/* News grid layout */
+.news-body { padding: 56px 48px; max-width: 1400px; margin: 0 auto; }
+
+/* Featured top */
+.news-featured-top {
+  display: grid; grid-template-columns: 1.5fr 1fr; gap: 24px; margin-bottom: 48px;
+}
+.card-featured {
+  border-radius: var(--radius-card); overflow: hidden; position: relative;
+  min-height: 480px; cursor: pointer;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  transition: transform 0.3s;
+}
+.card-featured:hover { transform: translateY(-4px); }
+.card-featured-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, #08c1cb 0%, #005f69 100%);
+  display: flex; align-items: center; justify-content: center;
+}
+.card-featured-bg .decor-num {
+  font-family: 'Syne', sans-serif; font-size: 220px; font-weight: 800;
+  color: rgba(255,255,255,0.06); line-height: 1; user-select: none;
+}
+.card-featured-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.1) 60%, transparent 100%); }
+.card-featured-body { position: relative; z-index: 2; padding: 32px; }
+.card-featured-body .cat-badge { display: inline-block; padding: 4px 12px; border-radius: var(--radius-pill); font-size: 11px; font-weight: 600; background: var(--lime); color: var(--forest); margin-bottom: 14px; }
+.card-featured-body h2 { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 16px; }
+.card-featured-body .meta { display: flex; align-items: center; gap: 16px; font-size: 12px; color: rgba(255,255,255,0.55); }
+.card-featured-body .meta .author { display: flex; align-items: center; gap: 6px; }
+.avatar-xs { width: 24px; height: 24px; border-radius: 50%; background: var(--lime); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: var(--forest); }
+.card-featured-body .views { background: rgba(255,255,255,0.12); padding: 3px 10px; border-radius: 99px; font-size: 11px; color: rgba(255,255,255,0.6); }
+
+/* Side stack */
+.card-side-stack { display: flex; flex-direction: column; gap: 16px; }
+.card-side {
+  background: #fff; border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.07);
+  overflow: hidden; display: flex; gap: 0; cursor: pointer;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.card-side:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+.card-side-thumb {
+  width: 120px; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--mist), #b2ede6);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 36px;
+}
+.card-side-body { padding: 18px 20px; display: flex; flex-direction: column; justify-content: space-between; }
+.card-side-body .cat-badge-sm { display: inline-block; padding: 3px 10px; border-radius: var(--radius-pill); font-size: 10px; font-weight: 600; margin-bottom: 8px; }
+.card-side-body h3 { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; color: var(--charcoal); line-height: 1.4; margin-bottom: 10px; }
+.card-side-body .meta-sm { font-size: 11px; color: #aaa; display: flex; gap: 10px; }
+
+/* Grid cards */
+.news-grid-section h3.grid-label {
+  font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: var(--charcoal);
+  margin-bottom: 24px; padding-bottom: 14px;
+  border-bottom: 2px solid var(--lime);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.news-grid-section h3.grid-label a { font-size: 13px; font-weight: 600; color: var(--emerald); text-decoration: none; }
+.cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.card-regular {
+  background: #fff; border-radius: var(--radius-card);
+  border: 1px solid rgba(0,0,0,0.07);
+  overflow: hidden; cursor: pointer;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.card-regular:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); }
+.card-img {
+  height: 200px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 56px; position: relative; overflow: hidden;
+}
+.card-img-badge {
+  position: absolute; top: 14px; left: 14px;
+  padding: 4px 12px; border-radius: var(--radius-pill);
+  font-size: 10px; font-weight: 700; letter-spacing: 0.05em;
+}
+.card-body { padding: 22px; }
+.card-body .cat-badge { display: inline-block; padding: 3px 10px; border-radius: var(--radius-pill); font-size: 10px; font-weight: 600; margin-bottom: 12px; }
+.card-body h4 { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; color: var(--charcoal); line-height: 1.4; margin-bottom: 10px; }
+.card-body p { font-size: 13px; color: #777; line-height: 1.65; margin-bottom: 16px; }
+.card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; border-top: 1px solid rgba(0,0,0,0.06); }
+.card-footer .author-mini { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #999; }
+.card-footer .read-link { font-size: 12px; font-weight: 600; color: var(--emerald); text-decoration: none; }
+
+/* Pagination */
+.pagination { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 56px; padding-bottom: 32px; }
+.page-btn {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 600;
+  border: 1px solid #e0e0e0; background: transparent; color: #888; cursor: pointer;
+  transition: all 0.2s;
+}
+.page-btn:hover { border-color: var(--emerald); color: var(--emerald); }
+.page-btn.active { background: var(--emerald); color: #fff; border-color: var(--emerald); }
+.page-btn.arrow { color: var(--charcoal); font-size: 16px; }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   PAGE 2 — DETAIL BERITA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Article hero */
+.article-hero {
+  background: linear-gradient(160deg, #09c3cd 0%, #005f69 100%);
+  position: relative; overflow: hidden;
+  padding: 80px 48px 0;
+}
+.article-hero-grid {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+.article-hero-orb {
+  position: absolute; left: -120px; top: -120px;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,201,40,0.55), transparent 70%);
+}
+.article-hero-inner { position: relative; z-index: 2; max-width: 860px; margin: 0 auto; }
+.article-hero .breadcrumb { margin-bottom: 28px; }
+.article-category {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--lime); color: var(--forest);
+  font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 6px 16px; border-radius: var(--radius-pill); margin-bottom: 24px;
+}
+.article-hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(28px, 4vw, 52px);
+  font-weight: 800; color: #fff;
+  line-height: 1.1; letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+.article-hero-meta {
+  display: flex; align-items: center; gap: 20px;
+  flex-wrap: wrap; margin-bottom: 36px;
+}
+.author-chip {
+  display: flex; align-items: center; gap: 10px;
+  background: rgba(255,255,255,0.12); backdrop-filter: blur(8px);
+  padding: 8px 16px 8px 8px; border-radius: var(--radius-pill);
+}
+.avatar-sm { width: 32px; height: 32px; border-radius: 50%; background: var(--lime); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; color: var(--forest); }
+.author-chip span { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.85); }
+.meta-chip { display: flex; align-items: center; gap: 6px; font-size: 13px; color: rgba(255,255,255,0.6); }
+
+/* Featured image area */
+.article-featured-img {
+  width: 100%; max-width: 860px; margin: 0 auto;
+  height: 420px; border-radius: 20px 20px 0 0; overflow: hidden;
+  background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 100%);
+  border: 1px solid rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; z-index: 2;
+}
+.article-featured-img .img-placeholder { text-align: center; }
+.article-featured-img .img-placeholder .icon { font-size: 72px; opacity: 0.3; }
+.article-featured-img .img-placeholder p { font-size: 13px; color: rgba(255,255,255,0.35); margin-top: 12px; }
+
+/* Article layout */
+.article-layout {
+  max-width: 1200px; margin: 0 auto;
+  padding: 0 48px 80px;
+  display: grid; grid-template-columns: 1fr 320px; gap: 56px;
+  align-items: start;
+}
+
+/* Article content */
+.article-content {
+  padding-top: 56px;
+}
+.article-content p {
+  font-size: 17px; line-height: 1.85; color: #3a4a4d; margin-bottom: 28px;
+}
+.article-content h2 {
+  font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 700; color: var(--charcoal);
+  margin: 48px 0 20px;
+  border-left: 4px solid var(--lime); padding-left: 18px;
+}
+.article-content h3 {
+  font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; color: var(--charcoal);
+  margin: 36px 0 16px;
+}
+.article-content blockquote {
+  background: linear-gradient(135deg, var(--mist), #eefcfa);
+  border-left: 4px solid var(--emerald);
+  border-radius: 0 12px 12px 0;
+  padding: 24px 28px; margin: 36px 0;
+}
+.article-content blockquote p {
+  font-size: 18px; font-style: italic; color: var(--charcoal); margin: 0;
+  line-height: 1.7;
+}
+.article-content blockquote cite { display: block; font-size: 13px; color: var(--emerald); font-weight: 600; margin-top: 12px; font-style: normal; }
+.article-content .highlight-box {
+  background: linear-gradient(135deg, rgba(255,201,40,0.12), rgba(255,159,28,0.06));
+  border: 1px solid rgba(255,201,40,0.3);
+  border-radius: 16px; padding: 24px 28px; margin: 36px 0;
+}
+.article-content .highlight-box .hl-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+.article-content .highlight-box p { color: var(--charcoal); margin: 0; font-size: 16px; }
+.article-content ul { margin: 0 0 28px 24px; }
+.article-content ul li { font-size: 17px; line-height: 1.8; color: #3a4a4d; margin-bottom: 8px; }
+.article-content ul li::marker { color: var(--lime); }
+
+/* Inline image */
+.inline-img {
+  width: 100%; aspect-ratio: 16/9; border-radius: 16px; overflow: hidden;
+  background: linear-gradient(135deg, var(--mist), #b2ede6);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 56px; margin: 36px 0;
+  position: relative;
+}
+.inline-img-caption { text-align: center; font-size: 13px; color: #aaa; margin-top: -24px; margin-bottom: 36px; font-style: italic; }
+
+/* Tags & share */
+.article-tags { display: flex; gap: 8px; flex-wrap: wrap; margin: 48px 0 32px; padding-top: 32px; border-top: 1px solid rgba(0,0,0,0.08); }
+.tag-pill { padding: 6px 14px; border-radius: var(--radius-pill); border: 1px solid #ddd; font-size: 12px; color: #888; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+.tag-pill:hover { border-color: var(--emerald); color: var(--emerald); }
+.share-bar { background: linear-gradient(135deg, var(--mist), #eefcfa); border-radius: 16px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; }
+.share-bar p { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px; color: var(--charcoal); }
+.share-buttons { display: flex; gap: 10px; }
+.share-btn { padding: 9px 18px; border-radius: var(--radius-pill); border: none; cursor: pointer; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; transition: transform 0.2s; }
+.share-btn:hover { transform: translateY(-2px); }
+.share-btn.wa { background: #25d366; color: #fff; }
+.share-btn.tw { background: #1da1f2; color: #fff; }
+.share-btn.copy { background: #fff; color: var(--charcoal); border: 1px solid #e0e0e0; }
+
+/* Author box */
+.author-box {
+  background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 20px;
+  padding: 28px; margin: 40px 0; display: flex; gap: 20px; align-items: flex-start;
+}
+.author-avatar { width: 64px; height: 64px; border-radius: 50%; background: var(--lime); display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; color: var(--forest); font-family: 'Syne', sans-serif; flex-shrink: 0; }
+.author-info h4 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px; color: var(--charcoal); margin-bottom: 4px; }
+.author-info .author-title { font-size: 12px; color: var(--emerald); font-weight: 600; margin-bottom: 10px; }
+.author-info p { font-size: 13px; color: #777; line-height: 1.65; }
+
+/* Sidebar */
+.article-sidebar { padding-top: 56px; }
+.sidebar-card { background: #fff; border: 1px solid rgba(0,0,0,0.07); border-radius: 20px; padding: 24px; margin-bottom: 24px; }
+.sidebar-card h4 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; color: var(--charcoal); margin-bottom: 18px; padding-bottom: 14px; border-bottom: 2px solid var(--lime); }
+.toc-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.toc-list li a { font-size: 13px; color: #666; text-decoration: none; display: flex; align-items: flex-start; gap: 8px; line-height: 1.4; transition: color 0.2s; }
+.toc-list li a::before { content: '→'; font-size: 11px; color: var(--lime); flex-shrink: 0; margin-top: 2px; }
+.toc-list li a:hover { color: var(--emerald); }
+.toc-list li a.active { color: var(--emerald); font-weight: 600; }
+
+.related-item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(0,0,0,0.06); cursor: pointer; transition: opacity 0.2s; }
+.related-item:last-child { border-bottom: none; padding-bottom: 0; }
+.related-item:hover { opacity: 0.7; }
+.related-thumb { width: 68px; height: 68px; border-radius: 12px; background: linear-gradient(135deg, var(--mist), #b2ede6); display: flex; align-items: center; justify-content: center; font-size: 26px; flex-shrink: 0; }
+.related-body .cat-badge-xs { display: inline-block; font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 99px; margin-bottom: 6px; }
+.related-body h5 { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: var(--charcoal); line-height: 1.4; margin-bottom: 4px; }
+.related-body .date { font-size: 11px; color: #bbb; }
+
+.sidebar-stat { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
+.sidebar-stat:last-child { border-bottom: none; }
+.stat-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.stat-info .num { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: var(--charcoal); line-height: 1; }
+.stat-info .lbl { font-size: 11px; color: #aaa; }
+
+/* Related articles footer */
+.related-section { background: var(--mist); padding: 72px 48px; }
+.related-section h2 { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 700; color: var(--charcoal); margin-bottom: 32px; }
+.related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+/* Progress bar */
+.read-progress {
+  position: fixed; top: 68px; left: 0; right: 0; z-index: 89;
+  height: 3px; background: rgba(0,0,0,0.06);
+}
+.read-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--lime), var(--gold));
+  width: 45%;
+  transition: width 0.1s;
+}
+
+/* Design label */
+.design-label {
+  position: fixed; top: 80px; right: 16px; z-index: 200;
+  background: var(--lime); color: var(--forest);
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 11px;
+  padding: 6px 14px; border-radius: var(--radius-pill);
+  pointer-events: none; letter-spacing: 0.05em;
+}
+
+/* Scroll reveal */
+[data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+[data-reveal].revealed { opacity: 1; transform: translateY(0); }
+[data-reveal][data-delay="1"] { transition-delay: 0.1s; }
+[data-reveal][data-delay="2"] { transition-delay: 0.2s; }
+[data-reveal][data-delay="3"] { transition-delay: 0.3s; }
+
+/* WhatsApp float */
+.wa-float {
+  position: fixed; bottom: 88px; right: 28px; z-index: 999;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: #25d366; color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; text-decoration: none;
+  box-shadow: 0 6px 20px rgba(37,211,102,0.4);
+}
+
+/* Footer mini */
+footer {
+  background: var(--charcoal); color: rgba(245,240,232,0.55);
+  padding: 40px 48px; display: flex; align-items: center; justify-content: space-between;
+}
+footer .logo-icon { width: 36px; height: 36px; border-radius: 50%; background: var(--lime); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 14px; color: var(--forest); }
+footer .foot-left { display: flex; align-items: center; gap: 12px; }
+footer .foot-left span { font-size: 13px; color: rgba(245,240,232,0.6); }
+footer .foot-right { font-size: 12px; }
+</style>
+</head>
+<body>
+
+<!-- Design label -->
+<div class="design-label" id="dLabel">✦ PAGE: DAFTAR BERITA</div>
+
+<!-- WhatsApp float -->
+<a href="#" class="wa-float">💬</a>
+
+<!-- Page switcher -->
+<div class="page-switcher">
+  <button class="sw-btn active" onclick="switchPage('list')">📰 Daftar Berita</button>
+  <button class="sw-btn" onclick="switchPage('detail')">📄 Isi Berita</button>
+</div>
+
+<!-- Ticker -->
+<div class="ticker-bar">
+  <span class="ticker-label">📢 Info</span>
+  <div class="ticker-content">
+    <span class="ticker-text">Pendaftaran Mahasiswa Baru 2025/2026 telah dibuka — Daftarkan dirimu sekarang! &nbsp;✦&nbsp; Wisuda Sarjana Ke-XII — 15 September 2025 &nbsp;✦&nbsp; UNU raih akreditasi Unggul dari BAN-PT &nbsp;✦&nbsp; Pendaftaran Mahasiswa Baru 2025/2026 telah dibuka — Daftarkan dirimu sekarang! &nbsp;✦&nbsp; Wisuda Sarjana Ke-XII — 15 September 2025</span>
+  </div>
+</div>
+
+<!-- Header -->
+<header>
+  <a href="#" class="logo">
+    <div class="logo-icon">NU</div>
+    <div class="logo-text">Universitas Nahdlatul Ulama<small>Indonesia</small></div>
+  </a>
+  <nav>
+    <a href="#">Tentang</a>
+    <a href="#">Akademik</a>
+    <a href="#" class="active">Berita</a>
+    <a href="#">Galeri</a>
+    <a href="#">Kontak</a>
+  </nav>
+  <button class="btn-nav">Daftar Sekarang →</button>
+</header>
+
+<!-- ══════════════════════════════════
+     PAGE 1 — DAFTAR BERITA
+══════════════════════════════════ -->
+<div id="page-list" class="page active">
+
+  <!-- Hero -->
+  <div class="news-hero">
+    <div class="news-hero-grid"></div>
+    <div class="news-hero-orb"></div>
+    <div class="breadcrumb">
+      <a href="#">Beranda</a>
+      <span>/</span>
+      <strong>Berita</strong>
+    </div>
+    <h1>Berita &<br><span style="color:var(--lime)">Artikel</span></h1>
+    <p>Informasi terkini seputar kegiatan akademik, prestasi mahasiswa, dan perkembangan Universitas Nahdlatul Ulama.</p>
+  </div>
+
+  <!-- Filter bar -->
+  <div class="filter-bar">
+    <button class="filter-pill active">Semua <span class="filter-count">48</span></button>
+    <button class="filter-pill">Akademik</button>
+    <button class="filter-pill">Prestasi</button>
+    <button class="filter-pill">Kerjasama</button>
+    <button class="filter-pill">Kegiatan</button>
+    <button class="filter-pill">Pengumuman</button>
+    <button class="filter-pill">Penelitian</button>
+  </div>
+
+  <!-- Body -->
+  <div class="news-body">
+
+    <!-- Featured top -->
+    <div class="news-featured-top" data-reveal>
+      <!-- Main featured -->
+      <div class="card-featured" onclick="switchPage('detail')">
+        <div class="card-featured-bg">
+          <div class="decor-num">01</div>
+        </div>
+        <div class="card-featured-overlay"></div>
+        <div class="card-featured-body">
+          <span class="cat-badge">🎓 Akademik</span>
+          <h2>UNU Resmi Raih Akreditasi Unggul dari BAN-PT — Pertama dalam Sejarah Universitas</h2>
+          <div class="meta">
+            <div class="author">
+              <div class="avatar-xs">AR</div>
+              Ahmad Rizki
+            </div>
+            <span>12 Mei 2025</span>
+            <span>·</span>
+            <span>4 menit baca</span>
+            <span class="views">👁 2.840 views</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Side stack -->
+      <div class="card-side-stack">
+        <div class="card-side" data-reveal>
+          <div class="card-side-thumb" style="background:linear-gradient(135deg,#fff4bf,#ffe88a)">🌍</div>
+          <div class="card-side-body">
+            <span class="cat-badge-sm" style="background:rgba(0,169,183,0.12);color:var(--emerald)">Kerjasama</span>
+            <h3>UNU Tandatangani MOU dengan 5 Universitas Internasional dari Malaysia dan Turki</h3>
+            <div class="meta-sm"><span>8 Mei 2025</span><span>·</span><span>3 mnt baca</span></div>
+          </div>
+        </div>
+        <div class="card-side" data-reveal data-delay="1">
+          <div class="card-side-thumb" style="background:linear-gradient(135deg,#ffe5c2,#ffc998)">💡</div>
+          <div class="card-side-body">
+            <span class="cat-badge-sm" style="background:rgba(255,159,28,0.12);color:var(--gold)">Prestasi</span>
+            <h3>Mahasiswa UNU Juarai Kompetisi Inovasi Nasional Tingkat Perguruan Tinggi 2025</h3>
+            <div class="meta-sm"><span>3 Mei 2025</span><span>·</span><span>2 mnt baca</span></div>
+          </div>
+        </div>
+        <div class="card-side" data-reveal data-delay="2">
+          <div class="card-side-thumb" style="background:linear-gradient(135deg,var(--mist),#b2ede6)">📖</div>
+          <div class="card-side-body">
+            <span class="cat-badge-sm" style="background:rgba(0,169,183,0.12);color:var(--emerald)">Kegiatan</span>
+            <h3>Seminar Nasional "Islam dan Teknologi" Sukses Dihadiri 1.200 Peserta dari 14 Provinsi</h3>
+            <div class="meta-sm"><span>29 Apr 2025</span><span>·</span><span>3 mnt baca</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid berita lainnya -->
+    <div class="news-grid-section">
+      <h3 class="grid-label" data-reveal>
+        Berita Terbaru
+        <a href="#">Lihat Semua →</a>
+      </h3>
+      <div class="cards-grid">
+        <div class="card-regular" data-reveal onclick="switchPage('detail')">
+          <div class="card-img" style="background:linear-gradient(135deg,#d8f7f2,#a8eee4)">
+            🔬
+            <div class="card-img-badge" style="background:var(--lime);color:var(--forest)">BARU</div>
+          </div>
+          <div class="card-body">
+            <span class="cat-badge" style="background:rgba(0,169,183,0.1);color:var(--emerald)">Penelitian</span>
+            <h4>Tim Peneliti UNU Kembangkan Pupuk Organik dari Limbah Kelapa Sawit Kalimantan</h4>
+            <p>Inovasi ini dinilai dapat meningkatkan produktivitas lahan pertanian lokal hingga 40% sambil mengurangi dampak lingkungan...</p>
+            <div class="card-footer">
+              <div class="author-mini">
+                <div class="avatar-xs" style="width:20px;height:20px;font-size:9px">SN</div>
+                Siti Nurhaliza
+              </div>
+              <a href="#" class="read-link">Baca →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-regular" data-reveal data-delay="1" onclick="switchPage('detail')">
+          <div class="card-img" style="background:linear-gradient(135deg,#fff4bf,#ffd97d)">
+            🏆
+            <div class="card-img-badge" style="background:var(--gold);color:#fff">TRENDING</div>
+          </div>
+          <div class="card-body">
+            <span class="cat-badge" style="background:rgba(255,159,28,0.1);color:var(--gold)">Prestasi</span>
+            <h4>Delegasi UNU Raih Medali Emas di Olimpiade Sains Perguruan Tinggi Nasional 2025</h4>
+            <p>Lima mahasiswa Fakultas Sains dan Teknologi berhasil membawa pulang 2 emas dan 1 perak dari kompetisi bergengsi ini...</p>
+            <div class="card-footer">
+              <div class="author-mini">
+                <div class="avatar-xs" style="width:20px;height:20px;font-size:9px">MF</div>
+                M. Farhan
+              </div>
+              <a href="#" class="read-link">Baca →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-regular" data-reveal data-delay="2" onclick="switchPage('detail')">
+          <div class="card-img" style="background:linear-gradient(135deg,#e1fbf6,#31d4b4)">
+            🌐
+          </div>
+          <div class="card-body">
+            <span class="cat-badge" style="background:rgba(0,169,183,0.1);color:var(--emerald)">Kerjasama</span>
+            <h4>UNU Buka Program Beasiswa Penuh untuk Kuliah S2 di Turki dan Mesir Tahun 2026</h4>
+            <p>Program ini terbuka bagi lulusan terbaik UNU dengan nilai IPK minimal 3.50 dan kemampuan bahasa Arab atau Inggris...</p>
+            <div class="card-footer">
+              <div class="author-mini">
+                <div class="avatar-xs" style="width:20px;height:20px;font-size:9px">LA</div>
+                Layla Amini
+              </div>
+              <a href="#" class="read-link">Baca →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-regular" data-reveal>
+          <div class="card-img" style="background:linear-gradient(135deg,#fce4ec,#f48fb1)">🎤</div>
+          <div class="card-body">
+            <span class="cat-badge" style="background:rgba(0,95,105,0.08);color:var(--forest)">Kegiatan</span>
+            <h4>Festival Mahasiswa UNU 2025 Tampilkan 60 Stand Kuliner dan Pertunjukan Seni Budaya</h4>
+            <p>Acara tahunan yang diikuti seluruh unit kegiatan mahasiswa ini berlangsung selama tiga hari di Lapangan Utama Kampus...</p>
+            <div class="card-footer">
+              <div class="author-mini">
+                <div class="avatar-xs" style="width:20px;height:20px;font-size:9px">RH</div>
+                Rizky H.
+              </div>
+              <a href="#" class="read-link">Baca →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-regular" data-reveal data-delay="1">
+          <div class="card-img" style="background:linear-gradient(135deg,#ede7f6,#b39ddb)">⚖️</div>
+          <div class="card-body">
+            <span class="cat-badge" style="background:rgba(0,95,105,0.08);color:var(--forest)">Akademik</span>
+            <h4>Kuliah Umum Bersama Hakim Agung: Hukum Islam dalam Sistem Peradilan Indonesia Modern</h4>
+            <p>Kuliah umum yang dihadiri lebih dari 800 mahasiswa ini menghadirkan Ketua Mahkamah Agung sebagai narasumber utama...</p>
+            <div class="card-footer">
+              <div class="author-mini">
+                <div class="avatar-xs" style="width:20px;height:20px;font-size:9px">DW</div>
+                Dewi W.
+              </div>
+              <a href="#" class="read-link">Baca →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-regular" data-reveal data-delay="2">
+          <div class="card-img" style="background:linear-gradient(135deg,#e8f5e9,#a5d6a7)">🌱</div>
+          <div class="card-body">
+            <span class="cat-badge" style="background:rgba(255,201,40,0.12);color:#b37a00">Pengumuman</span>
+            <h4>Jadwal Ujian Tengah Semester Ganjil 2025/2026 — Pastikan Kamu Siap!</h4>
+            <p>UTS dilaksanakan mulai 14–25 Oktober 2025. Mahasiswa wajib memperhatikan jadwal dan ruang ujian masing-masing program studi...</p>
+            <div class="card-footer">
+              <div class="author-mini">
+                <div class="avatar-xs" style="width:20px;height:20px;font-size:9px">HO</div>
+                Humas UNU
+              </div>
+              <a href="#" class="read-link">Baca →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination" data-reveal>
+      <button class="page-btn arrow">←</button>
+      <button class="page-btn active">1</button>
+      <button class="page-btn">2</button>
+      <button class="page-btn">3</button>
+      <button class="page-btn" style="border:none;color:#bbb;cursor:default">…</button>
+      <button class="page-btn">8</button>
+      <button class="page-btn arrow">→</button>
+    </div>
+
+  </div><!-- /news-body -->
+</div><!-- /page-list -->
+
+
+<!-- ══════════════════════════════════
+     PAGE 2 — DETAIL / ISI BERITA
+══════════════════════════════════ -->
+<div id="page-detail" class="page">
+
+  <!-- Reading progress bar -->
+  <div class="read-progress"><div class="read-progress-bar" id="progressBar"></div></div>
+
+  <!-- Article hero -->
+  <div class="article-hero">
+    <div class="article-hero-grid"></div>
+    <div class="article-hero-orb"></div>
+    <div class="article-hero-inner">
+      <div class="breadcrumb">
+        <a href="#">Beranda</a><span>/</span>
+        <a href="#">Berita</a><span>/</span>
+        <strong>Akreditasi Unggul</strong>
+      </div>
+      <div class="article-category">🎓 Akademik</div>
+      <h1>UNU Resmi Raih Akreditasi Unggul dari BAN-PT — Pertama dalam Sejarah Universitas</h1>
+      <div class="article-hero-meta">
+        <div class="author-chip">
+          <div class="avatar-sm">AR</div>
+          <span>Ahmad Rizki · Redaksi UNU</span>
+        </div>
+        <div class="meta-chip">📅 12 Mei 2025</div>
+        <div class="meta-chip">⏱ 4 menit baca</div>
+        <div class="meta-chip">👁 2.840 views</div>
+      </div>
+      <!-- Featured image -->
+      <div class="article-featured-img">
+        <div class="img-placeholder">
+          <div class="icon">🏛️🎓</div>
+          <p>Foto Gedung Rektorat UNU saat pengumuman akreditasi</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Article body + sidebar -->
+  <div class="article-layout">
+
+    <!-- Main content -->
+    <article class="article-content">
+
+      <p><strong>Samarinda, 12 Mei 2025</strong> — Universitas Nahdlatul Ulama (UNU) resmi menyandang predikat <strong>Akreditasi Unggul</strong> dari Badan Akreditasi Nasional Perguruan Tinggi (BAN-PT). Pengumuman bersejarah ini disampaikan langsung oleh Menteri Pendidikan Tinggi dalam sebuah seremoni yang digelar di Gedung Rektorat UNU, Selasa (12/5).</p>
+
+      <p>Pencapaian ini menjadi tonggak penting dalam perjalanan UNU yang telah berdiri sejak 1994. Sebelumnya, universitas ini menyandang akreditasi A selama tiga periode berturut-turut sebelum akhirnya berhasil meraih predikat tertinggi dalam sistem akreditasi baru BAN-PT.</p>
+
+      <blockquote>
+        <p>Akreditasi Unggul ini bukan sekadar label, melainkan cerminan nyata dari kerja keras seluruh civitas academica UNU selama lebih dari tiga dekade.</p>
+        <cite>— Prof. Dr. H. Abdul Malik, Rektor UNU</cite>
+      </blockquote>
+
+      <h2>Proses Panjang Menuju Puncak</h2>
+
+      <p>Perjalanan menuju akreditasi Unggul tidak terjadi dalam semalam. Selama lima tahun terakhir, UNU melakukan transformasi besar-besaran di berbagai lini, mulai dari pembenahan kurikulum berbasis Outcome-Based Education (OBE), peningkatan kualifikasi dosen, hingga pembangunan infrastruktur penelitian bertaraf internasional.</p>
+
+      <p>Tim asesor BAN-PT melakukan visitasi selama tiga hari pada akhir Maret 2025, mengevaluasi sembilan standar nasional pendidikan tinggi yang meliputi:</p>
+
+      <ul>
+        <li>Tata kelola dan kepemimpinan institusi</li>
+        <li>Sumber daya manusia (dosen dan tenaga kependidikan)</li>
+        <li>Kurikulum dan proses pembelajaran</li>
+        <li>Penelitian dan pengabdian masyarakat</li>
+        <li>Kerjasama nasional dan internasional</li>
+        <li>Sarana, prasarana, dan sistem informasi</li>
+        <li>Keuangan dan keberlanjutan institusi</li>
+        <li>Luaran dan capaian tridharma</li>
+        <li>Kepuasan pemangku kepentingan (mahasiswa, dosen, alumni, mitra)</li>
+      </ul>
+
+      <div class="highlight-box">
+        <div class="hl-label">⭐ Fakta Kunci</div>
+        <p>UNU menjadi universitas ke-3 di Kalimantan dan ke-47 secara nasional yang berhasil meraih akreditasi Unggul BAN-PT sejak sistem penilaian ini diperbarui pada 2021.</p>
+      </div>
+
+      <h2>Dampak bagi Mahasiswa</h2>
+
+      <p>Capaian ini membawa sejumlah keuntungan konkret bagi mahasiswa aktif maupun calon mahasiswa baru. Lulusan UNU kini dapat menggunakan gelar dengan tambahan keterangan "Unggul" pada transkrip akademik resmi, sebuah nilai tambah yang semakin diakui oleh perusahaan-perusahaan terkemuka.</p>
+
+      <!-- Inline image -->
+      <div class="inline-img">🎉</div>
+      <p class="inline-img-caption">Suasana syukuran sivitas akademika UNU menyambut pengumuman akreditasi Unggul, Selasa (12/5/2025).</p>
+
+      <p>Selain itu, status Akreditasi Unggul membuka akses lebih luas terhadap program beasiswa pemerintah seperti LPDP, Beasiswa Indonesia Maju (BIM), dan berbagai program pertukaran mahasiswa internasional yang mensyaratkan akreditasi institusi minimal A atau Unggul.</p>
+
+      <h3>Peningkatan Daya Saing Alumni</h3>
+
+      <p>Berdasarkan data tracer study terbaru, tingkat serapan lulusan UNU di dunia kerja dalam waktu kurang dari 6 bulan sudah mencapai 87%, angka yang jauh di atas rata-rata nasional 74%. Dengan predikat Unggul, angka ini diproyeksikan terus meningkat.</p>
+
+      <blockquote>
+        <p>Kami sangat bangga. Ini membuktikan bahwa kampus berbasis pesantren pun bisa bersaing dan unggul di level nasional.</p>
+        <cite>— Fatimah Azzahra, Ketua BEM UNU 2025</cite>
+      </blockquote>
+
+      <h2>Langkah Selanjutnya</h2>
+
+      <p>Rektor UNU menyampaikan bahwa pihak universitas tidak akan berpuas diri dengan capaian ini. Dalam waktu dekat, UNU akan meluncurkan program akselerasi internasionalisasi kampus, termasuk membuka program studi dengan pengantar bahasa Inggris dan Arab, serta menjalin kerjasama riset dengan universitas di Timur Tengah dan Eropa.</p>
+
+      <p>"Kami menargetkan masuk dalam klaster 1 penelitian Kemendikbud dan memiliki setidaknya 3 program studi dengan akreditasi internasional AQAS atau FIBAA dalam 3 tahun ke depan," tegas Rektor.</p>
+
+      <!-- Tags -->
+      <div class="article-tags">
+        <span class="tag-pill">#akreditasi</span>
+        <span class="tag-pill">#BANPT</span>
+        <span class="tag-pill">#UNU</span>
+        <span class="tag-pill">#pendidikan</span>
+        <span class="tag-pill">#kampus</span>
+        <span class="tag-pill">#Kalimantan</span>
+      </div>
+
+      <!-- Share -->
+      <div class="share-bar">
+        <p>Bagikan artikel ini</p>
+        <div class="share-buttons">
+          <button class="share-btn wa">📱 WhatsApp</button>
+          <button class="share-btn tw">🐦 Twitter</button>
+          <button class="share-btn copy">🔗 Salin Link</button>
+        </div>
+      </div>
+
+      <!-- Author box -->
+      <div class="author-box">
+        <div class="author-avatar">AR</div>
+        <div class="author-info">
+          <h4>Ahmad Rizki Maulana</h4>
+          <div class="author-title">Redaktur Humas & Publikasi UNU</div>
+          <p>Bertanggung jawab atas liputan kegiatan akademik dan kelembagaan Universitas Nahdlatul Ulama. Dapat dihubungi melalui humas@unu.ac.id.</p>
+        </div>
+      </div>
+
+    </article>
+
+    <!-- Sidebar -->
+    <aside class="article-sidebar">
+
+      <!-- Daftar isi -->
+      <div class="sidebar-card">
+        <h4>📑 Daftar Isi</h4>
+        <ul class="toc-list">
+          <li><a href="#" class="active">Akreditasi Unggul BAN-PT</a></li>
+          <li><a href="#">Proses Panjang Menuju Puncak</a></li>
+          <li><a href="#">Dampak bagi Mahasiswa</a></li>
+          <li><a href="#">Peningkatan Daya Saing Alumni</a></li>
+          <li><a href="#">Langkah Selanjutnya</a></li>
+        </ul>
+      </div>
+
+      <!-- Stats artikel -->
+      <div class="sidebar-card">
+        <h4>📊 Info Artikel</h4>
+        <div class="sidebar-stat">
+          <div class="stat-icon" style="background:rgba(255,201,40,0.15)">👁</div>
+          <div class="stat-info"><div class="num">2.840</div><div class="lbl">Total pembaca</div></div>
+        </div>
+        <div class="sidebar-stat">
+          <div class="stat-icon" style="background:rgba(0,169,183,0.12)">💬</div>
+          <div class="stat-info"><div class="num">24</div><div class="lbl">Komentar</div></div>
+        </div>
+        <div class="sidebar-stat">
+          <div class="stat-icon" style="background:rgba(255,159,28,0.12)">🔗</div>
+          <div class="stat-info"><div class="num">318</div><div class="lbl">Kali dibagikan</div></div>
+        </div>
+        <div class="sidebar-stat">
+          <div class="stat-icon" style="background:rgba(0,95,105,0.1)">⏱</div>
+          <div class="stat-info"><div class="num">4 mnt</div><div class="lbl">Estimasi baca</div></div>
+        </div>
+      </div>
+
+      <!-- Artikel terkait -->
+      <div class="sidebar-card">
+        <h4>🔗 Artikel Terkait</h4>
+        <div class="related-item">
+          <div class="related-thumb">🌍</div>
+          <div class="related-body">
+            <span class="cat-badge-xs" style="background:rgba(0,169,183,0.12);color:var(--emerald)">Kerjasama</span>
+            <h5>UNU Tandatangani MOU dengan 5 Universitas Internasional</h5>
+            <div class="date">8 Mei 2025</div>
+          </div>
+        </div>
+        <div class="related-item">
+          <div class="related-thumb">🏆</div>
+          <div class="related-body">
+            <span class="cat-badge-xs" style="background:rgba(255,159,28,0.12);color:var(--gold)">Prestasi</span>
+            <h5>Mahasiswa UNU Juarai Kompetisi Inovasi Nasional 2025</h5>
+            <div class="date">3 Mei 2025</div>
+          </div>
+        </div>
+        <div class="related-item">
+          <div class="related-thumb">📖</div>
+          <div class="related-body">
+            <span class="cat-badge-xs" style="background:rgba(0,95,105,0.08);color:var(--forest)">Akademik</span>
+            <h5>Kurikulum Merdeka Belajar Resmi Diterapkan di 18 Prodi UNU</h5>
+            <div class="date">20 Apr 2025</div>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- Related section -->
+  <div class="related-section">
+    <h2 data-reveal>Baca Juga</h2>
+    <div class="related-grid">
+      <div class="card-regular" data-reveal onclick="switchPage('detail')">
+        <div class="card-img" style="background:linear-gradient(135deg,#d8f7f2,#a8eee4)">🔬</div>
+        <div class="card-body">
+          <span class="cat-badge" style="background:rgba(0,169,183,0.1);color:var(--emerald)">Penelitian</span>
+          <h4>Tim UNU Kembangkan Pupuk Organik dari Limbah Sawit</h4>
+          <p>Inovasi yang dinilai dapat meningkatkan produktivitas lahan pertanian Kalimantan secara signifikan...</p>
+          <div class="card-footer">
+            <div class="author-mini"><div class="avatar-xs" style="width:20px;height:20px;font-size:9px">SN</div>Siti N.</div>
+            <a href="#" class="read-link">Baca →</a>
+          </div>
+        </div>
+      </div>
+      <div class="card-regular" data-reveal data-delay="1" onclick="switchPage('detail')">
+        <div class="card-img" style="background:linear-gradient(135deg,#fff4bf,#ffd97d)">🏆</div>
+        <div class="card-body">
+          <span class="cat-badge" style="background:rgba(255,159,28,0.1);color:var(--gold)">Prestasi</span>
+          <h4>Delegasi UNU Raih Medali Emas di Olimpiade Sains Nasional 2025</h4>
+          <p>Lima mahasiswa Fakultas Sains membawa pulang 2 emas dan 1 perak dari kompetisi bergengsi ini...</p>
+          <div class="card-footer">
+            <div class="author-mini"><div class="avatar-xs" style="width:20px;height:20px;font-size:9px">MF</div>M. Farhan</div>
+            <a href="#" class="read-link">Baca →</a>
+          </div>
+        </div>
+      </div>
+      <div class="card-regular" data-reveal data-delay="2" onclick="switchPage('detail')">
+        <div class="card-img" style="background:linear-gradient(135deg,#e1fbf6,#31d4b4)">🌐</div>
+        <div class="card-body">
+          <span class="cat-badge" style="background:rgba(0,169,183,0.1);color:var(--emerald)">Kerjasama</span>
+          <h4>UNU Buka Beasiswa Penuh S2 di Turki dan Mesir 2026</h4>
+          <p>Program ini terbuka bagi lulusan terbaik UNU dengan IPK minimal 3.50 dan kemampuan bahasa internasional...</p>
+          <div class="card-footer">
+            <div class="author-mini"><div class="avatar-xs" style="width:20px;height:20px;font-size:9px">LA</div>Layla A.</div>
+            <a href="#" class="read-link">Baca →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-detail -->
+
+<!-- Footer -->
+<footer>
+  <div class="foot-left">
+    <div class="logo-icon">NU</div>
+    <span>© 2025 Universitas Nahdlatul Ulama. Hak cipta dilindungi.</span>
+  </div>
+  <div class="foot-right">
+    <a href="#" style="color:rgba(245,240,232,0.4);text-decoration:none;margin-left:20px">Kebijakan Privasi</a>
+    <a href="#" style="color:rgba(245,240,232,0.4);text-decoration:none;margin-left:20px">Sitemap</a>
+  </div>
+</footer>
+
+<script>
+// Page switching
+function switchPage(page) {
+  document.getElementById('page-list').classList.toggle('active', page === 'list');
+  document.getElementById('page-detail').classList.toggle('active', page === 'detail');
+  document.querySelectorAll('.sw-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', (i === 0 && page === 'list') || (i === 1 && page === 'detail'));
+  });
+  document.getElementById('dLabel').textContent = page === 'list' ? '✦ PAGE: DAFTAR BERITA' : '✦ PAGE: ISI BERITA';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  setTimeout(triggerReveal, 200);
+}
+
+// Filter pills
+document.querySelectorAll('.filter-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+  });
+});
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('revealed'); obs.unobserve(e.target); }
+  });
+}, { threshold: 0.1 });
+
+function triggerReveal() {
+  document.querySelectorAll('[data-reveal]').forEach(el => obs.observe(el));
+  setTimeout(() => {
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+      if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('revealed');
+    });
+  }, 100);
+}
+triggerReveal();
+
+// Reading progress bar
+window.addEventListener('scroll', () => {
+  const detail = document.getElementById('page-detail');
+  if (!detail.classList.contains('active')) return;
+  const total = document.body.scrollHeight - window.innerHeight;
+  const progress = (window.scrollY / total) * 100;
+  const bar = document.getElementById('progressBar');
+  if (bar) bar.style.width = Math.min(progress, 100) + '%';
+});
+</script>
+</body>
+</html>

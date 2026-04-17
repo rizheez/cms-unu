@@ -5,7 +5,6 @@
         $featured = $featuredPosts->first();
         $smallPosts = $featuredPosts->skip(1)->take(3);
         $studentsCount = (int) setting('home_students_count', 12400);
-        $studentsHeroLabel = $studentsCount >= 1000 ? rtrim(rtrim(number_format($studentsCount / 1000, 1, '.', ''), '0'), '.') . 'K+' : number_format($studentsCount, 0, ',', '.');
         $serviceYears = (int) setting('home_service_years', 30);
         $programIcons = [
             'Informatika' => 'IT',
@@ -25,7 +24,7 @@
         </svg>
 
         <div class="hero-copy" data-reveal>
-            <span class="hero-badge">Akreditasi {{ setting('accreditation', 'Baik') }}</span>
+            <span class="hero-badge">Akreditasi {{ setting('accreditation', 'Baik') }} BAN-PT</span>
             <h1>Tempat Ilmu <span class="hl">Bertumbuh</span> dengan Akar Nilai.</h1>
             <p>{{ setting('meta_description', 'Kampus yang menumbuhkan pengetahuan, karakter, dan kontribusi nyata untuk masyarakat.') }}</p>
             <div class="hero-btns">
@@ -34,23 +33,22 @@
             </div>
         </div>
 
-        <div class="hero-visual" data-reveal data-delay="1">
+        {{-- <div class="hero-visual" data-reveal data-delay="2">
             <div class="hero-img-frame">
                 <div class="hero-img-placeholder">
-                    <span class="campus-monogram">UNU</span>
-                    <strong>Kampus Modern</strong>
-                    <p>Kolaboratif, inklusif, dan dekat dengan masyarakat.</p>
+                    <div class="campus-icon">🏛️</div>
+                    <span>Foto Kampus UNU</span>
                 </div>
             </div>
             <div class="hero-float-badge">
-                <strong>{{ $studentsHeroLabel }}</strong>
-                <span>Mahasiswa Aktif</span>
+                <small>Tahun Berdiri</small>
+                1994
             </div>
-            <div class="hero-float-badge hero-float-2">
-                <strong>{{ $studyProgramsCount }}</strong>
-                <span>Program Studi</span>
+            <div class="hero-float-2">
+                {{ setting('accreditation', 'Baik') == 'Baik Sekali' ? 'A+' : 'B+' }}
+                <small>Akreditasi</small>
             </div>
-        </div>
+        </div> --}}
     </section>
 
     <section class="stats-strip">
@@ -78,7 +76,10 @@
         <div class="section-head" data-reveal>
             <div>
                 <span class="section-label">Kabar Kampus</span>
-                <h2 class="section-title">Cerita terbaru dari ruang belajar dan pengabdian.</h2>
+                <h2 class="section-title">
+                    {{-- Cerita terbaru dari ruang belajar dan pengabdian. --}}
+                    Berita & Artikel Terbaru
+                </h2>
             </div>
             <a href="{{ route('news.index') }}" class="section-link">Lihat semua berita</a>
         </div>
@@ -126,7 +127,11 @@
         <div class="section-head" data-reveal>
             <div>
                 <span class="section-label">Akademik</span>
-                <h2 class="section-title">Pilih jalur belajar yang paling dekat dengan masa depanmu.</h2>
+                <h2 class="section-title">
+                    {{-- Pilih jalur belajar yang paling dekat dengan masa depanmu. --}}
+                    Program Studi 
+                    <span class="underline-lime">Unggulan</span>
+                </h2>
             </div>
             <a href="{{ route('academics.faculties') }}" class="section-link">Semua program</a>
         </div>
