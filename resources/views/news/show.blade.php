@@ -111,19 +111,28 @@
                 class="mt-8 flex flex-col gap-4 rounded-2xl bg-[linear-gradient(135deg,#d8f7f2,#eefcfa)] p-6 sm:flex-row sm:items-center sm:justify-between">
                 <p class="font-display text-lg font-bold text-[#123136]">Bagikan artikel ini</p>
                 <div class="flex flex-wrap gap-3">
-                    <a href="https://wa.me/?text={{ rawurlencode($post->title . ' ' . $shareUrl) }}" target="_blank"
-                        rel="noopener noreferrer"
-                        class="rounded-full bg-[#25d366] px-5 py-2 text-sm font-bold text-white transition hover:-translate-y-0.5">
-                        WhatsApp
-                    </a>
                     <a href="https://twitter.com/intent/tweet?url={{ rawurlencode($shareUrl) }}&text={{ rawurlencode($post->title) }}"
-                        target="_blank" rel="noopener noreferrer"
-                        class="rounded-full bg-[#1da1f2] px-5 py-2 text-sm font-bold text-white transition hover:-translate-y-0.5">
-                        Twitter
+                        target="_blank" rel="noopener noreferrer" aria-label="Bagikan ke X"
+                        class="grid h-5 w-5 place-items-center rounded-full bg-white transition hover:-translate-y-0.5">
+                        <img src="https://cdn.simpleicons.org/x/111111" alt="" class="h-4 w-4" loading="lazy">
                     </a>
-                    <a href="{{ $shareUrl }}"
-                        class="rounded-full border border-black/10 bg-white px-5 py-2 text-sm font-bold text-[#123136] transition hover:-translate-y-0.5">
-                        Salin Link
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ rawurlencode($shareUrl) }}"
+                        rel="noopener noreferrer" target="_blank" aria-label="Bagikan ke Facebook"
+                        class="grid h-5 w-5 place-items-center rounded-full bg-white transition hover:-translate-y-0.5">
+                        <img src="https://cdn.simpleicons.org/facebook/1877F2" alt="" class="h-4 w-4"
+                            loading="lazy">
+                    </a>
+                    <a href="https://wa.me/?text={{ rawurlencode($post->title . ' ' . $shareUrl) }}" target="_blank"
+                        rel="noopener noreferrer" aria-label="Bagikan ke WhatsApp"
+                        class="grid h-5 w-5 place-items-center rounded-full bg-white transition hover:-translate-y-0.5">
+                        <img src="https://cdn.simpleicons.org/whatsapp/25D366" alt="" class="h-4 w-4"
+                            loading="lazy">
+                    </a>
+                    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ rawurlencode($shareUrl) }}&title={{ rawurlencode($post->title) }}"
+                        target="_blank" rel="noopener noreferrer" aria-label="Bagikan ke LinkedIn"
+                        class="grid h-5 w-5 place-items-center rounded-full bg-white transition hover:-translate-y-0.5">
+                        <img src="https://cdn.simpleicons.org/linkedin/0A66C2" alt="" class="h-4 w-4"
+                            loading="lazy">
                     </a>
                 </div>
             </div>
@@ -156,7 +165,8 @@
                 </div>
 
                 @if (session('comment_success'))
-                    <div class="mt-5 rounded-2xl border border-[#00a9b7]/20 bg-[#00a9b7]/10 px-4 py-3 text-sm font-semibold text-[#005f69]">
+                    <div
+                        class="mt-5 rounded-2xl border border-[#00a9b7]/20 bg-[#00a9b7]/10 px-4 py-3 text-sm font-semibold text-[#005f69]">
                         {{ session('comment_success') }}
                     </div>
                 @endif
@@ -165,7 +175,8 @@
                     @forelse ($postComments as $comment)
                         <article class="rounded-2xl border border-black/10 bg-[#f4fffc] p-5">
                             <div class="flex items-center gap-3">
-                                <span class="grid h-10 w-10 place-items-center rounded-full bg-[#ffc928] font-display text-sm font-extrabold text-[#005f69]">
+                                <span
+                                    class="grid h-10 w-10 place-items-center rounded-full bg-[#ffc928] font-display text-sm font-extrabold text-[#005f69]">
                                     {{ \Illuminate\Support\Str::upper(\Illuminate\Support\Str::substr($comment->name ?? 'P', 0, 1)) }}
                                 </span>
                                 <div>
@@ -182,27 +193,25 @@
                             </p>
                         </article>
                     @empty
-                        <div class="rounded-2xl border border-dashed border-black/10 bg-[#f4fffc] p-5 text-sm text-[#123136]/60">
+                        <div
+                            class="rounded-2xl border border-dashed border-black/10 bg-[#f4fffc] p-5 text-sm text-[#123136]/60">
                             Belum ada komentar. Jadilah yang pertama berdiskusi.
                         </div>
                     @endforelse
                 </div>
 
-                <form method="POST" action="{{ route('news.comments.store', $post) }}" class="mt-7 rounded-2xl bg-[linear-gradient(135deg,#d8f7f2,#eefcfa)] p-5">
+                <form method="POST" action="{{ route('news.comments.store', $post) }}"
+                    class="mt-7 rounded-2xl bg-[linear-gradient(135deg,#d8f7f2,#eefcfa)] p-5">
                     @csrf
                     <input type="text" name="website" value="" class="hidden" tabindex="-1" autocomplete="off">
 
                     <div class="grid gap-4">
                         <label class="grid gap-2">
-                            <span class="text-sm font-bold text-[#123136]">Nama <span class="font-medium text-[#123136]/45">(opsional)</span></span>
-                            <input
-                                type="text"
-                                name="name"
-                                value="{{ old('name') }}"
-                                maxlength="80"
+                            <span class="text-sm font-bold text-[#123136]">Nama <span
+                                    class="font-medium text-[#123136]/45">(opsional)</span></span>
+                            <input type="text" name="name" value="{{ old('name') }}" maxlength="80"
                                 class="min-h-12 rounded-xl border border-black/10 bg-white px-4 text-sm text-[#123136] outline-none transition focus:border-[#00a9b7] focus:ring-2 focus:ring-[#00a9b7]/15"
-                                placeholder="Nama kamu"
-                            >
+                                placeholder="Nama kamu">
                             @error('name')
                                 <span class="text-xs font-semibold text-red-600">{{ $message }}</span>
                             @enderror
@@ -210,14 +219,9 @@
 
                         <label class="grid gap-2">
                             <span class="text-sm font-bold text-[#123136]">Komentar</span>
-                            <textarea
-                                name="body"
-                                rows="5"
-                                maxlength="1200"
-                                required
+                            <textarea name="body" rows="5" maxlength="1200" required
                                 class="rounded-xl border border-black/10 bg-white px-4 py-3 text-sm leading-7 text-[#123136] outline-none transition focus:border-[#00a9b7] focus:ring-2 focus:ring-[#00a9b7]/15"
-                                placeholder="Tulis komentar dengan bahasa yang santun..."
-                            >{{ old('body') }}</textarea>
+                                placeholder="Tulis komentar dengan bahasa yang santun...">{{ old('body') }}</textarea>
                             @error('body')
                                 <span class="text-xs font-semibold text-red-600">{{ $message }}</span>
                             @enderror
@@ -227,7 +231,8 @@
                             <span class="text-xs font-semibold text-red-600">{{ $message }}</span>
                         @enderror
 
-                        <button type="submit" class="inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-[#ffc928] px-5 text-sm font-extrabold text-[#005f69] shadow-[5px_5px_0_#005f69] transition hover:-translate-y-0.5 sm:w-fit">
+                        <button type="submit"
+                            class="inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-[#ffc928] px-5 text-sm font-extrabold text-[#005f69] shadow-[5px_5px_0_#005f69] transition hover:-translate-y-0.5 sm:w-fit">
                             Kirim Komentar
                         </button>
                     </div>
@@ -253,7 +258,8 @@
                         <span
                             class="grid h-9 w-9 place-items-center rounded-xl bg-[#00a9b7]/10 text-sm font-bold text-[#00a9b7]">T</span>
                         <div>
-                            <p class="font-display text-lg font-bold leading-none text-[#123136]">{{ $post->reading_time }}
+                            <p class="font-display text-lg font-bold leading-none text-[#123136]">
+                                {{ $post->reading_time }}
                                 mnt</p>
                             <p class="mt-1 text-xs text-[#123136]/45">Estimasi baca</p>
                         </div>

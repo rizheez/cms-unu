@@ -1175,8 +1175,18 @@ svg {
     height: 42px;
     place-items: center;
     border-radius: 8px;
-    background: rgb(255 255 255 / 12%);
-    font-weight: 900;
+    background: rgb(255 255 255 / 92%);
+    transition: transform 180ms ease, background 180ms ease;
+}
+
+.social-btn:hover {
+    transform: translateY(-2px);
+    background: #ffffff;
+}
+
+.social-btn img {
+    width: 20px;
+    height: 20px;
 }
 
 .footer-col h4 {

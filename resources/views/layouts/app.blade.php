@@ -1,31 +1,39 @@
 <!doctype html>
 <html lang="id" class="scroll-smooth">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {!! SEO::generate() !!}
     @php
         $siteLogo = trim((string) setting('site_logo', ''));
-        $siteLogoUrl = $siteLogo !== '' ? asset('storage/'.$siteLogo) : null;
+        $siteLogoUrl = $siteLogo !== '' ? asset('storage/' . $siteLogo) : null;
         $siteFavicon = trim((string) setting('site_favicon', ''));
-        $siteFaviconUrl = $siteFavicon !== '' ? asset('storage/'.$siteFavicon) : null;
+        $siteFaviconUrl = $siteFavicon !== '' ? asset('storage/' . $siteFavicon) : null;
     @endphp
     @if ($siteFaviconUrl)
         <link rel="icon" href="{{ $siteFaviconUrl }}">
     @endif
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+
 <body>
     @php
-        $defaultTickerText = 'Pendaftaran Mahasiswa Baru telah dibuka - Daftarkan dirimu sekarang! - Wisuda Sarjana akan diselenggarakan semester ini - UNU raih akreditasi ' . setting('accreditation', 'Baik Sekali') . ' - Seminar nasional terbuka untuk umum';
+        $defaultTickerText =
+            'Pendaftaran Mahasiswa Baru telah dibuka - Daftarkan dirimu sekarang! - Wisuda Sarjana akan diselenggarakan semester ini - UNU raih akreditasi ' .
+            setting('accreditation', 'Baik Sekali') .
+            ' - Seminar nasional terbuka untuk umum';
         $tickerText = trim((string) setting('ticker_text', $defaultTickerText));
         $tickerText = $tickerText !== '' ? $tickerText : $defaultTickerText;
     @endphp
 
-    <a href="https://wa.me/{{ preg_replace('/\D+/', '', (string) setting('site_phone', '6281240002026')) }}" class="wa-float" aria-label="WhatsApp">WA</a>
+    <a href="https://wa.me/{{ preg_replace('/\D+/', '', (string) setting('site_phone', '6281240002026')) }}"
+        class="wa-float" aria-label="WhatsApp">WA</a>
 
     <div class="ticker-bar">
         <span class="ticker-label">Info</span>
@@ -37,7 +45,8 @@
     <header id="main-header" class="site-header">
         <a href="{{ route('home') }}" class="site-logo">
             @if ($siteLogoUrl)
-                <img src="{{ $siteLogoUrl }}" alt="{{ setting('site_name', 'Universitas Nahdlatul Ulama') }}" class="logo-image">
+                <img src="{{ $siteLogoUrl }}" alt="{{ setting('site_name', 'Universitas Nahdlatul Ulama') }}"
+                    class="logo-image">
             @else
                 <span class="logo-icon">NU</span>
             @endif
@@ -87,23 +96,39 @@
         <div class="footer-grid">
             <div class="footer-brand">
                 @if ($siteLogoUrl)
-                    <img src="{{ $siteLogoUrl }}" alt="{{ setting('site_name', 'Universitas Nahdlatul Ulama') }}" class="footer-logo-image">
+                    <img src="{{ $siteLogoUrl }}" alt="{{ setting('site_name', 'Universitas Nahdlatul Ulama') }}"
+                        class="footer-logo-image">
                 @else
                     <span class="logo-icon">NU</span>
                 @endif
                 <h2>{{ setting('site_name', 'Universitas Nahdlatul Ulama') }}</h2>
                 <p>{{ setting('meta_description', 'Website resmi Universitas Nahdlatul Ulama.') }}</p>
                 <div class="footer-socials">
-                    <a href="{{ setting('social_facebook', '#') }}" class="social-btn">f</a>
-                    <a href="{{ setting('social_instagram', '#') }}" class="social-btn">ig</a>
-                    <a href="{{ setting('social_youtube', '#') }}" class="social-btn">yt</a>
+                    <a href="{{ setting('social_facebook', 'https://www.facebook.com/unukaltim.official') }}"
+                        class="social-btn" target="_blank" rel="noopener noreferrer" aria-label="Facebook UNU Kaltim">
+                        <img src="https://cdn.simpleicons.org/facebook/1877F2" alt="" loading="lazy">
+                    </a>
+                    <a href="{{ setting('social_instagram', 'https://www.instagram.com/unukaltim/') }}"
+                        class="social-btn" target="_blank" rel="noopener noreferrer" aria-label="Instagram UNU Kaltim">
+                        <img src="https://cdn.simpleicons.org/instagram/E4405F" alt="" loading="lazy">
+                    </a>
+                    <a href="{{ setting('social_youtube', 'https://www.youtube.com/@unukaltim2402') }}"
+                        class="social-btn" target="_blank" rel="noopener noreferrer" aria-label="YouTube UNU Kaltim">
+                        <img src="https://cdn.simpleicons.org/youtube/FF0000" alt="" loading="lazy">
+                    </a>
+                    <a href="{{ setting('social_tiktok', 'https://www.tiktok.com/@unukaltim.official') }}"
+                        class="social-btn" target="_blank" rel="noopener noreferrer" aria-label="TikTok UNU Kaltim">
+                        <img src="https://cdn.simpleicons.org/tiktok/000000" alt="" loading="lazy">
+                    </a>
                 </div>
             </div>
             <div class="footer-col">
                 <h4>Tentang</h4>
                 <ul>
                     @forelse ($footerMenuItems as $item)
-                        <li><a href="{{ $item->resolvedUrl() }}" target="{{ $item->target }}" @if ($item->target === '_blank') rel="noopener noreferrer" @endif>{{ $item->label }}</a></li>
+                        <li><a href="{{ $item->resolvedUrl() }}" target="{{ $item->target }}"
+                                @if ($item->target === '_blank') rel="noopener noreferrer" @endif>{{ $item->label }}</a>
+                        </li>
                     @empty
                         <li><a href="{{ route('about.profile') }}">Profil Universitas</a></li>
                         <li><a href="{{ route('about.vision-mission') }}">Visi & Misi</a></li>
@@ -136,7 +161,8 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; {{ now()->year }} {{ setting('site_name', 'Universitas Nahdlatul Ulama') }}. Hak cipta dilindungi.</p>
+            <p>&copy; {{ now()->year }} {{ setting('site_name', 'Universitas Nahdlatul Ulama') }}. Hak cipta
+                dilindungi.</p>
             <div class="footer-links">
                 <a href="#">Kebijakan Privasi</a>
                 <a href="#">Syarat & Ketentuan</a>
@@ -145,4 +171,5 @@
         </div>
     </footer>
 </body>
+
 </html>
