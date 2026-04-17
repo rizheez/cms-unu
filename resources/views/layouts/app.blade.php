@@ -161,13 +161,14 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; {{ now()->year }} {{ setting('site_name', 'Universitas Nahdlatul Ulama') }}. Hak cipta
+            <p class="text-center">&copy; {{ now()->year }}
+                {{ setting('site_name', 'Universitas Nahdlatul Ulama') }}. Hak cipta
                 dilindungi.</p>
-            <div class="footer-links">
+            {{-- <div class="footer-links">
                 <a href="#">Kebijakan Privasi</a>
                 <a href="#">Syarat & Ketentuan</a>
                 <a href="{{ url('/sitemap.xml') }}">Sitemap</a>
-            </div>
+            </div> --}}
         </div>
     </footer>
 </body>

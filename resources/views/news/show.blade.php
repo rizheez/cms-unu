@@ -73,7 +73,7 @@
             <figure class="relative z-10 overflow-hidden rounded-t-[20px] border border-white/15 bg-white/10">
                 @if ($post->featured_image_url)
                     <img src="{{ $post->featured_image_url }}" alt="{{ $post->title }}"
-                        class="h-[260px] w-full object-cover sm:h-[340px] lg:h-[420px]">
+                        class="h-full w-full object-cover ">
                 @else
                     <div
                         class="grid h-[260px] place-items-center bg-[linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,255,255,0.04))] text-center sm:h-[340px] lg:h-[420px]">
@@ -126,12 +126,6 @@
                         rel="noopener noreferrer" aria-label="Bagikan ke WhatsApp"
                         class="grid h-5 w-5 place-items-center rounded-full bg-white transition hover:-translate-y-0.5">
                         <img src="https://cdn.simpleicons.org/whatsapp/25D366" alt="" class="h-4 w-4"
-                            loading="lazy">
-                    </a>
-                    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ rawurlencode($shareUrl) }}&title={{ rawurlencode($post->title) }}"
-                        target="_blank" rel="noopener noreferrer" aria-label="Bagikan ke LinkedIn"
-                        class="grid h-5 w-5 place-items-center rounded-full bg-white transition hover:-translate-y-0.5">
-                        <img src="https://cdn.simpleicons.org/linkedin/0A66C2" alt="" class="h-4 w-4"
                             loading="lazy">
                     </a>
                 </div>
