@@ -47,11 +47,6 @@ class StudyProgramsRelationManager extends RelationManager
                 TextInput::make('accreditation')
                     ->label('Akreditasi')
                     ->maxLength(255),
-                TextInput::make('order')
-                    ->label('Urutan')
-                    ->numeric()
-                    ->default(0)
-                    ->required(),
                 Toggle::make('is_active')
                     ->label('Aktif')
                     ->default(true)

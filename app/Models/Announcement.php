@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Models\Concerns\LogsCmsActivity;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Announcement extends Model
 {
-    use Sluggable;
+    use LogsCmsActivity, Sluggable;
 
     protected $fillable = [
         'title',

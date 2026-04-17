@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Models\Concerns\HasAutoOrder;
+use App\Models\Concerns\LogsCmsActivity;
 use Illuminate\Database\Eloquent\Model;
 
 class Faq extends Model
 {
+    use HasAutoOrder, LogsCmsActivity;
+
     protected $fillable = [
         'question',
         'answer',

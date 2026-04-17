@@ -63,14 +63,8 @@ class MenuItemForm
                             ])
                             ->default('_self')
                             ->required(),
-                        TextInput::make('order')
-                            ->label('Urutan')
-                            ->helperText('Angka kecil akan tampil lebih dulu.')
-                            ->numeric()
-                            ->default(0)
-                            ->required(),
                     ])
-                    ->columns(2),
+                    ->columns(1),
             ]);
     }
 }

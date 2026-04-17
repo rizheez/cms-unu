@@ -52,18 +52,12 @@ class StudyProgramForm
                         TextInput::make('accreditation')
                             ->label('Akreditasi')
                             ->placeholder('Contoh: Baik Sekali'),
-                        TextInput::make('order')
-                            ->label('Urutan')
-                            ->helperText('Angka kecil akan tampil lebih dulu.')
-                            ->required()
-                            ->numeric()
-                            ->default(0),
                         Toggle::make('is_active')
                             ->label('Aktif')
                             ->helperText('Hanya program studi aktif yang ditampilkan.')
                             ->required(),
                     ])
-                    ->columns(3),
+                    ->columns(2),
             ]);
     }
 }

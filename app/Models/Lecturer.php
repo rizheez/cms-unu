@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Models\Concerns\HasAutoOrder;
+use App\Models\Concerns\LogsCmsActivity;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Lecturer extends Model
 {
-    use Sluggable;
+    use HasAutoOrder, LogsCmsActivity, Sluggable;
 
     protected $fillable = [
         'faculty_id',
@@ -41,6 +43,11 @@ class Lecturer extends Model
         return [
             'slug' => ['source' => 'name'],
         ];
+    }
+
+    protected function autoOrderGroupColumns(): array
+    {
+        return ['faculty_id'];
     }
 
     public function faculty(): BelongsTo

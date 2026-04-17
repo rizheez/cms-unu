@@ -32,18 +32,12 @@ class FaqForm
                         TextInput::make('category')
                             ->label('Kategori')
                             ->placeholder('Contoh: Pendaftaran, Akademik, Layanan'),
-                        TextInput::make('order')
-                            ->label('Urutan')
-                            ->helperText('Angka kecil akan tampil lebih dulu.')
-                            ->required()
-                            ->numeric()
-                            ->default(0),
                         Toggle::make('is_active')
                             ->label('Aktif')
                             ->helperText('Hanya FAQ aktif yang ditampilkan.')
                             ->required(),
                     ])
-                    ->columns(3),
+                    ->columns(2),
             ]);
     }
 }

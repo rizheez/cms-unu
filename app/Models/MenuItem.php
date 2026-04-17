@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Models\Concerns\HasAutoOrder;
+use App\Models\Concerns\LogsCmsActivity;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -11,6 +13,8 @@ use Illuminate\Support\Str;
 
 class MenuItem extends Model
 {
+    use HasAutoOrder, LogsCmsActivity;
+
     protected $fillable = [
         'menu_id',
         'parent_id',
@@ -26,6 +30,11 @@ class MenuItem extends Model
         return [
             'order' => 'integer',
         ];
+    }
+
+    protected function autoOrderGroupColumns(): array
+    {
+        return ['menu_id', 'parent_id'];
     }
 
     public function menu(): BelongsTo

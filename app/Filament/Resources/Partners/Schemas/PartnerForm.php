@@ -36,18 +36,12 @@ class PartnerForm
                     ->columns(2),
                 Section::make('Pengaturan')
                     ->schema([
-                        TextInput::make('order')
-                            ->label('Urutan')
-                            ->helperText('Angka kecil akan tampil lebih dulu.')
-                            ->required()
-                            ->numeric()
-                            ->default(0),
                         Toggle::make('is_active')
                             ->label('Aktif')
                             ->helperText('Hanya mitra aktif yang ditampilkan.')
                             ->required(),
                     ])
-                    ->columns(2),
+                    ->columns(1),
             ]);
     }
 }

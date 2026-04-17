@@ -56,11 +56,6 @@ class ItemsRelationManager extends RelationManager
                     ])
                     ->default('_self')
                     ->required(),
-                TextInput::make('order')
-                    ->label('Urutan')
-                    ->numeric()
-                    ->default(0)
-                    ->required(),
             ]);
     }
 

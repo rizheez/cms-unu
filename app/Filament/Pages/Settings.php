@@ -44,9 +44,6 @@ class Settings extends Page
         'vision' => ['default' => 'Menjadi universitas unggul yang melahirkan generasi profesional, berakhlak, dan berdaya saing global berlandaskan nilai Ahlussunnah wal Jamaah.', 'group' => 'profile'],
         'mission' => ['default' => 'Menyelenggarakan pendidikan transformatif, riset aplikatif, dan pengabdian masyarakat yang menjawab kebutuhan zaman.', 'group' => 'profile'],
         'accreditation' => ['default' => 'Baik Sekali', 'group' => 'profile'],
-        'meta_title' => ['default' => 'Universitas Nahdlatul Ulama | Kampus Unggul dan Berakhlak', 'group' => 'seo'],
-        'meta_description' => ['default' => 'Website resmi Universitas Nahdlatul Ulama: informasi akademik, berita kampus, pendaftaran, layanan mahasiswa, dan kolaborasi mitra.', 'group' => 'seo'],
-        'meta_keywords' => ['default' => 'UNU, Universitas Nahdlatul Ulama, Kampus NU, Perguruan Tinggi Islam, Kampus Kalimantan', 'group' => 'seo'],
         'home_students_count' => ['default' => '12400', 'group' => 'homepage'],
         'home_service_years' => ['default' => '30', 'group' => 'homepage'],
     ];
@@ -166,23 +163,6 @@ class Settings extends Page
                             ->minValue(0)
                             ->step(1)
                             ->required(),
-                    ])
-                    ->columns(2),
-                Section::make('Pengaturan SEO')
-                    ->schema([
-                        TextInput::make('meta_title')
-                            ->label('Meta Judul')
-                            ->placeholder('Judul utama untuk mesin pencari')
-                            ->maxLength(255),
-                        TextInput::make('meta_keywords')
-                            ->label('Meta Kata Kunci')
-                            ->placeholder('Contoh: UNU, kampus, universitas')
-                            ->maxLength(255),
-                        Textarea::make('meta_description')
-                            ->label('Meta Deskripsi')
-                            ->placeholder('Deskripsi singkat website untuk mesin pencari')
-                            ->rows(4)
-                            ->columnSpanFull(),
                     ])
                     ->columns(2),
                 Section::make('Tampilan')

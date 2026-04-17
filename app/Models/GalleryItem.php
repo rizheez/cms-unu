@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Models\Concerns\HasAutoOrder;
+use App\Models\Concerns\LogsCmsActivity;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 
 class GalleryItem extends Model
 {
+    use HasAutoOrder, LogsCmsActivity;
+
     protected $fillable = [
         'gallery_id',
         'image',
@@ -23,6 +27,11 @@ class GalleryItem extends Model
         return [
             'order' => 'integer',
         ];
+    }
+
+    protected function autoOrderGroupColumns(): array
+    {
+        return ['gallery_id'];
     }
 
     public function gallery(): BelongsTo

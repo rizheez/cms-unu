@@ -63,11 +63,6 @@ class LecturersRelationManager extends RelationManager
                 RichEditor::make('bio')
                     ->label('Biografi')
                     ->columnSpanFull(),
-                TextInput::make('order')
-                    ->label('Urutan')
-                    ->numeric()
-                    ->default(0)
-                    ->required(),
                 Toggle::make('is_active')
                     ->label('Aktif')
                     ->default(true)

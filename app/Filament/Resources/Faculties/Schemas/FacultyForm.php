@@ -54,12 +54,6 @@ class FacultyForm
                             ->label('Gambar')
                             ->helperText('Gunakan gambar fakultas yang jelas dan proporsional.')
                             ->image(),
-                        TextInput::make('order')
-                            ->label('Urutan')
-                            ->helperText('Angka kecil akan tampil lebih dulu.')
-                            ->required()
-                            ->numeric()
-                            ->default(0),
                         Toggle::make('is_active')
                             ->label('Aktif')
                             ->helperText('Hanya fakultas aktif yang ditampilkan.')

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Models\Concerns\LogsCmsActivity;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +16,7 @@ use Illuminate\Support\Str;
 
 class Post extends Model
 {
-    use Sluggable, SoftDeletes;
+    use LogsCmsActivity, Sluggable, SoftDeletes;
 
     protected $fillable = [
         'post_category_id',
