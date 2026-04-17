@@ -35,6 +35,7 @@ Route::prefix('akademik')->name('academics.')->controller(AcademicsController::c
 Route::prefix('berita')->name('news.')->controller(NewsController::class)->group(function (): void {
     Route::get('/', 'index')->name('index');
     Route::get('kategori/{category:slug}', 'category')->name('category');
+    Route::post('{post:slug}/komentar', 'storeComment')->name('comments.store');
     Route::get('{post:slug}', 'show')->name('show');
 });
 

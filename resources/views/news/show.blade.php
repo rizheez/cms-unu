@@ -141,6 +141,98 @@
                     </p>
                 </div>
             </div>
+
+            <section id="comments" class="mt-10 rounded-[20px] border border-black/10 bg-white p-6 shadow-sm sm:p-7">
+                <div class="flex flex-col gap-2 border-b border-black/10 pb-5 sm:flex-row sm:items-end sm:justify-between">
+                    <div>
+                        <p class="text-xs font-extrabold uppercase tracking-[0.08em] text-[#00a9b7]">Diskusi</p>
+                        <h2 class="mt-2 font-display text-2xl font-bold text-[#123136]">
+                            Komentar
+                        </h2>
+                    </div>
+                    <p class="text-sm font-semibold text-[#123136]/50">
+                        {{ $postComments->count() }} komentar
+                    </p>
+                </div>
+
+                @if (session('comment_success'))
+                    <div class="mt-5 rounded-2xl border border-[#00a9b7]/20 bg-[#00a9b7]/10 px-4 py-3 text-sm font-semibold text-[#005f69]">
+                        {{ session('comment_success') }}
+                    </div>
+                @endif
+
+                <div class="mt-6 space-y-4">
+                    @forelse ($postComments as $comment)
+                        <article class="rounded-2xl border border-black/10 bg-[#f4fffc] p-5">
+                            <div class="flex items-center gap-3">
+                                <span class="grid h-10 w-10 place-items-center rounded-full bg-[#ffc928] font-display text-sm font-extrabold text-[#005f69]">
+                                    {{ \Illuminate\Support\Str::upper(\Illuminate\Support\Str::substr($comment->name ?? 'P', 0, 1)) }}
+                                </span>
+                                <div>
+                                    <h3 class="font-display text-base font-bold text-[#123136]">
+                                        {{ $comment->name ?? 'Pengunjung' }}
+                                    </h3>
+                                    <p class="text-xs font-semibold text-[#123136]/45">
+                                        {{ $comment->created_at?->diffForHumans() }}
+                                    </p>
+                                </div>
+                            </div>
+                            <p class="mt-4 whitespace-pre-line break-words text-sm leading-7 text-[#3a4a4d]">
+                                {{ $comment->body }}
+                            </p>
+                        </article>
+                    @empty
+                        <div class="rounded-2xl border border-dashed border-black/10 bg-[#f4fffc] p-5 text-sm text-[#123136]/60">
+                            Belum ada komentar. Jadilah yang pertama berdiskusi.
+                        </div>
+                    @endforelse
+                </div>
+
+                <form method="POST" action="{{ route('news.comments.store', $post) }}" class="mt-7 rounded-2xl bg-[linear-gradient(135deg,#d8f7f2,#eefcfa)] p-5">
+                    @csrf
+                    <input type="text" name="website" value="" class="hidden" tabindex="-1" autocomplete="off">
+
+                    <div class="grid gap-4">
+                        <label class="grid gap-2">
+                            <span class="text-sm font-bold text-[#123136]">Nama <span class="font-medium text-[#123136]/45">(opsional)</span></span>
+                            <input
+                                type="text"
+                                name="name"
+                                value="{{ old('name') }}"
+                                maxlength="80"
+                                class="min-h-12 rounded-xl border border-black/10 bg-white px-4 text-sm text-[#123136] outline-none transition focus:border-[#00a9b7] focus:ring-2 focus:ring-[#00a9b7]/15"
+                                placeholder="Nama kamu"
+                            >
+                            @error('name')
+                                <span class="text-xs font-semibold text-red-600">{{ $message }}</span>
+                            @enderror
+                        </label>
+
+                        <label class="grid gap-2">
+                            <span class="text-sm font-bold text-[#123136]">Komentar</span>
+                            <textarea
+                                name="body"
+                                rows="5"
+                                maxlength="1200"
+                                required
+                                class="rounded-xl border border-black/10 bg-white px-4 py-3 text-sm leading-7 text-[#123136] outline-none transition focus:border-[#00a9b7] focus:ring-2 focus:ring-[#00a9b7]/15"
+                                placeholder="Tulis komentar dengan bahasa yang santun..."
+                            >{{ old('body') }}</textarea>
+                            @error('body')
+                                <span class="text-xs font-semibold text-red-600">{{ $message }}</span>
+                            @enderror
+                        </label>
+
+                        @error('website')
+                            <span class="text-xs font-semibold text-red-600">{{ $message }}</span>
+                        @enderror
+
+                        <button type="submit" class="inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-[#ffc928] px-5 text-sm font-extrabold text-[#005f69] shadow-[5px_5px_0_#005f69] transition hover:-translate-y-0.5 sm:w-fit">
+                            Kirim Komentar
+                        </button>
+                    </div>
+                </form>
+            </section>
         </article>
 
         <aside class="space-y-6 lg:sticky lg:top-24 lg:self-start">
