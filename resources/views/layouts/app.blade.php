@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {!! SEO::generate() !!}
+    @include('partials.organization-json-ld')
     @php
         $siteLogo = trim((string) setting('site_logo', ''));
         $siteLogoUrl = $siteLogo !== '' ? asset('storage/' . $siteLogo) : null;

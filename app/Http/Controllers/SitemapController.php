@@ -24,6 +24,9 @@ class SitemapController extends Controller
         if ($content === '') {
             $content = implode("\n", [
                 'User-agent: *',
+                'Disallow: /admin',
+                'Disallow: /livewire',
+                'Disallow: /storage/livewire-tmp',
                 'Allow: /',
                 '',
                 'Sitemap: '.url('/sitemap.xml'),

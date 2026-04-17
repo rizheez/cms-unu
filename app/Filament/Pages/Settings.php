@@ -32,8 +32,19 @@ class Settings extends Page
         'site_name' => ['default' => 'Universitas Nahdlatul Ulama', 'group' => 'general'],
         'site_tagline' => ['default' => 'Kampus Unggul, Berkarakter, dan Berdampak', 'group' => 'general'],
         'site_address' => ['default' => 'Jl. Pendidikan No. 1, Samarinda, Kalimantan Timur', 'group' => 'contact'],
+        'site_city' => ['default' => 'Samarinda', 'group' => 'contact'],
+        'site_region' => ['default' => 'Kalimantan Timur', 'group' => 'contact'],
+        'site_postal_code' => ['default' => '', 'group' => 'contact'],
+        'site_country' => ['default' => 'ID', 'group' => 'contact'],
+        'site_latitude' => ['default' => '', 'group' => 'contact'],
+        'site_longitude' => ['default' => '', 'group' => 'contact'],
+        'google_maps_url' => ['default' => '', 'group' => 'contact'],
         'site_phone' => ['default' => '+62 812 4000 2026', 'group' => 'contact'],
         'site_email' => ['default' => 'info@unu.ac.id', 'group' => 'contact'],
+        'meta_title' => ['default' => 'Universitas Nahdlatul Ulama Kalimantan Timur | Kampus di Samarinda', 'group' => 'seo'],
+        'meta_description' => ['default' => 'Website resmi Universitas Nahdlatul Ulama Kalimantan Timur, kampus di Samarinda yang menyediakan informasi akademik, berita kampus, pendaftaran mahasiswa baru, dan layanan mahasiswa.', 'group' => 'seo'],
+        'google_site_verification' => ['default' => '', 'group' => 'seo'],
+        'robots_txt' => ['default' => '', 'group' => 'seo'],
         'site_logo' => ['default' => '', 'group' => 'appearance'],
         'site_favicon' => ['default' => '', 'group' => 'appearance'],
         'ticker_text' => ['default' => 'Pendaftaran Mahasiswa Baru telah dibuka - Daftarkan dirimu sekarang! - Wisuda Sarjana akan diselenggarakan semester ini - UNU raih akreditasi Baik Sekali - Seminar nasional terbuka untuk umum', 'group' => 'appearance'],
@@ -95,6 +106,35 @@ class Settings extends Page
                             ->label('Alamat')
                             ->placeholder('Alamat lengkap kampus')
                             ->columnSpanFull(),
+                        TextInput::make('site_city')
+                            ->label('Kota')
+                            ->placeholder('Contoh: Samarinda')
+                            ->maxLength(255),
+                        TextInput::make('site_region')
+                            ->label('Provinsi')
+                            ->placeholder('Contoh: Kalimantan Timur')
+                            ->maxLength(255),
+                        TextInput::make('site_postal_code')
+                            ->label('Kode Pos')
+                            ->placeholder('Contoh: 75119')
+                            ->maxLength(30),
+                        TextInput::make('site_country')
+                            ->label('Kode Negara')
+                            ->placeholder('Contoh: ID')
+                            ->maxLength(2),
+                        TextInput::make('site_latitude')
+                            ->label('Latitude')
+                            ->placeholder('Contoh: -0.502106')
+                            ->numeric(),
+                        TextInput::make('site_longitude')
+                            ->label('Longitude')
+                            ->placeholder('Contoh: 117.153709')
+                            ->numeric(),
+                        TextInput::make('google_maps_url')
+                            ->label('URL Google Maps')
+                            ->placeholder('https://maps.google.com/...')
+                            ->url()
+                            ->columnSpanFull(),
                         TextInput::make('site_phone')
                             ->label('Telepon / WhatsApp')
                             ->placeholder('Contoh: +62 812 4000 2026')
@@ -105,6 +145,31 @@ class Settings extends Page
                             ->placeholder('Contoh: info@unu.ac.id')
                             ->email()
                             ->maxLength(255),
+                    ])
+                    ->columns(2),
+                Section::make('SEO Dasar')
+                    ->schema([
+                        TextInput::make('meta_title')
+                            ->label('Judul SEO Default')
+                            ->placeholder('Universitas Nahdlatul Ulama Kalimantan Timur | Kampus di Samarinda')
+                            ->required()
+                            ->maxLength(70),
+                        TextInput::make('google_site_verification')
+                            ->label('Google Site Verification')
+                            ->helperText('Isi kode verifikasi dari Google Search Console jika memakai meta tag.')
+                            ->maxLength(255),
+                        Textarea::make('meta_description')
+                            ->label('Deskripsi SEO Default')
+                            ->placeholder('Deskripsi singkat website untuk Google.')
+                            ->required()
+                            ->rows(3)
+                            ->maxLength(200)
+                            ->columnSpanFull(),
+                        Textarea::make('robots_txt')
+                            ->label('Robots.txt Kustom')
+                            ->helperText('Opsional. Kosongkan untuk memakai robots.txt bawaan yang sudah berisi sitemap dan blok area admin.')
+                            ->rows(6)
+                            ->columnSpanFull(),
                     ])
                     ->columns(2),
                 Section::make('Media Sosial')

@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\Models\Faculty;
 use App\Models\Gallery;
+use App\Models\Lecturer;
 use App\Models\Page;
 use App\Models\Post;
 use App\Models\StudyProgram;
@@ -129,6 +130,18 @@ XML;
                 Url::create(route('academics.study-program', $studyProgram->slug))
                     ->setLastModificationDate($studyProgram->updated_at)
                     ->setPriority(0.7)
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY),
+            ));
+
+        Lecturer::query()
+            ->where('is_active', true)
+            ->select(['id', 'slug', 'updated_at'])
+            ->orderBy('order')
+            ->get()
+            ->each(fn (Lecturer $lecturer): Sitemap => $sitemap->add(
+                Url::create(route('academics.lecturer', $lecturer->slug))
+                    ->setLastModificationDate($lecturer->updated_at)
+                    ->setPriority(0.5)
                     ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY),
             ));
     }
