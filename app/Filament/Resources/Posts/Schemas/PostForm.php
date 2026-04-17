@@ -39,6 +39,7 @@ class PostForm
                         RichEditor::make('content')
                             ->label('Konten')
                             ->placeholder('Tuliskan isi berita')
+                            ->resizableImages()
                             ->columnSpanFull(),
                     ])
                     ->columnSpanFull()
@@ -77,7 +78,7 @@ class PostForm
                             ->default('draft'),
                         DateTimePicker::make('published_at')
                             ->label('Tanggal Terbit')
-                            ->hidden(fn (Get $get): bool => $get('status') !== 'published')
+                            ->hidden(fn(Get $get): bool => $get('status') !== 'published')
                             ->helperText('Otomatis terisi saat status dipilih Terbit, dan kosong saat Draft.'),
                         Toggle::make('is_featured')
                             ->label('Unggulan')
