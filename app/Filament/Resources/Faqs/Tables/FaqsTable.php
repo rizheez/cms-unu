@@ -14,6 +14,8 @@ class FaqsTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->defaultSort('order')
+            ->reorderable('order')
             ->columns([
                 TextColumn::make('question')
                     ->label('Pertanyaan')

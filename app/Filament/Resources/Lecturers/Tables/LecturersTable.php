@@ -6,6 +6,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -14,6 +15,8 @@ class LecturersTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->defaultSort('order')
+            ->reorderable('order')
             ->columns([
                 TextColumn::make('faculty.name')
                     ->label('Fakultas')
@@ -39,9 +42,9 @@ class LecturersTable
                 TextColumn::make('education_level')
                     ->label('Jenjang Pendidikan')
                     ->searchable(),
-                TextColumn::make('photo')
+                ImageColumn::make('photo')
                     ->label('Foto')
-                    ->searchable(),
+                    ->disk('public'),
                 TextColumn::make('expertise')
                     ->label('Keahlian')
                     ->searchable(),

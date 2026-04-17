@@ -10,6 +10,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 
@@ -73,6 +74,7 @@ class PostForm
                             ->default('draft'),
                         DateTimePicker::make('published_at')
                             ->label('Tanggal Terbit')
+                            ->hidden(fn(Get $get): bool => $get('status') !== 'published')
                             ->helperText('Otomatis terisi saat status dipilih Terbit, dan kosong saat Draft.'),
                         Toggle::make('is_featured')
                             ->label('Unggulan')

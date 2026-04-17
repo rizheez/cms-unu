@@ -14,6 +14,7 @@ class MenuItemsTable
     {
         return $table
             ->defaultSort('order')
+            ->reorderable('order')
             ->columns([
                 TextColumn::make('menu.name')
                     ->label('Menu')

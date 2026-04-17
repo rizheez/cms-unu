@@ -5,6 +5,8 @@ namespace App\Filament\Resources\Faculties;
 use App\Filament\Resources\Faculties\Pages\CreateFaculty;
 use App\Filament\Resources\Faculties\Pages\EditFaculty;
 use App\Filament\Resources\Faculties\Pages\ListFaculties;
+use App\Filament\Resources\Faculties\RelationManagers\LecturersRelationManager;
+use App\Filament\Resources\Faculties\RelationManagers\StudyProgramsRelationManager;
 use App\Filament\Resources\Faculties\Schemas\FacultyForm;
 use App\Filament\Resources\Faculties\Tables\FacultiesTable;
 use App\Models\Faculty;
@@ -42,7 +44,8 @@ class FacultyResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            StudyProgramsRelationManager::class,
+            LecturersRelationManager::class,
         ];
     }
 
