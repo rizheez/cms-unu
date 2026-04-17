@@ -46,6 +46,7 @@ class Settings extends Page
         'accreditation' => ['default' => 'Baik Sekali', 'group' => 'profile'],
         'home_students_count' => ['default' => '12400', 'group' => 'homepage'],
         'home_service_years' => ['default' => '30', 'group' => 'homepage'],
+        'home_about_image' => ['default' => '', 'group' => 'homepage'],
     ];
 
     protected string $view = 'filament.pages.settings';
@@ -163,6 +164,14 @@ class Settings extends Page
                             ->minValue(0)
                             ->step(1)
                             ->required(),
+                        FileUpload::make('home_about_image')
+                            ->label('Foto Tentang Kampus')
+                            ->helperText('Opsional. Jika diisi, gambar ini menggantikan ilustrasi kiri pada section Tentang UNU.')
+                            ->image()
+                            ->disk('public')
+                            ->directory('homepage')
+                            ->visibility('public')
+                            ->columnSpanFull(),
                     ])
                     ->columns(2),
                 Section::make('Tampilan')
