@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Lecturers\Schemas;
 
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -53,9 +54,11 @@ class LecturerForm
                     ->columns(2),
                 Section::make('Profil')
                     ->schema([
-                        TextInput::make('photo')
+                        FileUpload::make('photo')
                             ->label('Foto')
-                            ->placeholder('Contoh: lecturers/nama-dosen.jpg'),
+                            ->helperText('Upload foto profil dosen.')
+                            ->directory('lecturers')
+                            ->image(),
                         RichEditor::make('bio')
                             ->label('Biografi')
                             ->placeholder('Tuliskan biografi singkat dosen')

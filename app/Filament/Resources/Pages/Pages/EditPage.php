@@ -12,6 +12,15 @@ class EditPage extends EditRecord
 {
     protected static string $resource = PageResource::class;
 
+    /**
+     * @param  array<string, mixed>  $data
+     * @return array<string, mixed>
+     */
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        return PageResource::normalizePublicationData($data);
+    }
+
     protected function getHeaderActions(): array
     {
         return [

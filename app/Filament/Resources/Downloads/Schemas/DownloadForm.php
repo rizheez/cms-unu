@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Downloads\Schemas;
 
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -31,16 +32,29 @@ class DownloadForm
                     ->columns(2),
                 Section::make('Berkas dan Statistik')
                     ->schema([
-                        TextInput::make('file')
+                        FileUpload::make('file')
                             ->label('Berkas')
-                            ->placeholder('Contoh: dokumen/panduan-akademik.pdf')
+                            ->helperText('Upload dokumen yang akan diunduh dari website.')
+                            ->directory('downloads')
+                            ->acceptedFileTypes([
+                                'application/pdf',
+                                'application/msword',
+                                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                                'application/vnd.ms-excel',
+                                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                                'application/vnd.ms-powerpoint',
+                                'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                                'application/zip',
+                            ])
                             ->required(),
                         TextInput::make('download_count')
                             ->label('Jumlah Unduhan')
-                            ->helperText('Biasanya dibiarkan 0 karena akan bertambah otomatis.')
+                            ->helperText('Bertambah otomatis saat pengunjung mengunduh berkas.')
                             ->required()
                             ->numeric()
-                            ->default(0),
+                            ->default(0)
+                            ->disabled()
+                            ->dehydrated(false),
                     ])
                     ->columns(2),
                 Section::make('Pengaturan')

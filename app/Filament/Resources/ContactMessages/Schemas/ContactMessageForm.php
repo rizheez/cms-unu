@@ -7,6 +7,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 
 class ContactMessageForm
@@ -20,16 +21,22 @@ class ContactMessageForm
                         TextInput::make('name')
                             ->label('Nama')
                             ->placeholder('Contoh: Raka Pratama')
-                            ->required(),
+                            ->required()
+                            ->disabled()
+                            ->dehydrated(false),
                         TextInput::make('email')
                             ->label('Alamat Email')
                             ->placeholder('Contoh: nama@email.com')
                             ->email()
-                            ->required(),
+                            ->required()
+                            ->disabled()
+                            ->dehydrated(false),
                         TextInput::make('phone')
                             ->label('Telepon')
                             ->placeholder('Contoh: 081234567890')
-                            ->tel(),
+                            ->tel()
+                            ->disabled()
+                            ->dehydrated(false),
                     ])
                     ->columns(3),
                 Section::make('Isi Pesan')
@@ -37,11 +44,15 @@ class ContactMessageForm
                         TextInput::make('subject')
                             ->label('Subjek')
                             ->placeholder('Contoh: Informasi PMB')
-                            ->required(),
+                            ->required()
+                            ->disabled()
+                            ->dehydrated(false),
                         Textarea::make('message')
                             ->label('Pesan')
                             ->placeholder('Isi pesan dari pengirim')
                             ->required()
+                            ->disabled()
+                            ->dehydrated(false)
                             ->columnSpanFull(),
                     ]),
                 Section::make('Status Pembacaan')
@@ -53,11 +64,23 @@ class ContactMessageForm
                                 'unread' => 'Belum Dibaca',
                                 'read' => 'Dibaca',
                             ])
+                            ->live()
+                            ->afterStateUpdated(function (Set $set, ?string $state): void {
+                                if ($state === 'read') {
+                                    $set('read_at', now());
+                                }
+
+                                if ($state === 'unread') {
+                                    $set('read_at', null);
+                                }
+                            })
                             ->required()
                             ->default('unread'),
                         DateTimePicker::make('read_at')
                             ->label('Dibaca Pada')
-                            ->helperText('Isi otomatis/manual saat pesan sudah dibaca.'),
+                            ->helperText('Otomatis terisi saat status Dibaca.')
+                            ->disabled()
+                            ->dehydrated(true),
                     ])
                     ->columns(2),
             ]);

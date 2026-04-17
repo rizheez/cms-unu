@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Testimonials\Schemas;
 
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -23,9 +24,11 @@ class TestimonialForm
                         TextInput::make('position')
                             ->label('Jabatan')
                             ->placeholder('Contoh: Alumni Informatika'),
-                        TextInput::make('photo')
+                        FileUpload::make('photo')
                             ->label('Foto')
-                            ->placeholder('Contoh: testimonials/aulia-rahman.jpg'),
+                            ->helperText('Upload foto pemberi testimoni.')
+                            ->directory('testimonials')
+                            ->image(),
                     ])
                     ->columns(3),
                 Section::make('Isi Testimoni')

@@ -36,6 +36,7 @@ class AdminPanelProvider extends PanelProvider
                 'primary' => Color::Amber,
             ])
             ->sidebarCollapsibleOnDesktop()
+            ->strictAuthorization()
             ->navigationGroups([
                 NavigationGroup::make()
                     ->label('Konten')

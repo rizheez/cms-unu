@@ -10,6 +10,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 
 class PageForm
@@ -45,11 +46,22 @@ class PageForm
                                 'published' => 'Terbit',
                                 'archived' => 'Arsip',
                             ])
+                            ->live()
+                            ->afterStateUpdated(function (Set $set, ?string $state): void {
+                                if ($state === 'published') {
+                                    $set('published_at', now());
+                                }
+
+                                if ($state === 'draft') {
+                                    $set('published_at', null);
+                                }
+                            })
                             ->required()
                             ->default('draft'),
                         DateTimePicker::make('published_at')
                             ->label('Tanggal Terbit')
-                            ->helperText('Isi saat halaman siap dipublikasikan.'),
+                            ->hidden(fn(?string $state) => $state !== 'published')
+                            ->helperText('Otomatis terisi saat status dipilih Terbit, dan kosong saat Draft.'),
                     ])
                     ->columns(3),
                 Section::make('Pengaturan SEO')

@@ -41,6 +41,23 @@ class PageResource extends Resource
         return PagesTable::configure($table);
     }
 
+    /**
+     * @param  array<string, mixed>  $data
+     * @return array<string, mixed>
+     */
+    public static function normalizePublicationData(array $data): array
+    {
+        if (($data['status'] ?? null) === 'published' && blank($data['published_at'] ?? null)) {
+            $data['published_at'] = now();
+        }
+
+        if (($data['status'] ?? null) === 'draft') {
+            $data['published_at'] = null;
+        }
+
+        return $data;
+    }
+
     public static function getRelations(): array
     {
         return [
