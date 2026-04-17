@@ -50,6 +50,9 @@ class AdminPanelProvider extends PanelProvider
                     ->label('Website')
                     ->icon(Heroicon::OutlinedCog6Tooth),
                 NavigationGroup::make()
+                    ->label('SEO')
+                    ->icon(Heroicon::OutlinedDocumentMagnifyingGlass),
+                NavigationGroup::make()
                     ->label('Komunikasi')
                     ->icon(Heroicon::OutlinedInbox),
                 NavigationGroup::make()
@@ -79,6 +82,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugins([
                 FilamentShieldPlugin::make()
+                    ->navigationLabel('Peran & Izin')
                     ->navigationGroup('Sistem')
                     ->navigationSort(20),
             ])

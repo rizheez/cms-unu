@@ -93,6 +93,7 @@ class ComprehensiveDemoSeeder extends Seeder
             ['key' => 'meta_title', 'value' => 'Universitas Nahdlatul Ulama | Kampus Unggul dan Berakhlak', 'group' => 'seo'],
             ['key' => 'meta_description', 'value' => 'Website resmi Universitas Nahdlatul Ulama: informasi akademik, berita kampus, pendaftaran, layanan mahasiswa, dan kolaborasi mitra.', 'group' => 'seo'],
             ['key' => 'meta_keywords', 'value' => 'UNU, Universitas Nahdlatul Ulama, Kampus NU, Perguruan Tinggi Islam, Kampus Kalimantan', 'group' => 'seo'],
+            ['key' => 'robots_txt', 'value' => "User-agent: *\nAllow: /\n\nSitemap: ".url('/sitemap.xml'), 'group' => 'seo'],
         ])->each(fn (array $setting): Setting => Setting::query()->updateOrCreate(
             ['key' => $setting['key']],
             ['value' => $setting['value'], 'group' => $setting['group']],
