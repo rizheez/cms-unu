@@ -58,7 +58,9 @@ class LecturerForm
                             ->label('Foto')
                             ->helperText('Upload foto profil dosen.')
                             ->directory('lecturers')
-                            ->image(),
+                            ->image()
+                            ->disk('public')
+                            ->visibility('public'),
                         RichEditor::make('bio')
                             ->label('Biografi')
                             ->placeholder('Tuliskan biografi singkat dosen')

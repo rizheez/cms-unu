@@ -45,7 +45,10 @@ class StudyProgramForm
                         FileUpload::make('image')
                             ->label('Gambar')
                             ->helperText('Gambar akan tampil di halaman program studi.')
-                            ->image(),
+                            ->image()
+                            ->disk('public')
+                            ->directory('study-programs')
+                            ->visibility('public'),
                     ]),
                 Section::make('Pengaturan Akademik')
                     ->schema([

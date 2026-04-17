@@ -53,7 +53,10 @@ class FacultyForm
                         FileUpload::make('image')
                             ->label('Gambar')
                             ->helperText('Gunakan gambar fakultas yang jelas dan proporsional.')
-                            ->image(),
+                            ->image()
+                            ->disk('public')
+                            ->directory('faculties')
+                            ->visibility('public'),
                         Toggle::make('is_active')
                             ->label('Aktif')
                             ->helperText('Hanya fakultas aktif yang ditampilkan.')

@@ -14,7 +14,7 @@ class PostCommentTest extends TestCase
 {
     use LazilyRefreshDatabase;
 
-    public function test_guest_can_comment_on_a_published_post_as_plain_text(): void
+    public function test_guest_can_submit_comment_as_plain_text_pending_approval(): void
     {
         $post = $this->createPublishedPost();
 
@@ -25,13 +25,13 @@ class PostCommentTest extends TestCase
 
         $response
             ->assertRedirect(route('news.show', $post).'#comments')
-            ->assertSessionHas('comment_success');
+            ->assertSessionHas('comment_success', 'Komentar berhasil dikirim dan menunggu persetujuan admin.');
 
         $this->assertDatabaseHas('post_comments', [
             'post_id' => $post->id,
             'name' => 'Ani Pengunjung',
             'body' => "Komentar alert('x')\n\nTetap pakai baris baru.",
-            'is_approved' => true,
+            'is_approved' => false,
         ]);
     }
 

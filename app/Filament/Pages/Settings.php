@@ -179,11 +179,17 @@ class Settings extends Page
                         FileUpload::make('site_logo')
                             ->label('Logo Situs')
                             ->helperText('Logo utama website. Jika kosong, tampilan memakai logo teks bawaan.')
-                            ->image(),
+                            ->image()
+                            ->disk('public')
+                            ->directory('settings')
+                            ->visibility('public'),
                         FileUpload::make('site_favicon')
                             ->label('Favicon')
                             ->helperText('Ikon kecil untuk tab browser.')
-                            ->image(),
+                            ->image()
+                            ->disk('public')
+                            ->directory('settings')
+                            ->visibility('public'),
                         Textarea::make('ticker_text')
                             ->label('Teks Running Info')
                             ->helperText('Teks ini tampil di bar INFO paling atas. Pisahkan beberapa informasi dengan tanda minus (-).')

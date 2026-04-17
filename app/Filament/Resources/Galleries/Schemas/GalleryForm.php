@@ -33,7 +33,10 @@ class GalleryForm
                         FileUpload::make('cover_image')
                             ->label('Gambar Sampul')
                             ->helperText('Gambar ini menjadi sampul daftar galeri.')
-                            ->image(),
+                            ->image()
+                            ->disk('public')
+                            ->directory('galleries/covers')
+                            ->visibility('public'),
                         Select::make('type')
                             ->label('Jenis')
                             ->placeholder('Pilih jenis galeri')
@@ -59,7 +62,10 @@ class GalleryForm
                                 FileUpload::make('image')
                                     ->label('Foto')
                                     ->helperText('Upload foto kegiatan jika item ini berupa foto. Kosongkan jika memakai URL video.')
-                                    ->image(),
+                                    ->image()
+                                    ->disk('public')
+                                    ->directory('galleries/items')
+                                    ->visibility('public'),
                                 TextInput::make('caption')
                                     ->label('Keterangan')
                                     ->placeholder('Contoh: Dokumentasi kegiatan mahasiswa di aula utama')

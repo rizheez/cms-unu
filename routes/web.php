@@ -38,14 +38,14 @@ Route::prefix('akademik')->name('academics.')->controller(AcademicsController::c
 Route::prefix('berita')->name('news.')->controller(NewsController::class)->group(function (): void {
     Route::get('/', 'index')->name('index');
     Route::get('kategori/{category:slug}', 'category')->name('category');
-    Route::post('{post:slug}/komentar', 'storeComment')->name('comments.store');
+    Route::post('{post:slug}/komentar', 'storeComment')->middleware('throttle:5,1')->name('comments.store');
     Route::get('{post:slug}', 'show')->name('show');
 });
 
 Route::get('galeri', [GalleryController::class, 'index'])->name('gallery.index');
 Route::get('galeri/{gallery:slug}', [GalleryController::class, 'show'])->name('gallery.show');
 Route::get('kontak', [ContactController::class, 'create'])->name('contact.create');
-Route::post('kontak', [ContactController::class, 'store'])->name('contact.store');
+Route::post('kontak', [ContactController::class, 'store'])->middleware('throttle:3,1')->name('contact.store');
 Route::get('pengumuman', [AnnouncementController::class, 'index'])->name('announcements.index');
 Route::get('unduhan', [DownloadController::class, 'index'])->name('downloads.index');
 Route::get('unduhan/{download:slug}/download', [DownloadController::class, 'download'])->name('downloads.download');

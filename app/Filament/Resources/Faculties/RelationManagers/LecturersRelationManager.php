@@ -59,7 +59,9 @@ class LecturersRelationManager extends RelationManager
                 FileUpload::make('photo')
                     ->label('Foto')
                     ->directory('lecturers')
-                    ->image(),
+                    ->image()
+                    ->disk('public')
+                    ->visibility('public'),
                 RichEditor::make('bio')
                     ->label('Biografi')
                     ->columnSpanFull(),

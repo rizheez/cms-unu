@@ -80,7 +80,10 @@ class PageForm
                         FileUpload::make('og_image')
                             ->label('Gambar OG')
                             ->helperText('Gambar untuk pratinjau saat halaman dibagikan.')
-                            ->image(),
+                            ->image()
+                            ->disk('public')
+                            ->directory('pages')
+                            ->visibility('public'),
                         Toggle::make('is_in_sitemap')
                             ->label('Masuk Sitemap')
                             ->helperText('Aktifkan agar halaman masuk sitemap.')

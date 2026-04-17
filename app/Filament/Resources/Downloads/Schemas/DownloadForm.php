@@ -36,6 +36,8 @@ class DownloadForm
                             ->label('Berkas')
                             ->helperText('Upload dokumen yang akan diunduh dari website.')
                             ->directory('downloads')
+                            ->disk('public')
+                            ->visibility('public')
                             ->acceptedFileTypes([
                                 'application/pdf',
                                 'application/msword',

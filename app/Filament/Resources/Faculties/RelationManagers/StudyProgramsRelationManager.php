@@ -43,7 +43,9 @@ class StudyProgramsRelationManager extends RelationManager
                 FileUpload::make('image')
                     ->label('Gambar')
                     ->directory('study-programs')
-                    ->image(),
+                    ->image()
+                    ->disk('public')
+                    ->visibility('public'),
                 TextInput::make('accreditation')
                     ->label('Akreditasi')
                     ->maxLength(255),

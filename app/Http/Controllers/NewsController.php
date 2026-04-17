@@ -86,11 +86,11 @@ class NewsController extends Controller
             'body' => $body,
             'ip_address' => $request->ip(),
             'user_agent' => Str::limit((string) $request->userAgent(), 500, ''),
-            'is_approved' => true,
+            'is_approved' => false,
         ]);
 
         return redirect(route('news.show', $post).'#comments')
-            ->with('comment_success', 'Komentar berhasil dikirim.');
+            ->with('comment_success', 'Komentar berhasil dikirim dan menunggu persetujuan admin.');
     }
 
     public function category(PostCategory $category, SeoService $seo): View

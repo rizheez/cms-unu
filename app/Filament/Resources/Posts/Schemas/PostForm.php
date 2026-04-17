@@ -48,7 +48,10 @@ class PostForm
                         FileUpload::make('featured_image')
                             ->label('Gambar Utama')
                             ->helperText('Gambar utama akan tampil sebagai thumbnail berita.')
-                            ->image(),
+                            ->image()
+                            ->disk('public')
+                            ->directory('posts')
+                            ->visibility('public'),
                     ]),
                 Section::make('Publikasi')
                     ->schema([
@@ -74,7 +77,7 @@ class PostForm
                             ->default('draft'),
                         DateTimePicker::make('published_at')
                             ->label('Tanggal Terbit')
-                            ->hidden(fn(Get $get): bool => $get('status') !== 'published')
+                            ->hidden(fn (Get $get): bool => $get('status') !== 'published')
                             ->helperText('Otomatis terisi saat status dipilih Terbit, dan kosong saat Draft.'),
                         Toggle::make('is_featured')
                             ->label('Unggulan')
@@ -97,7 +100,10 @@ class PostForm
                         FileUpload::make('og_image')
                             ->label('Gambar OG')
                             ->helperText('Gambar untuk pratinjau saat berita dibagikan.')
-                            ->image(),
+                            ->image()
+                            ->disk('public')
+                            ->directory('posts/og')
+                            ->visibility('public'),
                         Toggle::make('is_in_sitemap')
                             ->label('Masuk Sitemap')
                             ->helperText('Aktifkan agar berita masuk sitemap.')

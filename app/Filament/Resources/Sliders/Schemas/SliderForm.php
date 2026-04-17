@@ -31,6 +31,9 @@ class SliderForm
                             ->label('Gambar')
                             ->helperText('Gunakan gambar lebar berkualitas baik untuk banner.')
                             ->image()
+                            ->disk('public')
+                            ->directory('sliders')
+                            ->visibility('public')
                             ->required(),
                         TextInput::make('button_text')
                             ->label('Teks Tombol')

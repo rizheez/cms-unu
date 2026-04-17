@@ -28,7 +28,9 @@ class TestimonialForm
                             ->label('Foto')
                             ->helperText('Upload foto pemberi testimoni.')
                             ->directory('testimonials')
-                            ->image(),
+                            ->image()
+                            ->disk('public')
+                            ->visibility('public'),
                     ])
                     ->columns(3),
                 Section::make('Isi Testimoni')
