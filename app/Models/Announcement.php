@@ -8,6 +8,8 @@ use App\Models\Concerns\LogsCmsActivity;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class Announcement extends Model
 {
@@ -17,6 +19,7 @@ class Announcement extends Model
         'title',
         'slug',
         'content',
+        'image',
         'type',
         'is_popup',
         'is_active',
@@ -50,5 +53,24 @@ class Announcement extends Model
             ->where(function (Builder $query): void {
                 $query->whereNull('end_at')->orWhere('end_at', '>=', now());
             });
+    }
+
+    public function getImageUrlAttribute(): ?string
+    {
+        $image = trim((string) $this->image);
+
+        if ($image === '') {
+            return null;
+        }
+
+        if (Str::startsWith($image, ['http://', 'https://'])) {
+            return $image;
+        }
+
+        if (Storage::disk('public')->exists($image)) {
+            return Storage::disk('public')->url($image);
+        }
+
+        return null;
     }
 }

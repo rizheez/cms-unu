@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Announcements\Schemas;
 
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -24,7 +25,15 @@ class AnnouncementForm
                         RichEditor::make('content')
                             ->label('Konten')
                             ->placeholder('Tuliskan isi pengumuman')
-                            ->required()
+                            ->helperText('Boleh dikosongkan jika pengumuman hanya menggunakan gambar.')
+                            ->columnSpanFull(),
+                        FileUpload::make('image')
+                            ->label('Gambar Pengumuman')
+                            ->helperText('Opsional. Gunakan jika isi pengumuman berupa poster atau gambar.')
+                            ->image()
+                            ->disk('public')
+                            ->directory('announcements')
+                            ->visibility('public')
                             ->columnSpanFull(),
                     ])
                     ->columnSpanFull(),

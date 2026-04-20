@@ -59,6 +59,69 @@ document.querySelectorAll('nav a').forEach((link) => {
     }
 });
 
+const announcementModal = document.querySelector('[data-announcement-modal]');
+
+if (announcementModal instanceof HTMLElement) {
+    const closeButton = announcementModal.querySelector('[data-announcement-close]');
+    const slides = Array.from(announcementModal.querySelectorAll('[data-announcement-slide]'));
+    const previousButton = announcementModal.querySelector('[data-announcement-prev]');
+    const nextButton = announcementModal.querySelector('[data-announcement-next]');
+    const counter = announcementModal.querySelector('[data-announcement-counter]');
+    const storageKey = announcementModal.dataset.announcementKey ?? 'announcement-popup';
+    const hasSeenAnnouncement = sessionStorage.getItem(storageKey) === 'dismissed';
+    let currentSlide = 0;
+
+    const showSlide = (index) => {
+        currentSlide = (index + slides.length) % slides.length;
+
+        slides.forEach((slide, slideIndex) => {
+            slide.hidden = slideIndex !== currentSlide;
+        });
+
+        if (counter instanceof HTMLElement) {
+            counter.textContent = `${currentSlide + 1} / ${slides.length}`;
+        }
+    };
+
+    const closeAnnouncement = () => {
+        announcementModal.hidden = true;
+        document.body.style.overflow = '';
+        sessionStorage.setItem(storageKey, 'dismissed');
+    };
+
+    if (!hasSeenAnnouncement) {
+        showSlide(0);
+        announcementModal.hidden = false;
+        document.body.style.overflow = 'hidden';
+
+        if (closeButton instanceof HTMLElement) {
+            closeButton.focus();
+        }
+    }
+
+    previousButton?.addEventListener('click', () => showSlide(currentSlide - 1));
+    nextButton?.addEventListener('click', () => showSlide(currentSlide + 1));
+    closeButton?.addEventListener('click', closeAnnouncement);
+    announcementModal.addEventListener('click', (event) => {
+        if (event.target === announcementModal) {
+            closeAnnouncement();
+        }
+    });
+    window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !announcementModal.hidden) {
+            closeAnnouncement();
+        }
+
+        if (event.key === 'ArrowLeft' && !announcementModal.hidden && slides.length > 1) {
+            showSlide(currentSlide - 1);
+        }
+
+        if (event.key === 'ArrowRight' && !announcementModal.hidden && slides.length > 1) {
+            showSlide(currentSlide + 1);
+        }
+    });
+}
+
 const lightboxTriggers = document.querySelectorAll('[data-lightbox-src]');
 
 if (lightboxTriggers.length > 0) {

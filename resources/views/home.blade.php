@@ -29,7 +29,60 @@
             'Pendidikan Guru Sekolah Dasar' => 'PG',
             'Pendidikan Bahasa Inggris' => 'EN',
         ];
+        $announcementTypes = ['info', 'warning', 'success'];
+        $popupAnnouncementKey = $popupAnnouncements
+            ->map(fn($announcement) => $announcement->id . '-' . $announcement->updated_at?->timestamp)
+            ->implode('|');
     @endphp
+
+    @if ($popupAnnouncements->isNotEmpty())
+        <div class="announcement-modal" data-announcement-modal
+            data-announcement-key="announcements-{{ md5($popupAnnouncementKey) }}" role="dialog" aria-modal="true"
+            aria-labelledby="announcement-modal-title" hidden>
+            <div class="announcement-modal__panel">
+                <button class="announcement-modal__close" type="button" data-announcement-close
+                    aria-label="Tutup pengumuman">x</button>
+
+                <div class="announcement-modal__slides">
+                    @foreach ($popupAnnouncements as $popupAnnouncement)
+                        @php
+                            $popupAnnouncementType = in_array($popupAnnouncement->type, $announcementTypes, true)
+                                ? $popupAnnouncement->type
+                                : 'info';
+                        @endphp
+
+                        <article class="announcement-modal__slide" data-announcement-slide
+                            @if (!$loop->first) hidden @endif>
+                            {{-- <span class="announcement-badge announcement-badge--{{ $popupAnnouncementType }}">
+                                {{ $popupAnnouncement->type }}
+                            </span> --}}
+                            @if ($popupAnnouncement->image_url)
+                                <img class="announcement-image announcement-image--modal"
+                                    src="{{ $popupAnnouncement->image_url }}" alt="{{ $popupAnnouncement->title }}">
+                            @endif
+                            <p class="announcement-modal__title"
+                                @if ($loop->first) id="announcement-modal-title" @endif>
+                                {{ $popupAnnouncement->title }}</p>
+                            @if (filled($popupAnnouncement->content))
+                                <div class="announcement-rich">{!! $popupAnnouncement->content !!}</div>
+                            @endif
+                        </article>
+                    @endforeach
+                </div>
+
+                <div class="announcement-modal__footer">
+                    @if ($popupAnnouncements->count() > 1)
+                        <div class="announcement-modal__controls" aria-label="Navigasi pengumuman popup">
+                            <button type="button" data-announcement-prev aria-label="Pengumuman sebelumnya">‹</button>
+                            <span data-announcement-counter>1 / {{ $popupAnnouncements->count() }}</span>
+                            <button type="button" data-announcement-next aria-label="Pengumuman berikutnya">›</button>
+                        </div>
+                    @endif
+                    <a href="{{ route('announcements.index') }}" class="announcement-modal__link">Lihat semua pengumuman</a>
+                </div>
+            </div>
+        </div>
+    @endif
 
     <section @class(['hero noise', 'has-hero-video' => $homeHeroVideoUrl])>
         @if ($homeHeroVideoUrl)
@@ -52,7 +105,7 @@
             </p>
             <div class="hero-btns">
                 <a href="{{ route('academics.faculties') }}" class="btn-primary">Jelajahi Program</a>
-                <a href="{{ route('contact.create') }}" class="btn-outline">Konsultasi PMB</a>
+                <a href="https://pmb.unukaltim.ac.id" target="_blank" rel="noopener" class="btn-outline">Konsultasi PMB</a>
             </div>
         </div>
 
@@ -144,6 +197,49 @@
             </div>
         </div>
     </section>
+
+    @if ($announcements->isNotEmpty())
+        <section class="section-wrap announcement-section">
+            <div class="section-head" data-reveal>
+                <div>
+                    <span class="section-label">Pengumuman</span>
+                    <h2 class="section-title">Info penting kampus.</h2>
+                </div>
+                <a href="{{ route('announcements.index') }}" class="section-link">Semua pengumuman</a>
+            </div>
+
+            <div class="announcement-grid">
+                @foreach ($announcements as $announcement)
+                    @php
+                        $announcementType = in_array($announcement->type, $announcementTypes, true)
+                            ? $announcement->type
+                            : 'info';
+                    @endphp
+
+                    <article class="announcement-card announcement-card--{{ $announcementType }} card-lift" data-reveal
+                        data-delay="{{ ($loop->iteration - 1) % 3 }}">
+                        <div class="announcement-card__meta">
+                            <span class="announcement-badge announcement-badge--{{ $announcementType }}">
+                                {{ $announcement->type }}
+                            </span>
+                            <time datetime="{{ $announcement->created_at?->toDateString() }}">
+                                {{ $announcement->created_at?->translatedFormat('d M Y') ?? 'Terbaru' }}
+                            </time>
+                        </div>
+                        @if ($announcement->image_url)
+                            <img class="announcement-image announcement-image--card" src="{{ $announcement->image_url }}"
+                                alt="{{ $announcement->title }}" loading="lazy">
+                        @endif
+                        <h3>{{ $announcement->title }}</h3>
+                        @if (filled($announcement->content))
+                            <div class="announcement-card__content announcement-rich">
+                                {{ \Illuminate\Support\Str::limit(strip_tags($announcement->content), 150) }}</div>
+                        @endif
+                    </article>
+                @endforeach
+            </div>
+        </section>
+    @endif
 
     <section class="section-wrap prodi-section">
         <div class="section-head" data-reveal>

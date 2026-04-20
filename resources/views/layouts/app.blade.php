@@ -33,8 +33,8 @@
         $tickerText = $tickerText !== '' ? $tickerText : $defaultTickerText;
     @endphp
 
-    <a href="https://wa.me/{{ preg_replace('/\D+/', '', (string) setting('site_phone', '6281240002026')) }}"
-        class="wa-float" aria-label="WhatsApp">WA</a>
+    {{-- <a href="https://wa.me/{{ preg_replace('/\D+/', '', (string) setting('site_phone', '6281240002026')) }}"
+        class="wa-float" aria-label="WhatsApp">WA</a> --}}
 
     <div class="ticker-bar">
         <span class="ticker-label">Info</span>
@@ -70,8 +70,8 @@
                 @endforelse
             </ul>
         </nav>
-
-        <a href="{{ url('/penerimaan-mahasiswa-baru') }}" class="btn-nav">Daftar Sekarang</a>
+        {{-- open in new tab --}}
+        <a href="https://pmb.unukaltim.ac.id" class="btn-nav" target="_blank" rel="noopener">Daftar Sekarang</a>
         <button class="mobile-menu-button" type="button" data-mobile-menu-button>Menu</button>
 
         <nav class="mobile-menu-wrap hidden" data-mobile-menu aria-label="Navigasi mobile">
