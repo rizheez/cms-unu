@@ -1,22 +1,41 @@
-# Editor.js Implementation Plan
+# Athphane EditorJs Implementation Plan
 
 ## Latar Belakang
 
-User kampus sudah terbiasa menggunakan WordPress untuk menulis halaman dan berita. Karena itu, pengalaman menulis berbasis blok akan lebih mudah diadopsi dibanding textarea biasa atau editor HTML klasik.
+User kampus sudah terbiasa menulis konten dengan pola seperti WordPress. Karena itu, editor berbasis blok lebih mudah diadopsi dibanding textarea biasa atau rich text editor HTML klasik.
 
-`Editor.js` dipilih sebagai kandidat editor konten karena:
+Setelah dibandingkan, plugin yang dipilih untuk rencana implementasi ini adalah `athphane/filament-editorjs` karena lebih cocok untuk kebutuhan CMS terstruktur di project ini.
 
-- pendekatan blok lebih ramah untuk penulis non-teknis
-- struktur konten lebih rapi dan mudah dikontrol
-- lebih aman jika konten disimpan sebagai JSON lalu dirender lewat backend
-- lebih mudah dibatasi hanya ke fitur yang benar-benar dibutuhkan
+## Alasan Memilih `athphane/filament-editorjs`
+
+Alasan utama pemilihan:
+
+- terintegrasi langsung dengan Filament
+- sudah mendukung Filament `v5`
+- memakai Spatie Media Library untuk upload gambar
+- menyimpan konten dalam format JSON block
+- sudah menyediakan helper render konten di frontend
+- bisa ditambah custom block renderer jika nanti dibutuhkan
+- lebih cocok untuk konten `page` dan `berita` yang perlu struktur rapi
+
+## Kesesuaian Dengan Project Saat Ini
+
+Berdasarkan kondisi project saat ini:
+
+- Laravel: `13.x`
+- Filament: `5.x`
+- Livewire: `4.x`
+- Spatie Media Library: sudah terpasang
+- panel Filament admin sudah tersedia
+
+Artinya, fondasi untuk memakai plugin ini sudah cukup siap dan tidak perlu membangun integrasi `Editor.js` dari nol.
 
 ## Tujuan
 
-- memberi pengalaman menulis yang terasa familiar bagi user kampus
-- menggunakan satu editor yang konsisten untuk `page` dan `berita`
-- menjaga struktur konten tetap aman, rapi, dan mudah dirender
-- meminimalkan risiko layout rusak akibat input HTML bebas
+- memberi pengalaman menulis yang lebih familiar untuk user kampus
+- memakai satu editor blok yang konsisten untuk `page` dan `berita`
+- menjaga struktur konten tetap rapi, aman, dan mudah dirender
+- mempercepat implementasi karena memanfaatkan plugin Filament yang sudah jadi
 
 ## Scope Awal
 
@@ -25,52 +44,75 @@ Implementasi awal difokuskan untuk:
 - halaman statis
 - berita atau artikel
 
-Fitur dasar yang diutamakan:
+Tool editor yang direkomendasikan untuk fase awal:
 
-- heading
-- paragraph
-- list
-- quote
-- image
-- delimiter
-- table jika memang dibutuhkan
-- embed jika memang dibutuhkan
-- link
-- code block jika memang dibutuhkan
-- checklist jika memang dibutuhkan
-- ordered list jika memang dibutuhkan
-- unordered list jika memang dibutuhkan
+- `header`
+- `paragraph`
+- `list`
+- `quote`
+- `image`
+- `delimiter`
+
+Tool opsional yang bisa diaktifkan setelah user terbiasa:
+
+- `table`
+- `checklist`
+- `code`
+- `inline-code`
+- `raw`
+- custom `linkTool`
 
 ## Prinsip Implementasi
 
-1. Konten utama disimpan dalam format JSON.
-2. JSON dari editor tidak langsung dipercaya sebagai HTML final.
-3. Backend Laravel bertugas memvalidasi, menyimpan, dan merender konten.
-4. Upload gambar dilakukan melalui endpoint Laravel sendiri.
-5. Tool editor dibatasi agar pengalaman tetap sederhana dan stabil.
+1. Konten utama disimpan sebagai JSON block document.
+2. Output frontend tidak dirender dari input mentah tanpa kontrol.
+3. Tool editor dibatasi agar pengalaman admin tetap sederhana.
+4. Gambar dikelola lewat Spatie Media Library melalui plugin.
+5. Render frontend tetap bisa dikustomisasi jika hasil bawaan belum sesuai desain website.
+
+## Dependensi dan Instalasi Nanti
+
+Saat masuk tahap eksekusi, command yang dibutuhkan kemungkinan:
+
+```bash
+composer require athphane/filament-editorjs
+php artisan vendor:publish --tag="filament-editorjs-config" --no-interaction
+```
+
+Jika frontend render ingin tampil lebih nyaman dengan typography Tailwind, bisa dipertimbangkan:
+
+```bash
+npm install -D @tailwindcss/typography
+```
+
+Catatan:
+
+- dependensi baru belum dipasang sekarang
+- dokumen ini hanya menjadi plan implementasi
 
 ## Rancangan Data
 
 ### 1. Penyimpanan Konten
 
-Gunakan kolom JSON untuk body konten, misalnya:
+Field utama editor disarankan menggunakan nama:
 
-- `pages.content`
-- `posts.content`
+- `content`
 
-Jika saat ini kolom masih berupa `text` atau `longText`, perlu diputuskan salah satu:
+Untuk model seperti `pages` dan `posts`, rekomendasi:
 
-- tambah kolom baru bertipe JSON
-- tetap gunakan `longText` tetapi isi berupa JSON string
+- simpan `content` dalam kolom `json`
 
-Rekomendasi utama:
+Jika ada kebutuhan kompatibilitas khusus, alternatifnya:
 
-- pakai tipe `json` jika database dan alur existing memungkinkan jika db menggunakan mysql/mariadb maka gunakan `longText` karena mysql versi lama belum support tipe json
-- jika tetap pakai `longText`, pastikan ada validasi untuk memastikan isinya benar
+- gunakan `longText` berisi JSON string
+
+Rekomendasi utama tetap:
+
+- gunakan kolom `json` bila struktur tabel memungkinkan
 
 ### 2. Field Pendukung CMS
 
-Agar pengalaman terasa dekat dengan WordPress, body editor saja tidak cukup. Field yang disarankan:
+Agar pengalaman terasa dekat dengan WordPress, field yang disarankan:
 
 - `title`
 - `slug`
@@ -81,168 +123,179 @@ Agar pengalaman terasa dekat dengan WordPress, body editor saja tidak cukup. Fie
 - `meta_title`
 - `meta_description`
 
-Opsional tapi bisa dipertimbangkan untuk ditambahkan di awal:
+Opsional:
 
 - `author`
-- `editor` // jika nanti kedepannya ada role editor terpisah
 - `category`
 - `tags`
 
-## Alur Admin yang Disarankan
+## Kebutuhan Model
 
-### Untuk Page
+Model yang memakai plugin ini perlu disiapkan mengikuti pola plugin:
 
-- user membuat judul halaman
-- slug dibuat otomatis tetapi tetap bisa diubah dengan klik edit
-- body halaman ditulis dengan `Editor.js`
-- user dapat simpan sebagai draft atau publish
+- implement `HasMedia`
+- gunakan `InteractsWithMedia`
+- gunakan trait `ModelHasEditorJsComponent`
+- sediakan kolom `content`
 
-### Untuk Berita
-
-- user mengisi judul
-- sistem menyiapkan slug
-- user menulis isi berita dengan `Editor.js`
-- user memilih thumbnail
-- user mengatur status publish
-- user mengisi ringkasan dan SEO dasar
+Secara default plugin juga mengandalkan media collection untuk gambar konten.
 
 ## Integrasi Dengan Filament
 
-Karena project menggunakan Filament, kemungkinan implementasi paling realistis:
+Plugin ini bisa dipasang di panel provider dan dipakai langsung di resource form.
 
-- buat custom form field atau wrapper untuk `Editor.js`
-- simpan output editor ke hidden field JSON
-- saat edit data existing, JSON dimuat kembali ke editor
+Rencana integrasi:
 
-Yang perlu dipastikan saat eksekusi nanti:
+- daftarkan `FilamentEditorjsPlugin::make()` di panel admin
+- gunakan `EditorjsTextField::make('content')` di form resource
+- batasi tool sesuai kebutuhan user kampus
+- gunakan `columnSpanFull()` untuk area editor utama
 
-- apakah integrasi dilakukan langsung di resource form Filament
-- apakah perlu komponen reusable agar bisa dipakai di `PageResource` dan `PostResource`
-- bagaimana preview dan validasi ditampilkan di form
+Implikasinya:
 
-## Rendering Frontend
+- tidak perlu membuat custom wrapper editor dari nol
+- integrasi admin lebih cepat
+- effort bisa difokuskan ke struktur form, validasi, dan UX penulis
 
-Konten `Editor.js` sebaiknya tidak dirender mentah dari hasil input. Opsi yang disarankan:
+## Layout Form Admin yang Direkomendasikan
 
-- buat renderer di Laravel yang mengubah blok JSON menjadi HTML terkontrol
-- setiap block type memiliki renderer sendiri
-- hanya block yang di-whitelist yang boleh tampil
+Untuk kenyamanan penulis, layout yang direkomendasikan:
 
-Keuntungan pendekatan ini:
+- area utama kiri: `title`, `excerpt`, `content`
+- sidebar kanan: `slug`, `status`, `published_at`, `featured_image`, SEO fields
 
-- HTML output lebih aman
-- struktur markup bisa disesuaikan dengan desain website
-- SEO lebih mudah dijaga
-- lebih mudah menambahkan class Tailwind atau struktur Blade sesuai kebutuhan
+Untuk `berita`, layout ini paling dekat dengan pola CMS yang familiar.
+
+Untuk `page`, layout bisa lebih sederhana:
+
+- area utama: `title`, `content`
+- sidebar: `slug`, `status`, SEO fields
 
 ## Upload Gambar
 
-Untuk block image, upload sebaiknya masuk ke endpoint Laravel, bukan langsung ke layanan eksternal tanpa kontrol.
+Keunggulan plugin ini adalah integrasi dengan Spatie Media Library.
 
-Rencana dasarnya:
+Rencana upload image:
 
-- user upload gambar dari editor
-- request dikirim ke route Laravel terproteksi
-- backend validasi ukuran, mime type, dan autentikasi
-- file disimpan ke disk yang digunakan aplikasi
-- backend mengembalikan URL untuk dipakai oleh block image
+- user upload gambar langsung dari editor
+- plugin menyimpan media melalui Spatie Media Library
+- gambar yang tidak lagi dipakai dapat dikelola lebih rapi dibanding upload manual biasa
 
-Hal yang perlu diputuskan nanti:
+Hal yang perlu diputuskan saat implementasi:
 
-- penyimpanan hanya lokal
-- aturan resize atau kompresi
-- naming file dan struktur folder
+- disk penyimpanan yang dipakai
+- collection name jika perlu dipisah dari media lain
+- aturan resize, optimasi, dan naming file
 
-## Keamanan
+## Rendering Frontend
 
-Hal yang wajib dijaga saat implementasi:
+Plugin ini sudah menyediakan helper render konten, sehingga implementasi awal bisa memakai pendekatan paling cepat:
 
-- validasi schema JSON editor di backend
-- whitelist block type yang diperbolehkan
-- sanitasi data URL dan embed
-- proteksi endpoint upload dengan auth dan policy
-- jangan render HTML bebas dari request tanpa kontrol
+- render konten dari helper bawaan plugin di Blade
+
+Namun untuk jangka menengah, tetap disarankan mengevaluasi hasil HTML bawaan terhadap kebutuhan desain website. Jika perlu:
+
+- buat custom block renderer untuk block tertentu
+- sesuaikan output HTML agar lebih cocok dengan komponen frontend dan SEO structure
+
+Pendekatan bertahap yang direkomendasikan:
+
+1. pakai renderer bawaan untuk percepatan implementasi
+2. evaluasi output HTML di frontend
+3. custom renderer hanya jika ada block yang butuh markup khusus
+
+## Keamanan dan Validasi
+
+Hal yang tetap wajib dijaga:
+
+- batasi hanya tool yang benar-benar diperlukan
+- validasi field lain tetap lewat Form Request atau validasi Filament resource
+- batasi akses admin dengan auth dan policy yang sudah berlaku
+- evaluasi output block `raw` sebelum diaktifkan
+
+Catatan penting:
+
+- block seperti `raw` sebaiknya tidak diaktifkan pada fase awal
+- tool embed atau custom link hanya diaktifkan jika benar-benar dibutuhkan
 
 ## Risiko dan Catatan
 
 ### Kelebihan
 
-- lebih mudah diadopsi oleh user non-teknis
-- pengalaman menulis lebih modern dan terstruktur
-- konten lebih siap dipakai ulang di berbagai tampilan
+- integrasi cepat dengan Filament
+- tidak perlu membangun editor sendiri
+- upload gambar lebih rapi karena memakai Media Library
+- konten tetap berbasis block JSON
+- frontend render bisa langsung jalan lebih cepat
 
 ### Tantangan
 
-- perlu custom integration di Filament
-- perlu renderer JSON ke HTML
-- migrasi dari konten lama bisa butuh mapping tambahan
-- preview artikel perlu dirancang dengan baik atau jika terlalu ribet bisa di-skip dulu karena bisa langsung lihat hasilnya di frontend setelah publish
+- model harus menyesuaikan pola plugin
+- renderer bawaan mungkin perlu penyesuaian markup
+- migrasi konten lama bisa tetap memerlukan mapping tambahan
+- user kampus tetap perlu dibiasakan dengan editor blok baru
 
 ## Strategi Implementasi Bertahap
 
 ### Tahap 1
 
-- tentukan model yang akan memakai `Editor.js`
-- finalisasi struktur field konten dan metadata
-- tentukan daftar tool editor yang diizinkan
+- pasang package `athphane/filament-editorjs`
+- publish config plugin
+- daftarkan plugin di `AdminPanelProvider`
 
 ### Tahap 2
 
-- integrasikan `Editor.js` ke form admin
-- simpan output JSON ke database
-- pastikan edit existing content berjalan
-- buat 2 layout (grid) 1 block editorjs untuk page dan berita dan sebelahnya untuk field lain seperti title, slug, dll atau rekomendasi anda bagaimana layout yang paling nyaman untuk penulis
+- tentukan model pertama yang akan memakai editor
+- siapkan kolom `content`
+- siapkan trait dan interface Media Library pada model
 
 ### Tahap 3
 
-- buat renderer backend dari JSON ke HTML
-- tampilkan hasil konten di frontend page dan berita
+- integrasikan `EditorjsTextField` pada resource Filament
+- batasi tool ke profile sederhana
+- uji alur create dan edit konten
 
 ### Tahap 4
 
-- tambahkan upload image
-- tambahkan validasi, sanitasi, dan otorisasi
+- aktifkan upload image
+- verifikasi media tersimpan dan tampil dengan benar
+- pastikan konten frontend bisa dirender
 
 ### Tahap 5
 
-- lakukan uji coba dengan user admin kampus
-- sederhanakan tool yang jarang dipakai
-- perbaiki UX berdasarkan kebiasaan penulis
+- uji dengan editor/admin kampus
+- sederhanakan tool yang membingungkan
+- lanjutkan ke `page` setelah `berita` stabil
 
-## Rekomendasi Awal
+## Urutan Implementasi yang Direkomendasikan
 
-Jika tujuan utamanya adalah memudahkan user kampus yang terbiasa WordPress, maka pendekatan yang direkomendasikan:
+Urutan paling aman:
 
-- gunakan `Editor.js` hanya untuk body content
-- buat field CMS lain tetap sederhana dan familiar
-- mulai dari berita dulu, lalu lanjut ke page
-- aktifkan hanya tool yang benar-benar diperlukan
-
-Urutan paling aman untuk implementasi:
-
-1. berita
-2. page
-3. migrasi atau konversi konten lama jika memang dibutuhkan
+1. implementasi di `berita`
+2. validasi UX penulis
+3. lanjut ke `page`
+4. evaluasi perlu tidaknya custom renderer tambahan
 
 ## Keputusan Yang Perlu Ditetapkan Nanti
 
-- model mana yang lebih dulu memakai `Editor.js`
-- apakah page dan berita memakai schema block yang sama
-- apakah embed video diperlukan di versi awal
-- bagaimana penyimpanan dan manajemen gambar
-- apakah perlu mode draft, scheduled publish, dan preview private
+- model mana yang dikerjakan lebih dulu
+- nama tabel dan nama field final untuk konten
+- tool mana yang aktif pada versi awal
+- apakah `raw` dan `embed` akan diizinkan
+- bagaimana aturan media storage untuk gambar isi konten
 
-## Output Yang Akan Dikerjakan Saat Eksekusi Dimulai
+## Output Saat Eksekusi Dimulai
 
-Saat implementasi nanti, pekerjaan bisa dipecah menjadi:
+Saat implementasi dimulai nanti, pekerjaan bisa dipecah menjadi:
 
-- migration update
-- form integration di Filament
-- endpoint upload image
-- service atau renderer untuk output HTML
-- penyesuaian template frontend
-- test untuk validasi dan alur simpan konten
+- instalasi package
+- update panel provider Filament
+- update model terkait
+- migration untuk kolom `content`
+- update form resource Filament
+- render konten di frontend
+- test alur simpan dan edit konten
 
 ## Kesimpulan
 
-`Editor.js` layak dipakai di project ini, terutama karena target user sudah terbiasa dengan pola editing ala WordPress. Supaya hasilnya benar-benar membantu, implementasi jangan berhenti di editor saja, tetapi dibangun sebagai pengalaman CMS yang sederhana, aman, dan konsisten untuk penulis kampus.
+Untuk project ini, `athphane/filament-editorjs` adalah pilihan yang paling masuk akal jika tujuan utamanya adalah membangun editor konten blok yang cepat dipasang, cukup kaya fitur, dan tetap rapi secara engineering. Ini memberi jalan tengah yang bagus antara kenyamanan editor kampus dan kebutuhan struktur konten yang baik di Laravel + Filament.
