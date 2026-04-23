@@ -1,7 +1,7 @@
 <li data-menu-item="{{ $item->id }}" class="space-y-2">
     <div class="rounded-lg border border-gray-200 bg-white shadow-sm dark:border-white/10 dark:bg-gray-900">
         <div class="px-4 py-3">
-            <div class="flex flex-wrap items-start gap-3">
+            <div class="flex items-start gap-3">
                 <button
                     type="button"
                     data-menu-drag-handle
@@ -17,12 +17,14 @@
                         {{ $item->page?->title ?? $item->url ?? 'Tautan kosong' }}
                     </div>
                 </div>
+            </div>
 
-                <div class="ml-auto flex flex-wrap items-center justify-end gap-2 max-sm:w-full">
-                    <span class="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-600 dark:bg-white/10 dark:text-gray-300">
-                        {{ $item->page_id ? 'Laman' : 'URL' }}
-                    </span>
+            <div class="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-gray-100 pt-3 dark:border-white/10">
+                <span class="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-600 dark:bg-white/10 dark:text-gray-300">
+                    {{ $item->page_id ? 'Laman' : 'URL' }}
+                </span>
 
+                <div class="flex flex-wrap items-center gap-2">
                     <a
                         href="{{ \App\Filament\Resources\MenuItems\MenuItemResource::getUrl('edit', ['record' => $item]) }}"
                         class="rounded-lg border border-gray-200 px-3 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 dark:border-white/10 dark:text-gray-200 dark:hover:bg-white/5"

@@ -3,7 +3,7 @@
         x-data="menuBuilder"
         x-init="init($refs.builder)"
         x-on:menu-builder-refresh.window="$nextTick(() => init($refs.builder))"
-        class="grid gap-6 lg:grid-cols-[22rem_1fr]"
+        class="grid gap-6 xl:grid-cols-[20rem_minmax(0,1fr)]"
     >
         <div class="space-y-4">
             <section class="rounded-xl border border-gray-200 bg-white shadow-sm dark:border-white/10 dark:bg-gray-900">
@@ -108,7 +108,7 @@
         </div>
 
         <section class="rounded-xl border border-gray-200 bg-white shadow-sm dark:border-white/10 dark:bg-gray-900">
-            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-gray-200 px-5 py-4 dark:border-white/10">
+            <div class="flex flex-col gap-4 border-b border-gray-200 px-5 py-4 xl:flex-row xl:items-start xl:justify-between dark:border-white/10">
                 <div>
                     <h2 class="text-base font-semibold text-gray-950 dark:text-white">{{ $this->getRecord()->name }}</h2>
                     <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
@@ -119,7 +119,7 @@
                 <button
                     type="button"
                     x-on:click="save($refs.tree)"
-                    class="rounded-lg bg-primary-600 px-4 py-2 text-sm font-semibold text-white hover:bg-primary-500"
+                    class="w-full rounded-lg bg-primary-600 px-4 py-2 text-sm font-semibold text-white hover:bg-primary-500 xl:w-auto xl:self-center"
                 >
                     Simpan Struktur
                 </button>
