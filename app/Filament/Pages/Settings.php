@@ -132,7 +132,8 @@ class Settings extends Page
                             ->numeric(),
                         TextInput::make('google_maps_url')
                             ->label('URL Google Maps')
-                            ->placeholder('https://maps.google.com/...')
+                            ->helperText('Bisa diisi URL dari atribut src iframe embed Google Maps agar kartu nama tempat tampil di peta.')
+                            ->placeholder('https://www.google.com/maps/embed?pb=...')
                             ->url()
                             ->columnSpanFull(),
                         TextInput::make('site_phone')
