@@ -145,8 +145,42 @@
         <script>
             document.addEventListener('alpine:init', () => {
                 Alpine.data('menuBuilder', () => ({
-                    init(builder) {
+                    sortableScriptUrl: 'https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js',
+                    async init(builder) {
+                        await this.ensureSortable()
                         this.$nextTick(() => this.bindSortables(builder))
+                    },
+                    ensureSortable() {
+                        if (window.Sortable) {
+                            return Promise.resolve()
+                        }
+
+                        const existingScript = document.querySelector('script[data-menu-builder-sortable]')
+
+                        if (existingScript) {
+                            return new Promise((resolve) => {
+                                if (window.Sortable) {
+                                    resolve()
+
+                                    return
+                                }
+
+                                existingScript.addEventListener('load', () => resolve(), { once: true })
+                                existingScript.addEventListener('error', () => resolve(), { once: true })
+                            })
+                        }
+
+                        return new Promise((resolve) => {
+                            const script = document.createElement('script')
+
+                            script.src = this.sortableScriptUrl
+                            script.async = true
+                            script.dataset.menuBuilderSortable = '1'
+                            script.addEventListener('load', () => resolve(), { once: true })
+                            script.addEventListener('error', () => resolve(), { once: true })
+
+                            document.head.appendChild(script)
+                        })
                     },
                     bindSortables(builder) {
                         if (!builder || !window.Sortable) {
