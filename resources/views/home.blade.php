@@ -278,16 +278,11 @@
             <strong>Ilmu, adab, dan karya.</strong>
         </div>
         <div class="about-copy" data-reveal data-delay="1">
-            <span class="section-label">Tentang UNU</span>
+            <span class="section-label">Tentang UNUKALTIM</span>
             <h2 class="section-title">Warisan Ilmu,
                 Masa Depan Gemilang</h2>
-            <p class="italic leading-relaxed mb-28 text-xl">Pendidikan adalah cahaya yang menerangi jalan menuju kebenaran
-                dan kemaslahatan umat.</p>
-            <p class="text-base">Universitas Nahdlatul Ulama berdiri di atas fondasi nilai-nilai Ahlussunnah wal Jama'ah,
-                memadukan keilmuan Islam dengan sains modern untuk melahirkan generasi yang berakhlak mulia sekaligus
-                kompeten di bidangnya.</p>
-
-            <a href="{{ route('about.profile') }}" class="btn-primary">Kenali Kampus</a>
+            <p class="italic leading-relaxed mb-28 text-xl">Kampus yang menumbuhkan pengetahuan, karakter, dan kontribusi nyata untuk masyarakat.</p>
+            <p class="text-base">Universitas Nahdlatul Ulama Kalimantan Timur adalah institusi pendidikan tinggi yang berkomitmen untuk menghasilkan lulusan yang kompeten, berakhlak mulia, dan berkontribusi positif di era digital.</p>
         </div>
     </section>
 
