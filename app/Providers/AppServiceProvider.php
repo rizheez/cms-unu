@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Menu;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +22,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if(app()->isProduction()) {
+            return URL::forceScheme('https');
+        }
         View::composer('layouts.app', function ($view): void {
             $headerMenuItems = Menu::query()
                 ->where('location', 'header')
