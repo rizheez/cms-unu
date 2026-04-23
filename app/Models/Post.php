@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Casts\EditorJsContent;
 use App\Models\Concerns\LogsCmsActivity;
+use App\Services\EditorJsContentRenderer;
+use Athphane\FilamentEditorjs\Traits\ModelHasEditorJsComponent;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -13,10 +16,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Post extends Model
+class Post extends Model implements HasMedia
 {
-    use LogsCmsActivity, Sluggable, SoftDeletes;
+    use InteractsWithMedia, LogsCmsActivity, ModelHasEditorJsComponent, Sluggable, SoftDeletes;
 
     protected $fillable = [
         'post_category_id',
@@ -42,6 +48,7 @@ class Post extends Model
         return [
             'is_featured' => 'boolean',
             'is_in_sitemap' => 'boolean',
+            'content' => EditorJsContent::class,
             'views' => 'integer',
             'published_at' => 'datetime',
         ];
@@ -69,6 +76,16 @@ class Post extends Model
         return $this->hasMany(PostComment::class);
     }
 
+    public function registerMediaCollections(): void
+    {
+        $this->registerEditorJsMediaCollections();
+    }
+
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        $this->registerEditorJsMediaConversions($media);
+    }
+
     public function scopePublished(Builder $query): Builder
     {
         return $query->where('status', 'published')->whereNotNull('published_at');
@@ -81,7 +98,7 @@ class Post extends Model
 
     public function getReadingTimeAttribute(): int
     {
-        $words = Str::wordCount(strip_tags((string) $this->content));
+        $words = app(EditorJsContentRenderer::class)->wordCount($this->content);
 
         return max(1, (int) ceil($words / 200));
     }
@@ -100,15 +117,65 @@ class Post extends Model
             }
         }
 
-        if (preg_match('/<img[^>]+src=["\']([^"\']+)["\']/i', (string) $this->content, $matches) === 1) {
+        $content = $this->content;
+
+        if (is_array($content)) {
+            $imageUrl = $this->firstEditorJsImageUrl($content);
+
+            if ($imageUrl !== null) {
+                return $imageUrl;
+            }
+        }
+
+        if (is_string($content) && preg_match('/<img[^>]+src=["\']([^"\']+)["\']/i', $content, $matches) === 1) {
             return html_entity_decode($matches[1]);
         }
 
         return null;
     }
 
+    public function findAndDeleteRemovedEditorJsMedia(): void
+    {
+        $content = $this->{$this->editorJsContentFieldName()};
+
+        if (! is_array($content) || ! isset($content['blocks']) || ! is_array($content['blocks'])) {
+            return;
+        }
+
+        $mediaCurrentlyUsedInContent = collect($content['blocks'])
+            ->filter(fn (mixed $block): bool => is_array($block) && data_get($block, 'type') === 'image')
+            ->map(fn (array $block): mixed => data_get($block, 'data.file.media_id'))
+            ->filter()
+            ->all();
+
+        $this->media()
+            ->where('collection_name', $this->editorjsMediaCollectionName())
+            ->whereNotIn('id', $mediaCurrentlyUsedInContent)
+            ->delete();
+    }
+
     public function incrementViews(): void
     {
         $this->increment('views');
+    }
+
+    /**
+     * @param  array<string, mixed>  $content
+     */
+    private function firstEditorJsImageUrl(array $content): ?string
+    {
+        foreach ($content['blocks'] ?? [] as $block) {
+            if (! is_array($block) || data_get($block, 'type') !== 'image') {
+                continue;
+            }
+
+            $url = data_get($block, 'data.file.url');
+
+            if (is_string($url) && $url !== '') {
+                return $url;
+            }
+        }
+
+        return null;
     }
 }

@@ -19,6 +19,8 @@
             ->map(fn(string $keyword): string => trim($keyword))
             ->filter()
             ->take(6);
+        $isEditorJsContent = is_array($post->content);
+        $legacyContentClasses = 'max-w-none text-[#3a4a4d] [&_a]:font-semibold [&_a]:text-[#00a9b7] [&_blockquote]:my-9 [&_blockquote]:rounded-r-2xl [&_blockquote]:border-l-4 [&_blockquote]:border-[#00a9b7] [&_blockquote]:bg-[linear-gradient(135deg,#d8f7f2,#eefcfa)] [&_blockquote]:px-7 [&_blockquote]:py-6 [&_h2]:mb-5 [&_h2]:mt-12 [&_h2]:border-l-4 [&_h2]:border-[#ffc928] [&_h2]:pl-5 [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-[#123136] [&_h3]:mb-4 [&_h3]:mt-9 [&_h3]:font-display [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-[#123136] [&_li]:mb-2 [&_li]:leading-7 [&_li]:text-[#3a4a4d] [&_li::marker]:text-[#ffc928] [&_p]:mb-5 [&_p]:text-[15px] [&_p]:leading-7 [&_p]:text-[#3a4a4d] [&_p:last-child]:mb-0 [&_strong]:font-bold [&_strong]:text-[#123136] [&_ul]:mb-7 [&_ul]:list-disc [&_ul]:pl-6';
     @endphp
 
     <section
@@ -90,9 +92,8 @@
     <section
         class="mx-auto grid max-w-7xl gap-12 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:px-12 lg:pb-20">
         <article class="min-w-0">
-            <div
-                class="max-w-none text-[#3a4a4d] [&_a]:font-semibold [&_a]:text-[#00a9b7] [&_blockquote]:my-9 [&_blockquote]:rounded-r-2xl [&_blockquote]:border-l-4 [&_blockquote]:border-[#00a9b7] [&_blockquote]:bg-[linear-gradient(135deg,#d8f7f2,#eefcfa)] [&_blockquote]:px-7 [&_blockquote]:py-6 [&_h2]:mb-5 [&_h2]:mt-12 [&_h2]:border-l-4 [&_h2]:border-[#ffc928] [&_h2]:pl-5 [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-[#123136] [&_h3]:mb-4 [&_h3]:mt-9 [&_h3]:font-display [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-[#123136] [&_li]:mb-2 [&_li]:leading-7 [&_li]:text-[#3a4a4d] [&_li::marker]:text-[#ffc928] [&_p]:mb-5 [&_p]:text-[15px] [&_p]:leading-7 [&_p]:text-[#3a4a4d] [&_p:last-child]:mb-0 [&_strong]:font-bold [&_strong]:text-[#123136] [&_ul]:mb-7 [&_ul]:list-disc [&_ul]:pl-6">
-                {!! $post->content !!}
+            <div @class([$legacyContentClasses => ! $isEditorJsContent])>
+                {!! app(\App\Services\EditorJsContentRenderer::class)->render($post->content) !!}
             </div>
 
             <div class="mt-12 flex flex-wrap gap-2 border-t border-black/10 pt-8">

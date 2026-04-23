@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use Athphane\FilamentEditorjs\FilamentEditorjsPlugin;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -83,6 +84,7 @@ class AdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->plugins([
+                FilamentEditorjsPlugin::make(),
                 FilamentShieldPlugin::make()
                     ->navigationLabel('Peran & Izin')
                     ->navigationGroup('Sistem')

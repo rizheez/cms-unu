@@ -2,9 +2,10 @@
 
 namespace App\Filament\Resources\Pages\Schemas;
 
+use App\Services\EditorJsContentRenderer;
+use Athphane\FilamentEditorjs\Forms\Components\EditorjsTextField;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -26,9 +27,11 @@ class PageForm
                             ->label('Judul')
                             ->placeholder('Contoh: Profil Universitas')
                             ->required(),
-                        RichEditor::make('content')
+                        EditorjsTextField::make('content')
                             ->label('Konten')
                             ->placeholder('Tuliskan isi halaman')
+                            ->formatStateUsing(fn (mixed $state): ?array => app(EditorJsContentRenderer::class)->toEditorJsDocument($state))
+                            ->tools('default')
                             ->columnSpanFull(),
                     ])
                     ->columnSpanFull(),

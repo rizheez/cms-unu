@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Page;
+use App\Services\EditorJsContentRenderer;
 use App\Services\SeoService;
 use Illuminate\Contracts\View\View;
 
@@ -14,7 +15,7 @@ class PageController extends Controller
     {
         abort_unless($page->status === 'published', 404);
 
-        $seo->setModel($page, $page->title, $page->content);
+        $seo->setModel($page, $page->title, app(EditorJsContentRenderer::class)->plainText($page->content));
 
         return view('pages.show', compact('page'));
     }

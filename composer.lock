@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ccfe94ca9fbf02884a1e191ff10899a3",
+    "content-hash": "d96dd9c0b4a10cbbe4bf8eb9f9bde2e6",
     "packages": [
         {
             "name": "artesaos/seotools",
@@ -76,6 +76,88 @@
                 "source": "https://github.com/artesaos/seotools"
             },
             "time": "2026-03-28T12:37:33+00:00"
+        },
+        {
+            "name": "athphane/filament-editorjs",
+            "version": "v2.6.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/athphane/filament-editorjs.git",
+                "reference": "f0763d9d47b52da650fe30482eebc5ea40a810be"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/athphane/filament-editorjs/zipball/f0763d9d47b52da650fe30482eebc5ea40a810be",
+                "reference": "f0763d9d47b52da650fe30482eebc5ea40a810be",
+                "shasum": ""
+            },
+            "require": {
+                "filament/filament": "^4.5|^5.0",
+                "filament/spatie-laravel-media-library-plugin": "^v4.0|^5.0",
+                "illuminate/contracts": "^11.0 || ^12.0 || ^13.0",
+                "php": "^8.3",
+                "spatie/shiki-php": "^2.0"
+            },
+            "require-dev": {
+                "larastan/larastan": "^2.11",
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^8.0",
+                "orchestra/testbench": "^9.16 || ^10.8 || ^11.0",
+                "pestphp/pest": "^2.1",
+                "pestphp/pest-plugin-arch": "^2.0",
+                "pestphp/pest-plugin-laravel": "^2.0",
+                "pestphp/pest-plugin-livewire": "^2.1",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "spatie/laravel-ray": "^1.26"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "FilamentEditorjs": "Athphane\\FilamentEditorjs\\Facades\\FilamentEditorjs"
+                    },
+                    "providers": [
+                        "Athphane\\FilamentEditorjs\\FilamentEditorjsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Athphane\\FilamentEditorjs\\": "src/",
+                    "Athphane\\FilamentEditorjs\\Database\\Factories\\": "database/factories/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "athphane",
+                    "email": "athphane@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "This is my package filament-editorjs",
+            "homepage": "https://github.com/athphane/filament-editorjs",
+            "keywords": [
+                "athphane",
+                "filament-editorjs",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/athphane/filament-editorjs/issues",
+                "source": "https://github.com/athphane/filament-editorjs"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/athphane",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-04-14T18:29:19+00:00"
         },
         {
             "name": "bezhansalleh/filament-plugin-essentials",
@@ -1730,6 +1812,43 @@
                 "source": "https://github.com/filamentphp/filament"
             },
             "time": "2026-04-14T11:10:06+00:00"
+        },
+        {
+            "name": "filament/spatie-laravel-media-library-plugin",
+            "version": "v5.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/filamentphp/spatie-laravel-media-library-plugin.git",
+                "reference": "ea479e55d85bab9cebc94e818fc16c09cf649086"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/filamentphp/spatie-laravel-media-library-plugin/zipball/ea479e55d85bab9cebc94e818fc16c09cf649086",
+                "reference": "ea479e55d85bab9cebc94e818fc16c09cf649086",
+                "shasum": ""
+            },
+            "require": {
+                "filament/support": "self.version",
+                "php": "^8.2",
+                "spatie/laravel-medialibrary": "^11.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Filament\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Filament support for `spatie/laravel-medialibrary`.",
+            "homepage": "https://github.com/filamentphp/filament",
+            "support": {
+                "issues": "https://github.com/filamentphp/filament/issues",
+                "source": "https://github.com/filamentphp/filament"
+            },
+            "time": "2026-02-25T15:34:28+00:00"
         },
         {
             "name": "filament/support",
@@ -12426,12 +12545,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.3"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }

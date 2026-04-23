@@ -3,6 +3,8 @@
 @section('content')
     @php
         $publishedDate = $page->published_at?->translatedFormat('d F Y');
+        $isEditorJsContent = is_array($page->content);
+        $legacyContentClasses = 'max-w-none text-[#3a4a4d] [&_a]:font-semibold [&_a]:text-[#00a9b7] [&_blockquote]:my-9 [&_blockquote]:rounded-r-2xl [&_blockquote]:border-l-4 [&_blockquote]:border-[#00a9b7] [&_blockquote]:bg-[linear-gradient(135deg,#d8f7f2,#eefcfa)] [&_blockquote]:px-7 [&_blockquote]:py-6 [&_blockquote]:text-[#123136] [&_blockquote_cite]:mt-4 [&_blockquote_cite]:block [&_blockquote_cite]:text-sm [&_blockquote_cite]:font-bold [&_blockquote_cite]:not-italic [&_blockquote_cite]:text-[#00a9b7] [&_h2]:mb-5 [&_h2]:mt-12 [&_h2]:border-l-4 [&_h2]:border-[#ffc928] [&_h2]:pl-5 [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-[#123136] [&_h3]:mb-4 [&_h3]:mt-9 [&_h3]:font-display [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-[#123136] [&_img]:my-9 [&_img]:rounded-2xl [&_li]:mb-2 [&_li]:leading-7 [&_li]:text-[#3a4a4d] [&_li::marker]:text-[#ffc928] [&_ol]:mb-7 [&_ol]:list-decimal [&_ol]:pl-6 [&_p]:mb-5 [&_p]:text-[15px] [&_p]:leading-7 [&_p]:text-[#3a4a4d] [&_p:last-child]:mb-0 [&_strong]:font-bold [&_strong]:text-[#123136] [&_ul]:mb-7 [&_ul]:list-disc [&_ul]:pl-6';
     @endphp
 
     <section class="relative overflow-hidden bg-[linear-gradient(160deg,#09c3cd_0%,#005f69_100%)] px-4 py-12 text-white sm:px-6 lg:px-12 lg:py-14">
@@ -33,10 +35,8 @@
     </section>
 
     <section class="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-12 lg:py-12">
-        <article
-            class="max-w-none text-[#3a4a4d] [&_a]:font-semibold [&_a]:text-[#00a9b7] [&_blockquote]:my-9 [&_blockquote]:rounded-r-2xl [&_blockquote]:border-l-4 [&_blockquote]:border-[#00a9b7] [&_blockquote]:bg-[linear-gradient(135deg,#d8f7f2,#eefcfa)] [&_blockquote]:px-7 [&_blockquote]:py-6 [&_blockquote]:text-[#123136] [&_blockquote_cite]:mt-4 [&_blockquote_cite]:block [&_blockquote_cite]:text-sm [&_blockquote_cite]:font-bold [&_blockquote_cite]:not-italic [&_blockquote_cite]:text-[#00a9b7] [&_h2]:mb-5 [&_h2]:mt-12 [&_h2]:border-l-4 [&_h2]:border-[#ffc928] [&_h2]:pl-5 [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-[#123136] [&_h3]:mb-4 [&_h3]:mt-9 [&_h3]:font-display [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-[#123136] [&_img]:my-9 [&_img]:rounded-2xl [&_li]:mb-2 [&_li]:leading-7 [&_li]:text-[#3a4a4d] [&_li::marker]:text-[#ffc928] [&_ol]:mb-7 [&_ol]:list-decimal [&_ol]:pl-6 [&_p]:mb-5 [&_p]:text-[15px] [&_p]:leading-7 [&_p]:text-[#3a4a4d] [&_p:last-child]:mb-0 [&_strong]:font-bold [&_strong]:text-[#123136] [&_ul]:mb-7 [&_ul]:list-disc [&_ul]:pl-6"
-        >
-            {!! $page->content !!}
+        <article @class([$legacyContentClasses => ! $isEditorJsContent])>
+            {!! app(\App\Services\EditorJsContentRenderer::class)->render($page->content) !!}
         </article>
     </section>
 @endsection

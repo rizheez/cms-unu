@@ -2,9 +2,10 @@
 
 namespace App\Filament\Resources\Posts\Schemas;
 
+use App\Services\EditorJsContentRenderer;
+use Athphane\FilamentEditorjs\Forms\Components\EditorjsTextField;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -36,10 +37,11 @@ class PostForm
                             ->label('Ringkasan')
                             ->placeholder('Tuliskan ringkasan singkat berita')
                             ->columnSpanFull(),
-                        RichEditor::make('content')
+                        EditorjsTextField::make('content')
                             ->label('Konten')
                             ->placeholder('Tuliskan isi berita')
-                            ->resizableImages()
+                            ->formatStateUsing(fn (mixed $state): ?array => app(EditorJsContentRenderer::class)->toEditorJsDocument($state))
+                            ->tools('default')
                             ->columnSpanFull(),
                     ])
                     ->columnSpanFull()
@@ -78,7 +80,7 @@ class PostForm
                             ->default('draft'),
                         DateTimePicker::make('published_at')
                             ->label('Tanggal Terbit')
-                            ->hidden(fn(Get $get): bool => $get('status') !== 'published')
+                            ->hidden(fn (Get $get): bool => $get('status') !== 'published')
                             ->helperText('Otomatis terisi saat status dipilih Terbit, dan kosong saat Draft.'),
                         Toggle::make('is_featured')
                             ->label('Unggulan')
