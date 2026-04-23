@@ -22,9 +22,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Force HTTPS in production
         if(app()->isProduction()) {
-            return URL::forceScheme('https');
+            URL::forceScheme('https');
         }
+        
         View::composer('layouts.app', function ($view): void {
             $headerMenuItems = Menu::query()
                 ->where('location', 'header')
