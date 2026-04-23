@@ -41,6 +41,7 @@ class PostForm
                             ->label('Konten')
                             ->placeholder('Tuliskan isi berita')
                             ->formatStateUsing(fn (mixed $state): ?array => app(EditorJsContentRenderer::class)->toEditorJsDocument($state))
+                            ->minHeight(480)
                             ->tools('default')
                             ->columnSpanFull(),
                     ])
