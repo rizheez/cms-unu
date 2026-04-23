@@ -2,6 +2,9 @@
 
 namespace App\Filament\Resources\Menus\Tables;
 
+use App\Filament\Resources\Menus\MenuResource;
+use App\Models\Menu;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -39,6 +42,10 @@ class MenusTable
                 //
             ])
             ->recordActions([
+                Action::make('builder')
+                    ->label('Builder')
+                    ->icon('heroicon-o-arrows-up-down')
+                    ->url(fn (Menu $record): string => MenuResource::getUrl('builder', ['record' => $record])),
                 EditAction::make(),
             ])
             ->toolbarActions([

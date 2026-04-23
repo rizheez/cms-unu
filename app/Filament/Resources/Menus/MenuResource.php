@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Menus;
 
+use App\Filament\Resources\Menus\Pages\BuilderMenu;
 use App\Filament\Resources\Menus\Pages\CreateMenu;
 use App\Filament\Resources\Menus\Pages\EditMenu;
 use App\Filament\Resources\Menus\Pages\ListMenus;
@@ -53,6 +54,7 @@ class MenuResource extends Resource
             'index' => ListMenus::route('/'),
             'create' => CreateMenu::route('/create'),
             'edit' => EditMenu::route('/{record}/edit'),
+            'builder' => BuilderMenu::route('/{record}/builder'),
         ];
     }
 }

@@ -57,49 +57,49 @@
   </url>
   <url>
     <loc>http://127.0.0.1:8000/profil-universitas</loc>
-    <lastmod>2026-04-17T06:11:07+00:00</lastmod>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://127.0.0.1:8000/penerimaan-mahasiswa-baru</loc>
-    <lastmod>2026-04-17T06:11:07+00:00</lastmod>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://127.0.0.1:8000/layanan-mahasiswa</loc>
-    <lastmod>2026-04-17T06:11:07+00:00</lastmod>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://127.0.0.1:8000/berita/unu-perkuat-transformasi-digital-layanan-akademik</loc>
-    <lastmod>2026-04-17T06:11:07+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>http://127.0.0.1:8000/berita/mahasiswa-unu-raih-juara-inovasi-sosial-tingkat-nasional</loc>
-    <lastmod>2026-04-17T06:11:07+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>http://127.0.0.1:8000/berita/dosen-unu-kembangkan-riset-energi-terbarukan-berbasis-komunitas</loc>
-    <lastmod>2026-04-17T06:11:07+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>http://127.0.0.1:8000/berita/pekan-taaruf-mahasiswa-baru-hadir-dengan-konsep-kreatif-dan-inklusif</loc>
-    <lastmod>2026-04-17T06:11:07+00:00</lastmod>
+    <lastmod>2026-04-23T05:57:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://127.0.0.1:8000/berita/unu-buka-klinik-karier-untuk-persiapan-magang-dan-dunia-kerja</loc>
-    <lastmod>2026-04-17T06:11:07+00:00</lastmod>
+    <lastmod>2026-04-23T02:28:28+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://127.0.0.1:8000/berita/mahasiswa-unu-raih-juara-inovasi-sosial-tingkat-nasional</loc>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://127.0.0.1:8000/berita/dosen-unu-kembangkan-riset-energi-terbarukan-berbasis-komunitas</loc>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://127.0.0.1:8000/berita/pekan-taaruf-mahasiswa-baru-hadir-dengan-konsep-kreatif-dan-inklusif</loc>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -699,103 +699,223 @@
   </url>
   <url>
     <loc>http://127.0.0.1:8000/akademik/fakultas/fakultas-ekonomi-dan-bisnis</loc>
-    <lastmod>2026-04-17T06:11:07+00:00</lastmod>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://127.0.0.1:8000/akademik/fakultas/fakultas-teknik</loc>
-    <lastmod>2026-04-17T06:11:07+00:00</lastmod>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://127.0.0.1:8000/akademik/fakultas/fakultas-ilmu-sosial-dan-kependidikan</loc>
-    <lastmod>2026-04-17T06:11:07+00:00</lastmod>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://127.0.0.1:8000/akademik/fakultas/fakultas-farmasi</loc>
-    <lastmod>2026-04-17T06:11:07+00:00</lastmod>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://127.0.0.1:8000/akademik/prodi/akuntansi</loc>
-    <lastmod>2026-04-17T06:11:07+00:00</lastmod>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://127.0.0.1:8000/akademik/prodi/arsitektur</loc>
-    <lastmod>2026-04-17T06:11:07+00:00</lastmod>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://127.0.0.1:8000/akademik/prodi/hubungan-internasional</loc>
-    <lastmod>2026-04-17T06:11:07+00:00</lastmod>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://127.0.0.1:8000/akademik/prodi/farmasi</loc>
-    <lastmod>2026-04-17T06:11:07+00:00</lastmod>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://127.0.0.1:8000/akademik/prodi/desain-interior</loc>
-    <lastmod>2026-04-17T06:11:07+00:00</lastmod>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://127.0.0.1:8000/akademik/prodi/ilmu-komunikasi</loc>
-    <lastmod>2026-04-17T06:11:07+00:00</lastmod>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://127.0.0.1:8000/akademik/prodi/teknik-industri</loc>
-    <lastmod>2026-04-17T06:11:07+00:00</lastmod>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://127.0.0.1:8000/akademik/prodi/pendidikan-anak-usia-dini</loc>
-    <lastmod>2026-04-17T06:11:07+00:00</lastmod>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://127.0.0.1:8000/akademik/prodi/teknik-informatika</loc>
-    <lastmod>2026-04-17T06:11:07+00:00</lastmod>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://127.0.0.1:8000/akademik/prodi/teknologi-industri-pertanian</loc>
-    <lastmod>2026-04-17T06:11:07+00:00</lastmod>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>http://127.0.0.1:8000/akademik/dosen/ketua-program-studi-akuntansi</loc>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://127.0.0.1:8000/akademik/dosen/ketua-program-studi-arsitektur</loc>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://127.0.0.1:8000/akademik/dosen/ketua-program-studi-desain-interior</loc>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://127.0.0.1:8000/akademik/dosen/ketua-program-studi-teknik-industri</loc>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://127.0.0.1:8000/akademik/dosen/ketua-program-studi-teknik-informatika</loc>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://127.0.0.1:8000/akademik/dosen/ketua-program-studi-teknologi-industri-pertanian</loc>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://127.0.0.1:8000/akademik/dosen/ketua-program-studi-hubungan-internasional</loc>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://127.0.0.1:8000/akademik/dosen/ketua-program-studi-ilmu-komunikasi</loc>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://127.0.0.1:8000/akademik/dosen/ketua-program-studi-pendidikan-anak-usia-dini</loc>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://127.0.0.1:8000/akademik/dosen/ketua-program-studi-farmasi</loc>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://127.0.0.1:8000/akademik/dosen/dosen-akuntansi-1</loc>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://127.0.0.1:8000/akademik/dosen/dosen-arsitektur-1</loc>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://127.0.0.1:8000/akademik/dosen/dosen-desain-interior-2</loc>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://127.0.0.1:8000/akademik/dosen/dosen-teknik-industri-3</loc>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://127.0.0.1:8000/akademik/dosen/dosen-teknik-informatika-4</loc>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://127.0.0.1:8000/akademik/dosen/dosen-teknologi-industri-pertanian-5</loc>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://127.0.0.1:8000/akademik/dosen/dosen-hubungan-internasional-1</loc>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://127.0.0.1:8000/akademik/dosen/dosen-ilmu-komunikasi-2</loc>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://127.0.0.1:8000/akademik/dosen/dosen-pendidikan-anak-usia-dini-3</loc>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://127.0.0.1:8000/akademik/dosen/dosen-farmasi-1</loc>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>http://127.0.0.1:8000/galeri/kegiatan-mahasiswa</loc>
-    <lastmod>2026-04-17T06:11:07+00:00</lastmod>
+    <lastmod>2026-04-23T02:30:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://127.0.0.1:8000/galeri/kampus-dan-fasilitas</loc>
-    <lastmod>2026-04-17T06:11:07+00:00</lastmod>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://127.0.0.1:8000/galeri/kolaborasi-mitra</loc>
-    <lastmod>2026-04-17T06:11:07+00:00</lastmod>
+    <lastmod>2026-04-20T01:46:36+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
