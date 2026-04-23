@@ -53,9 +53,6 @@ class PostsTable
                     ->searchable(),
                 ImageColumn::make('og_image')
                     ->label('Gambar OG'),
-                IconColumn::make('is_in_sitemap')
-                    ->label('Masuk Sitemap')
-                    ->boolean(),
                 TextColumn::make('published_at')
                     ->label('Tanggal Terbit')
                     ->dateTime()

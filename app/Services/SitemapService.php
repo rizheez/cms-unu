@@ -79,7 +79,6 @@ XML;
     {
         Page::query()
             ->published()
-            ->where('is_in_sitemap', true)
             ->select(['id', 'slug', 'updated_at'])
             ->latest('updated_at')
             ->get()
@@ -95,7 +94,6 @@ XML;
     {
         Post::query()
             ->published()
-            ->where('is_in_sitemap', true)
             ->select(['id', 'slug', 'updated_at'])
             ->latest('updated_at')
             ->get()

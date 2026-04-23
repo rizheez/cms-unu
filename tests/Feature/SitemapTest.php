@@ -22,7 +22,7 @@ class SitemapTest extends TestCase
             'slug' => 'profil-universitas-test-sitemap',
             'content' => '<p>Profil.</p>',
             'status' => 'published',
-            'is_in_sitemap' => true,
+            'is_in_sitemap' => false,
             'published_at' => now(),
         ]);
 
@@ -38,7 +38,7 @@ class SitemapTest extends TestCase
             'slug' => 'kabar-kampus-test-sitemap',
             'content' => '<p>Isi berita.</p>',
             'status' => 'published',
-            'is_in_sitemap' => true,
+            'is_in_sitemap' => false,
             'published_at' => now(),
         ]);
 

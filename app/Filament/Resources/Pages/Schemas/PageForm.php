@@ -9,7 +9,6 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
@@ -73,26 +72,24 @@ class PageForm
                     ->schema([
                         TextInput::make('meta_title')
                             ->label('Meta Judul')
+                            ->helperText('Opsional. Jika kosong, otomatis memakai judul halaman.')
                             ->placeholder('Judul SEO yang tampil di mesin pencari'),
                         TextInput::make('meta_keywords')
                             ->label('Meta Kata Kunci')
+                            ->helperText('Opsional. Jika kosong, otomatis dibuat dari judul dan isi halaman.')
                             ->placeholder('Contoh: kampus, universitas, pendidikan'),
                         Textarea::make('meta_description')
                             ->label('Meta Deskripsi')
+                            ->helperText('Opsional. Jika kosong, otomatis memakai beberapa kata pertama dari isi halaman.')
                             ->placeholder('Ringkasan halaman untuk mesin pencari')
                             ->columnSpanFull(),
                         FileUpload::make('og_image')
                             ->label('Gambar OG')
-                            ->helperText('Gambar untuk pratinjau saat halaman dibagikan.')
+                            ->helperText('Opsional. Jika kosong, otomatis memakai logo situs.')
                             ->image()
                             ->disk('public')
                             ->directory('pages')
                             ->visibility('public'),
-                        Toggle::make('is_in_sitemap')
-                            ->label('Masuk Sitemap')
-                            ->helperText('Aktifkan agar halaman masuk sitemap.')
-                            ->default(true)
-                            ->required(),
                     ])
                     ->columns(2),
             ]);

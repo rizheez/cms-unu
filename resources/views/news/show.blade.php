@@ -33,7 +33,7 @@
             class="absolute -left-32 -top-32 h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle,rgba(255,201,40,0.55),transparent_70%)]">
         </div>
 
-        <div class="relative z-10 mx-auto max-w-4xl">
+        <div class="relative z-10 mx-auto max-w-5xl">
             <nav class="flex flex-wrap items-center gap-2 text-xs font-semibold text-white/60">
                 <a href="{{ route('home') }}" class="transition hover:text-white">Beranda</a>
                 <span>/</span>
@@ -90,7 +90,7 @@
         </div>
     </section>
 
-    <section class="mx-auto max-w-5xl px-4 pb-16 pt-14 sm:px-6 lg:px-12 lg:pb-20">
+    <section class="mx-auto max-w-6xl px-4 pb-16 pt-14 sm:px-6 lg:px-12 lg:pb-20">
         <article class="min-w-0">
             <div @class([
                 'editorjs-content' => $isEditorJsContent,

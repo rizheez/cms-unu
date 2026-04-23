@@ -20,31 +20,27 @@ class SeoService
         $siteName = (string) setting('site_name', 'Universitas Nahdlatul Ulama Kalimantan Timur');
         $title = (string) setting('meta_title', $siteName.' | Kampus di Samarinda');
         $description = $this->normalizeDescription((string) setting('meta_description', 'Website resmi Universitas Nahdlatul Ulama Kalimantan Timur, kampus di Samarinda yang menyediakan informasi akademik, berita kampus, pendaftaran mahasiswa baru, dan layanan mahasiswa.'));
+        $keywords = $this->normalizeKeywords((string) setting('meta_keywords', ''), $title, $description);
+        $imageUrl = $this->storedFileUrl((string) setting('site_logo', ''));
 
-        $this->apply($title, $description, 'website');
+        $this->apply($title, $description, 'website', $keywords, $imageUrl);
     }
 
     public function setModel(Model $model, string $fallbackTitle, ?string $fallbackDescription = null): void
     {
         $title = (string) ($model->getAttribute('meta_title') ?: $fallbackTitle);
         $description = $this->normalizeDescription((string) ($model->getAttribute('meta_description') ?: $fallbackDescription ?: setting('meta_description', 'Website resmi Universitas Nahdlatul Ulama.')));
-        $image = $model->getAttribute('og_image') ?: $model->getAttribute('featured_image') ?: $model->getAttribute('image');
+        $keywords = $this->normalizeKeywords((string) $model->getAttribute('meta_keywords'), $title, $description);
+        $imageUrl = $this->modelImageUrl($model);
         $type = $model instanceof Post ? 'article' : 'website';
 
-        $this->apply($title, $description, $type);
-
-        if (is_string($image) && $image !== '') {
-            $imageUrl = Str::startsWith($image, ['http://', 'https://'])
-                ? $image
-                : asset('storage/'.$image);
-
-            OpenGraph::addImage($imageUrl);
-            TwitterCard::addImage($imageUrl);
-            JsonLd::addImage($imageUrl);
-        }
+        $this->apply($title, $description, $type, $keywords, $imageUrl);
     }
 
-    private function apply(string $title, string $description, string $type): void
+    /**
+     * @param  array<int, string>  $keywords
+     */
+    private function apply(string $title, string $description, string $type, array $keywords = [], ?string $imageUrl = null): void
     {
         $siteName = (string) setting('site_name', 'Universitas Nahdlatul Ulama Kalimantan Timur');
         $canonicalUrl = $this->canonicalUrl();
@@ -53,6 +49,7 @@ class SeoService
         SEOTools::setTitle($title);
         SEOTools::setDescription($description);
         SEOTools::setCanonical($canonicalUrl);
+        SEOMeta::setKeywords($keywords);
         OpenGraph::setTitle($title);
         OpenGraph::setDescription($description);
         OpenGraph::setSiteName($siteName);
@@ -70,11 +67,80 @@ class SeoService
         if ($googleVerification !== '') {
             SEOMeta::addMeta('google-site-verification', $googleVerification);
         }
+
+        if ($imageUrl !== null) {
+            OpenGraph::addImage($imageUrl);
+            TwitterCard::addImage($imageUrl);
+            JsonLd::addImage($imageUrl);
+        }
     }
 
     private function normalizeDescription(string $description): string
     {
         return Str::limit(preg_replace('/\s+/', ' ', trim(strip_tags($description))) ?: 'Website resmi Universitas Nahdlatul Ulama Kalimantan Timur.', 160, '');
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function normalizeKeywords(string $keywords, string $title, string $description): array
+    {
+        $items = collect(explode(',', $keywords))
+            ->map(fn (string $keyword): string => trim(strip_tags($keyword)))
+            ->filter();
+
+        if ($items->isNotEmpty()) {
+            return $items->unique(fn (string $keyword): string => Str::lower($keyword))->values()->all();
+        }
+
+        $stopWords = [
+            'agar',
+            'akan',
+            'atau',
+            'dan',
+            'dari',
+            'dengan',
+            'di',
+            'ini',
+            'itu',
+            'ke',
+            'pada',
+            'untuk',
+            'yang',
+        ];
+
+        return collect(explode(' ', Str::lower($title.' '.$description)))
+            ->map(fn (string $word): string => trim($word, " \t\n\r\0\x0B.,;:!?()[]{}\"'"))
+            ->filter(fn (string $word): bool => mb_strlen($word) >= 4 && ! in_array($word, $stopWords, true))
+            ->unique()
+            ->take(10)
+            ->values()
+            ->all();
+    }
+
+    private function modelImageUrl(Model $model): ?string
+    {
+        $image = $model instanceof Post
+            ? $model->getAttribute('featured_image')
+            : ($model->getAttribute('og_image') ?: $model->getAttribute('image'));
+
+        return $this->storedFileUrl(is_string($image) ? $image : null)
+            ?? $this->storedFileUrl((string) setting('site_logo', ''));
+    }
+
+    private function storedFileUrl(?string $path): ?string
+    {
+        $path = trim((string) $path);
+
+        if ($path === '') {
+            return null;
+        }
+
+        if (Str::startsWith($path, ['http://', 'https://'])) {
+            return $path;
+        }
+
+        return asset('storage/'.$path);
     }
 
     private function canonicalUrl(): string

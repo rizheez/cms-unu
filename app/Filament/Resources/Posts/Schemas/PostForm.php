@@ -93,26 +93,17 @@ class PostForm
                     ->schema([
                         TextInput::make('meta_title')
                             ->label('Meta Judul')
+                            ->helperText('Opsional. Jika kosong, otomatis memakai judul berita.')
                             ->placeholder('Judul SEO yang tampil di mesin pencari'),
                         TextInput::make('meta_keywords')
                             ->label('Meta Kata Kunci')
+                            ->helperText('Opsional. Jika kosong, otomatis dibuat dari judul dan ringkasan.')
                             ->placeholder('Contoh: kampus, prestasi, riset'),
                         Textarea::make('meta_description')
                             ->label('Meta Deskripsi')
+                            ->helperText('Opsional. Jika kosong, otomatis memakai ringkasan berita.')
                             ->placeholder('Ringkasan berita untuk mesin pencari')
                             ->columnSpanFull(),
-                        FileUpload::make('og_image')
-                            ->label('Gambar OG')
-                            ->helperText('Gambar untuk pratinjau saat berita dibagikan.')
-                            ->image()
-                            ->disk('public')
-                            ->directory('posts/og')
-                            ->visibility('public'),
-                        Toggle::make('is_in_sitemap')
-                            ->label('Masuk Sitemap')
-                            ->helperText('Aktifkan agar berita masuk sitemap.')
-                            ->default(true)
-                            ->required(),
                     ])
                     ->columns(2),
             ]);
