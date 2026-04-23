@@ -1759,3 +1759,16 @@ svg {
         flex-direction: column;
     }
 }
+
+.editorjs-content {
+    --editorjs-content-width: 56rem;
+}
+
+.editorjs-content .max-w-3xl {
+    max-width: min(100%, var(--editorjs-content-width)) !important;
+}
+
+.editorjs-content .px-6 {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}

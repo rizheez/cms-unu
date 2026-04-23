@@ -20,7 +20,8 @@
             ->filter()
             ->take(6);
         $isEditorJsContent = is_array($post->content);
-        $legacyContentClasses = 'max-w-none text-[#3a4a4d] [&_a]:font-semibold [&_a]:text-[#00a9b7] [&_blockquote]:my-9 [&_blockquote]:rounded-r-2xl [&_blockquote]:border-l-4 [&_blockquote]:border-[#00a9b7] [&_blockquote]:bg-[linear-gradient(135deg,#d8f7f2,#eefcfa)] [&_blockquote]:px-7 [&_blockquote]:py-6 [&_h2]:mb-5 [&_h2]:mt-12 [&_h2]:border-l-4 [&_h2]:border-[#ffc928] [&_h2]:pl-5 [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-[#123136] [&_h3]:mb-4 [&_h3]:mt-9 [&_h3]:font-display [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-[#123136] [&_li]:mb-2 [&_li]:leading-7 [&_li]:text-[#3a4a4d] [&_li::marker]:text-[#ffc928] [&_p]:mb-5 [&_p]:text-[15px] [&_p]:leading-7 [&_p]:text-[#3a4a4d] [&_p:last-child]:mb-0 [&_strong]:font-bold [&_strong]:text-[#123136] [&_ul]:mb-7 [&_ul]:list-disc [&_ul]:pl-6';
+        $legacyContentClasses =
+            'max-w-none text-[#3a4a4d] [&_a]:font-semibold [&_a]:text-[#00a9b7] [&_blockquote]:my-9 [&_blockquote]:rounded-r-2xl [&_blockquote]:border-l-4 [&_blockquote]:border-[#00a9b7] [&_blockquote]:bg-[linear-gradient(135deg,#d8f7f2,#eefcfa)] [&_blockquote]:px-7 [&_blockquote]:py-6 [&_h2]:mb-5 [&_h2]:mt-12 [&_h2]:border-l-4 [&_h2]:border-[#ffc928] [&_h2]:pl-5 [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-[#123136] [&_h3]:mb-4 [&_h3]:mt-9 [&_h3]:font-display [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-[#123136] [&_li]:mb-2 [&_li]:leading-7 [&_li]:text-[#3a4a4d] [&_li::marker]:text-[#ffc928] [&_p]:mb-5 [&_p]:text-[15px] [&_p]:leading-7 [&_p]:text-[#3a4a4d] [&_p:last-child]:mb-0 [&_strong]:font-bold [&_strong]:text-[#123136] [&_ul]:mb-7 [&_ul]:list-disc [&_ul]:pl-6';
     @endphp
 
     <section
@@ -89,10 +90,12 @@
         </div>
     </section>
 
-    <section
-        class="mx-auto grid max-w-7xl gap-12 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:px-12 lg:pb-20">
+    <section class="mx-auto max-w-5xl px-4 pb-16 pt-14 sm:px-6 lg:px-12 lg:pb-20">
         <article class="min-w-0">
-            <div @class([$legacyContentClasses => ! $isEditorJsContent])>
+            <div @class([
+                'editorjs-content' => $isEditorJsContent,
+                $legacyContentClasses => !$isEditorJsContent,
+            ])>
                 {!! app(\App\Services\EditorJsContentRenderer::class)->render($post->content) !!}
             </div>
 
@@ -234,75 +237,6 @@
                 </form>
             </section>
         </article>
-
-        <aside class="space-y-6 lg:sticky lg:top-24 lg:self-start">
-            <div class="rounded-[20px] border border-black/10 bg-white p-6 shadow-sm">
-                <h2 class="border-b-2 border-[#ffc928] pb-4 font-display text-base font-bold text-[#123136]">Info Artikel
-                </h2>
-                <div class="mt-4 divide-y divide-black/10">
-                    <div class="flex items-center gap-3 py-3">
-                        <span
-                            class="grid h-9 w-9 place-items-center rounded-xl bg-[#ffc928]/20 text-sm font-bold text-[#005f69]">V</span>
-                        <div>
-                            <p class="font-display text-lg font-bold leading-none text-[#123136]">
-                                {{ number_format((int) $post->views) }}</p>
-                            <p class="mt-1 text-xs text-[#123136]/45">Total pembaca</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3 py-3">
-                        <span
-                            class="grid h-9 w-9 place-items-center rounded-xl bg-[#00a9b7]/10 text-sm font-bold text-[#00a9b7]">T</span>
-                        <div>
-                            <p class="font-display text-lg font-bold leading-none text-[#123136]">
-                                {{ $post->reading_time }}
-                                mnt</p>
-                            <p class="mt-1 text-xs text-[#123136]/45">Estimasi baca</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3 py-3">
-                        <span
-                            class="grid h-9 w-9 place-items-center rounded-xl bg-[#ff9f1c]/10 text-sm font-bold text-[#ff9f1c]">K</span>
-                        <div>
-                            <p class="font-display text-lg font-bold leading-none text-[#123136]">
-                                {{ $post->category?->name ?? 'Berita' }}</p>
-                            <p class="mt-1 text-xs text-[#123136]/45">Kategori</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3 py-3">
-                        <span
-                            class="grid h-9 w-9 place-items-center rounded-xl bg-[#005f69]/10 text-sm font-bold text-[#005f69]">D</span>
-                        <div>
-                            <p class="font-display text-lg font-bold leading-none text-[#123136]">{{ $publishedDate }}</p>
-                            <p class="mt-1 text-xs text-[#123136]/45">Tanggal terbit</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="rounded-[20px] border border-black/10 bg-white p-6 shadow-sm">
-                <h2 class="border-b-2 border-[#ffc928] pb-4 font-display text-base font-bold text-[#123136]">Berita Terbaru
-                </h2>
-                <div class="mt-4 divide-y divide-black/10">
-                    @forelse ($latestPosts as $latestPost)
-                        <a href="{{ route('news.show', $latestPost) }}" class="block py-4 transition hover:opacity-70">
-                            <span
-                                class="inline-flex rounded-full bg-[#005f69]/10 px-2 py-1 text-[9px] font-extrabold uppercase text-[#005f69]">
-                                {{ $latestPost->category?->name ?? 'Berita' }}
-                            </span>
-                            <span class="mt-2 block font-display text-sm font-bold leading-5 text-[#123136]">
-                                {{ $latestPost->title }}
-                            </span>
-                            <span class="mt-1 block text-xs text-[#123136]/40">
-                                {{ $latestPost->published_at?->translatedFormat('d M Y') ?? 'Terbaru' }}
-                            </span>
-                        </a>
-                    @empty
-                        <p class="py-4 text-sm text-[#123136]/60">Belum ada berita terbaru.</p>
-                    @endforelse
-                </div>
-            </div>
-        </aside>
     </section>
 
     @if ($relatedPosts->isNotEmpty())

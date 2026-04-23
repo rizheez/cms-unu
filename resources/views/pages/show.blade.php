@@ -35,7 +35,7 @@
     </section>
 
     <section class="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-12 lg:py-12">
-        <article @class([$legacyContentClasses => ! $isEditorJsContent])>
+        <article @class(['editorjs-content' => $isEditorJsContent, $legacyContentClasses => ! $isEditorJsContent])>
             {!! app(\App\Services\EditorJsContentRenderer::class)->render($page->content) !!}
         </article>
     </section>
