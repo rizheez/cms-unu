@@ -11,7 +11,7 @@ return [
          * The default configurations to be used by the meta generator.
          */
         'defaults' => [
-            'title' => 'Universitas Nahdlatul Ulama Kalimantan Timur | Kampus di Samarinda', // set false to total remove
+            'title' => 'Universitas Nahdlatul Ulama Kalimantan Timur', // set false to total remove
             'titleBefore' => false, // Put defaults.title before page title, like 'It's Over 9000! - Dashboard'
             'description' => 'Website resmi Universitas Nahdlatul Ulama Kalimantan Timur, kampus di Samarinda.', // set false to total remove
             'separator' => ' - ',

@@ -28,9 +28,9 @@ class PageForm
                             ->required(),
                         EditorjsTextField::make('content')
                             ->label('Konten')
-                            ->placeholder('Tuliskan isi halaman')
+                            ->placeholder('Klik disini untuk menulis isi halaman')
                             ->formatStateUsing(fn (mixed $state): ?array => app(EditorJsContentRenderer::class)->toEditorJsDocument($state))
-                            ->minHeight(480)
+                            ->minHeight(150)
                             ->tools('default')
                             ->columnSpanFull(),
                     ])

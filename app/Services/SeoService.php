@@ -15,10 +15,12 @@ use Illuminate\Support\Str;
 
 class SeoService
 {
+    public function __construct(private readonly EditorJsContentRenderer $editorJsContentRenderer) {}
+
     public function setDefault(): void
     {
         $siteName = (string) setting('site_name', 'Universitas Nahdlatul Ulama Kalimantan Timur');
-        $title = (string) setting('meta_title', $siteName.' | Kampus di Samarinda');
+        $title = (string) setting('meta_title', $siteName);
         $description = $this->normalizeDescription((string) setting('meta_description', 'Website resmi Universitas Nahdlatul Ulama Kalimantan Timur, kampus di Samarinda yang menyediakan informasi akademik, berita kampus, pendaftaran mahasiswa baru, dan layanan mahasiswa.'));
         $keywords = $this->normalizeKeywords((string) setting('meta_keywords', ''), $title, $description);
         $imageUrl = $this->storedFileUrl((string) setting('site_logo', ''));
@@ -28,13 +30,30 @@ class SeoService
 
     public function setModel(Model $model, string $fallbackTitle, ?string $fallbackDescription = null): void
     {
-        $title = (string) ($model->getAttribute('meta_title') ?: $fallbackTitle);
-        $description = $this->normalizeDescription((string) ($model->getAttribute('meta_description') ?: $fallbackDescription ?: setting('meta_description', 'Website resmi Universitas Nahdlatul Ulama.')));
-        $keywords = $this->normalizeKeywords((string) $model->getAttribute('meta_keywords'), $title, $description);
+        $title = $this->resolvedModelTitle($model, $fallbackTitle);
+        $description = $this->resolvedModelDescription($model, $fallbackDescription);
+        $keywords = $this->normalizeKeywords($this->cleanText((string) $model->getAttribute('meta_keywords')), $title, $description);
         $imageUrl = $this->modelImageUrl($model);
         $type = $model instanceof Post ? 'article' : 'website';
 
         $this->apply($title, $description, $type, $keywords, $imageUrl);
+    }
+
+    private function resolvedModelTitle(Model $model, string $fallbackTitle): string
+    {
+        return $this->cleanText((string) $model->getAttribute('meta_title'))
+            ?: $this->cleanText($fallbackTitle)
+            ?: (string) setting('site_name', 'Universitas Nahdlatul Ulama Kalimantan Timur');
+    }
+
+    private function resolvedModelDescription(Model $model, ?string $fallbackDescription = null): string
+    {
+        $description = $this->cleanText((string) $model->getAttribute('meta_description'))
+            ?: $this->cleanText((string) $fallbackDescription)
+            ?: $this->contentDescription($model)
+            ?: (string) setting('meta_description', 'Website resmi Universitas Nahdlatul Ulama Kalimantan Timur.');
+
+        return $this->normalizeDescription($description);
     }
 
     /**
@@ -141,6 +160,20 @@ class SeoService
         }
 
         return asset('storage/'.$path);
+    }
+
+    private function contentDescription(Model $model): ?string
+    {
+        if (! $model->offsetExists('content')) {
+            return null;
+        }
+
+        return $this->cleanText($this->editorJsContentRenderer->plainText($model->getAttribute('content')));
+    }
+
+    private function cleanText(string $value): string
+    {
+        return trim(preg_replace('/\s+/u', ' ', strip_tags($value)) ?? '');
     }
 
     private function canonicalUrl(): string

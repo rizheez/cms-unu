@@ -41,7 +41,7 @@ class Settings extends Page
         'google_maps_url' => ['default' => '', 'group' => 'contact'],
         'site_phone' => ['default' => '+62 812 4000 2026', 'group' => 'contact'],
         'site_email' => ['default' => 'info@unu.ac.id', 'group' => 'contact'],
-        'meta_title' => ['default' => 'Universitas Nahdlatul Ulama Kalimantan Timur | Kampus di Samarinda', 'group' => 'seo'],
+        'meta_title' => ['default' => 'Universitas Nahdlatul Ulama Kalimantan Timur', 'group' => 'seo'],
         'meta_description' => ['default' => 'Website resmi Universitas Nahdlatul Ulama Kalimantan Timur, kampus di Samarinda yang menyediakan informasi akademik, berita kampus, pendaftaran mahasiswa baru, dan layanan mahasiswa.', 'group' => 'seo'],
         'google_site_verification' => ['default' => '', 'group' => 'seo'],
         'robots_txt' => ['default' => '', 'group' => 'seo'],

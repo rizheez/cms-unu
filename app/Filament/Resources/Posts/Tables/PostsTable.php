@@ -20,6 +20,7 @@ class PostsTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->defaultSort('created_at', 'desc')
             ->columns([
                 TextColumn::make('category.name')
                     ->label('Kategori Berita')
@@ -29,10 +30,11 @@ class PostsTable
                     ->searchable(),
                 TextColumn::make('title')
                     ->label('Judul')
+                    ->limit(50)
                     ->searchable(),
-                TextColumn::make('slug')
-                    ->label('Slug')
-                    ->searchable(),
+                // TextColumn::make('slug')
+                //     ->label('Slug')
+                //     ->searchable(),
                 ImageColumn::make('featured_image')
                     ->label('Gambar Utama'),
                 TextColumn::make('status')
@@ -45,31 +47,24 @@ class PostsTable
                     ->label('Jumlah Dilihat')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('meta_title')
-                    ->label('Meta Judul')
-                    ->searchable(),
-                TextColumn::make('meta_keywords')
-                    ->label('Meta Kata Kunci')
-                    ->searchable(),
-                ImageColumn::make('og_image')
-                    ->label('Gambar OG'),
+
                 TextColumn::make('published_at')
                     ->label('Tanggal Terbit')
-                    ->dateTime()
+                    ->dateTime('d F Y H:i:s', 'Asia/Makassar')
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->label('Dibuat')
-                    ->dateTime()
+                    ->dateTime('d F Y H:i:s', 'Asia/Makassar')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
                     ->label('Diperbarui')
-                    ->dateTime()
+                    ->dateTime('d F Y H:i:s', 'Asia/Makassar')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('deleted_at')
                     ->label('Dihapus')
-                    ->dateTime()
+                    ->dateTime('d F Y H:i:s', 'Asia/Makassar')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
@@ -85,6 +80,15 @@ class PostsTable
                     ->action(fn (Post $record): bool => $record->update([
                         'status' => 'published',
                         'published_at' => $record->published_at ?? now(),
+                    ])),
+                Action::make('toggle_featured')
+                    ->label(fn (Post $record): string => $record->is_featured ? 'Nonaktifkan Unggulan' : 'Jadikan Unggulan')
+                    ->icon(fn (Post $record): string => $record->is_featured ? 'heroicon-m-x-mark' : 'heroicon-m-star')
+                    ->color(fn (Post $record): string => $record->is_featured ? 'gray' : 'warning')
+                    ->visible(fn (Post $record): bool => ! $record->trashed())
+                    ->requiresConfirmation()
+                    ->action(fn (Post $record): bool => $record->update([
+                        'is_featured' => ! $record->is_featured,
                     ])),
                 EditAction::make(),
             ])

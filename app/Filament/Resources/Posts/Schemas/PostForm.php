@@ -34,14 +34,14 @@ class PostForm
                             ->searchable()
                             ->preload(),
                         Textarea::make('excerpt')
-                            ->label('Ringkasan')
-                            ->placeholder('Tuliskan ringkasan singkat berita')
+                            ->label('Ringkasan (Opsional)')
+                            ->placeholder('Tuliskan ringkasan singkat berita (opsional)')
                             ->columnSpanFull(),
                         EditorjsTextField::make('content')
                             ->label('Konten')
-                            ->placeholder('Tuliskan isi berita')
+                            ->placeholder('Klik disini untuk menulis isi berita')
                             ->formatStateUsing(fn (mixed $state): ?array => app(EditorJsContentRenderer::class)->toEditorJsDocument($state))
-                            ->minHeight(480)
+                            ->minHeight(150)
                             ->tools('default')
                             ->columnSpanFull(),
                     ])
