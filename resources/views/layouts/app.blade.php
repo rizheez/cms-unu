@@ -88,9 +88,21 @@
         </nav>
         {{-- open in new tab --}}
         <a href="https://pmb.unukaltim.ac.id" class="btn-nav" target="_blank" rel="noopener">Daftar Sekarang</a>
-        <button class="mobile-menu-button" type="button" data-mobile-menu-button>Menu</button>
+        <button
+            class="mobile-menu-button"
+            type="button"
+            data-mobile-menu-button
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+            aria-label="Buka menu">
+            <span class="hamburger-icon" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+            </span>
+        </button>
 
-        <nav class="mobile-menu-wrap hidden" data-mobile-menu aria-label="Navigasi mobile">
+        <nav class="mobile-menu-wrap hidden" id="mobile-menu" data-mobile-menu aria-label="Navigasi mobile">
             <ul class="mobile-menu">
                 @forelse ($headerMenuItems as $item)
                     @include('partials.site-menu-item', ['item' => $item])

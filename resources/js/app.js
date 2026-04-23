@@ -49,8 +49,36 @@ window.addEventListener('scroll', () => {
     document.getElementById('main-header')?.classList.toggle('scrolled', window.scrollY > 50);
 });
 
-document.querySelector('[data-mobile-menu-button]')?.addEventListener('click', () => {
-    document.querySelector('[data-mobile-menu]')?.classList.toggle('hidden');
+document.querySelector('[data-mobile-menu-button]')?.addEventListener('click', (event) => {
+    const button = event.currentTarget;
+    const menu = document.querySelector('[data-mobile-menu]');
+
+    if (!(button instanceof HTMLElement) || !(menu instanceof HTMLElement)) {
+        return;
+    }
+
+    const isOpen = menu.classList.toggle('hidden') === false;
+
+    button.classList.toggle('is-open', isOpen);
+    button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    button.setAttribute('aria-label', isOpen ? 'Tutup menu' : 'Buka menu');
+});
+
+document.querySelectorAll('.mobile-menu .mobile-submenu-toggle').forEach((button) => {
+    button.addEventListener('click', () => {
+        const parentItem = button.closest('.site-nav-item');
+        const dropdown = parentItem?.querySelector(':scope > .site-dropdown');
+
+        if (!(parentItem instanceof HTMLElement) || !(dropdown instanceof HTMLElement)) {
+            return;
+        }
+
+        const isOpen = parentItem.classList.toggle('is-open');
+        const label = parentItem.querySelector(':scope > a span')?.textContent?.trim() ?? 'submenu';
+
+        button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        button.setAttribute('aria-label', isOpen ? `Tutup submenu ${label}` : `Buka submenu ${label}`);
+    });
 });
 
 document.querySelectorAll('nav a').forEach((link) => {

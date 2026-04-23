@@ -237,6 +237,10 @@ svg {
     line-height: 1;
 }
 
+.mobile-submenu-toggle {
+    display: none;
+}
+
 .site-dropdown {
     position: absolute;
     left: 0;
@@ -342,13 +346,44 @@ svg {
 
 .mobile-menu-button {
     display: none;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
     min-height: 42px;
-    padding: 0 16px;
+    padding: 0;
     border: 0;
     border-radius: 8px;
     background: var(--unu-forest);
     color: #ffffff;
     font-weight: 800;
+}
+
+.hamburger-icon {
+    position: relative;
+    display: grid;
+    gap: 5px;
+    width: 18px;
+}
+
+.hamburger-icon span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 999px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.mobile-menu-button.is-open .hamburger-icon span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.mobile-menu-button.is-open .hamburger-icon span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-button.is-open .hamburger-icon span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
 }
 
 .mobile-menu-wrap {
@@ -1606,10 +1641,45 @@ svg {
         padding: 10px 0;
     }
 
+    .mobile-menu .site-nav-item>a .menu-caret {
+        display: none;
+    }
+
+    .mobile-menu .site-nav-item.has-children {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: start;
+    }
+
+    .mobile-menu .site-nav-item.has-children>a {
+        grid-column: 1;
+    }
+
+    .mobile-menu .mobile-submenu-toggle {
+        display: inline-flex;
+        grid-column: 2;
+        align-items: center;
+        justify-content: center;
+        min-width: 36px;
+        min-height: 36px;
+        margin-top: 2px;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+    }
+
+    .mobile-menu .mobile-submenu-toggle .menu-caret {
+        font-size: 12px;
+        transition: transform 0.2s ease;
+    }
+
     .mobile-menu .site-dropdown {
         position: static;
-        display: grid;
+        display: none;
         min-width: 0;
+        grid-column: 1 / -1;
         padding: 4px 0 4px 16px;
         pointer-events: auto;
         background: transparent;
@@ -1617,6 +1687,14 @@ svg {
         box-shadow: none;
         opacity: 1;
         transform: none;
+    }
+
+    .mobile-menu .site-nav-item.is-open>.mobile-submenu-toggle .menu-caret {
+        transform: rotate(180deg);
+    }
+
+    .mobile-menu .site-nav-item.is-open>.site-dropdown {
+        display: grid;
     }
 
     .mobile-menu .site-dropdown a {

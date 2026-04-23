@@ -12,6 +12,13 @@
     </a>
 
     @if ($hasChildren)
+        <button
+            class="mobile-submenu-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-label="Buka submenu {{ $item->label }}">
+            <span class="menu-caret" aria-hidden="true">v</span>
+        </button>
         <ul class="site-dropdown">
             @foreach ($children as $child)
                 @include('partials.site-menu-item', ['item' => $child])
