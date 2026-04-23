@@ -32,10 +32,38 @@ class PostFeaturedLimitTest extends TestCase
         $latestFeaturedPost->update(['is_featured' => true]);
 
         $this->assertFalse($oldestFeaturedPost->fresh()->is_featured);
+        $this->assertNull($oldestFeaturedPost->fresh()->featured_at);
         $this->assertTrue($secondFeaturedPost->fresh()->is_featured);
         $this->assertTrue($thirdFeaturedPost->fresh()->is_featured);
         $this->assertTrue($latestFeaturedPost->fresh()->is_featured);
+        $this->assertNotNull($latestFeaturedPost->fresh()->featured_at);
         $this->assertSame(3, Post::query()->where('is_featured', true)->count());
+    }
+
+    public function test_featuring_an_old_post_moves_it_to_the_top_featured_order(): void
+    {
+        $category = PostCategory::query()->create([
+            'name' => 'Berita',
+            'slug' => 'berita',
+        ]);
+
+        $user = User::factory()->create();
+
+        $postA = $this->createPost($category->id, $user->id, 'Berita A', now()->subDays(3), true);
+        $postB = $this->createPost($category->id, $user->id, 'Berita B', now()->subDays(2), true);
+        $postC = $this->createPost($category->id, $user->id, 'Berita C', now()->subDay(), true);
+
+        $postA->update(['is_featured' => false]);
+        $postA->update(['is_featured' => true]);
+
+        $orderedIds = Post::query()
+            ->featured()
+            ->orderByDesc('featured_at')
+            ->orderByDesc('id')
+            ->pluck('id')
+            ->all();
+
+        $this->assertSame([$postA->id, $postC->id, $postB->id], $orderedIds);
     }
 
     private function createPost(int $categoryId, int $userId, string $title, Carbon $updatedAt, bool $isFeatured): Post
@@ -49,6 +77,7 @@ class PostFeaturedLimitTest extends TestCase
             'content' => '<p>Isi berita.</p>',
             'status' => 'published',
             'is_featured' => $isFeatured,
+            'featured_at' => $isFeatured ? $updatedAt : null,
             'views' => 0,
             'is_in_sitemap' => true,
             'published_at' => now(),

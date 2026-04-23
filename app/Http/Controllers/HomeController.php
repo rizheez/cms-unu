@@ -25,7 +25,14 @@ class HomeController extends Controller
 
         return view('home', [
             'sliders' => Slider::query()->where('is_active', true)->orderBy('order')->get(),
-            'featuredPosts' => Post::query()->with(['category', 'author'])->published()->featured()->latest('published_at')->limit(3)->get(),
+            'featuredPosts' => Post::query()
+                ->with(['category', 'author'])
+                ->published()
+                ->featured()
+                ->orderByDesc('featured_at')
+                ->orderByDesc('id')
+                ->limit(3)
+                ->get(),
             'announcements' => Announcement::query()->active()->latest()->limit(5)->get(),
             'popupAnnouncements' => Announcement::query()->active()->where('is_popup', true)->latest()->get(),
             'facultiesCount' => Faculty::query()->where('is_active', true)->count(),

@@ -27,6 +27,14 @@ class Post extends Model implements HasMedia
 
     protected static function booted(): void
     {
+        static::saving(function (self $post): void {
+            if (! $post->isDirty('is_featured')) {
+                return;
+            }
+
+            $post->featured_at = $post->is_featured ? now() : null;
+        });
+
         static::saved(function (self $post): void {
             if (! $post->is_featured) {
                 return;
@@ -46,6 +54,7 @@ class Post extends Model implements HasMedia
         'featured_image',
         'status',
         'is_featured',
+        'featured_at',
         'views',
         'meta_title',
         'meta_description',
@@ -62,6 +71,7 @@ class Post extends Model implements HasMedia
             'is_in_sitemap' => 'boolean',
             'content' => EditorJsContent::class,
             'views' => 'integer',
+            'featured_at' => 'datetime',
             'published_at' => 'datetime',
         ];
     }
@@ -177,22 +187,26 @@ class Post extends Model implements HasMedia
             return;
         }
 
-        /** @var Collection<int, int> $postIdsToDemote */
-        $postIdsToDemote = static::query()
+        /** @var Collection<int, int> $postIdsToKeep */
+        $postIdsToKeep = static::query()
             ->where('is_featured', true)
             ->whereKeyNot($this->getKey())
-            ->orderByDesc('updated_at')
+            ->orderByDesc('featured_at')
             ->orderByDesc('id')
-            ->skip($limit - 1)
+            ->limit($limit - 1)
             ->pluck($this->getKeyName());
 
-        if ($postIdsToDemote->isEmpty()) {
-            return;
-        }
-
         static::query()
-            ->whereKey($postIdsToDemote->all())
-            ->update(['is_featured' => false]);
+            ->where('is_featured', true)
+            ->whereKeyNot($this->getKey())
+            ->when(
+                $postIdsToKeep->isNotEmpty(),
+                fn (Builder $query): Builder => $query->whereKeyNot($postIdsToKeep->all()),
+            )
+            ->update([
+                'is_featured' => false,
+                'featured_at' => null,
+            ]);
     }
 
     /**
