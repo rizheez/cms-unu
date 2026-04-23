@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
@@ -23,6 +24,17 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 class Post extends Model implements HasMedia
 {
     use InteractsWithMedia, LogsCmsActivity, ModelHasEditorJsComponent, Sluggable, SoftDeletes;
+
+    protected static function booted(): void
+    {
+        static::saved(function (self $post): void {
+            if (! $post->is_featured) {
+                return;
+            }
+
+            $post->enforceFeaturedLimit();
+        });
+    }
 
     protected $fillable = [
         'post_category_id',
@@ -157,6 +169,30 @@ class Post extends Model implements HasMedia
     public function incrementViews(): void
     {
         $this->increment('views');
+    }
+
+    public function enforceFeaturedLimit(int $limit = 3): void
+    {
+        if ($limit < 1) {
+            return;
+        }
+
+        /** @var Collection<int, int> $postIdsToDemote */
+        $postIdsToDemote = static::query()
+            ->where('is_featured', true)
+            ->whereKeyNot($this->getKey())
+            ->orderByDesc('updated_at')
+            ->orderByDesc('id')
+            ->skip($limit - 1)
+            ->pluck($this->getKeyName());
+
+        if ($postIdsToDemote->isEmpty()) {
+            return;
+        }
+
+        static::query()
+            ->whereKey($postIdsToDemote->all())
+            ->update(['is_featured' => false]);
     }
 
     /**

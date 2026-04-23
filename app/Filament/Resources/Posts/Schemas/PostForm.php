@@ -85,7 +85,7 @@ class PostForm
                             ->helperText('Otomatis terisi saat status dipilih Terbit, dan kosong saat Draft.'),
                         Toggle::make('is_featured')
                             ->label('Unggulan')
-                            ->helperText('Aktifkan agar berita diprioritaskan di beranda.')
+                            ->helperText('Maksimal 3 berita unggulan di beranda. Saat ada unggulan baru, berita unggulan paling lama akan dinonaktifkan otomatis.')
                             ->required(),
                     ])
                     ->columns(2),
