@@ -275,7 +275,6 @@
                 <img src="{{ $homeAboutImageUrl }}"
                     alt="Suasana kampus {{ setting('site_name', 'Universitas Nahdlatul Ulama') }}" loading="lazy">
             @endif
-            <span>NU</span>
             <strong>Ilmu, adab, dan karya.</strong>
         </div>
         <div class="about-copy" data-reveal data-delay="1">
